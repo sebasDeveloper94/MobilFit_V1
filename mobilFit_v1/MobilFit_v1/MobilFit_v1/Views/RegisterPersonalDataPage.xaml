@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobilFit_v1.Views.RegisterPersonalDataPage"
+             Title="Registro de condición física">
+    <ContentPage.Content>
+        <StackLayout Padding="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Nombre"
+                        VerticalOptions="Center">
+                </Label>
+                <Entry
+                        Grid.Row="0"
+                        Grid.Column="1">
+                </Entry>
+                <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Text="Apellido"
+                        VerticalOptions="Center">
+                </Label>
+                <Entry
+                        Grid.Row="1"
+                        Grid.Column="1">
+                </Entry>
+                <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Text="Email"
+                        VerticalOptions="Center">
+                </Label>
+                <Entry
+                        Grid.Row="2"
+                        Grid.Column="1">
+                </Entry>
+                <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Text="Contraseña"
+                        VerticalOptions="Center">
+                </Label>
+                <Entry
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        IsPassword="true">
+                </Entry>
+                <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Text="Confirmar contraseña"
+                        VerticalOptions="Center">
+                </Label>
+                <Entry
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        IsPassword="true">
+                </Entry>
+            </Grid>
+            <Button
+                BackgroundColor="Navy"
+                BorderRadius="23"
+                HeightRequest="45"
+                HorizontalOptions="CenterAndExpand"
+                IsEnabled="True"
+                Text="Continuar"
+                TextColor="White"
+                x:Name="btnContinuarRegistro"
+                Clicked="BtnContunarRegistro_Clicked">
+            </Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

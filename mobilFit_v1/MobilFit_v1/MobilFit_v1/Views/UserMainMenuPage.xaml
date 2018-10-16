@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobilFit_v1.Views.UserMainMenuPage"
+             BackgroundColor="Gray">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Entrenamiento"
+            Icon="entrenamiento.png"
+            Priority="0">
+        </ToolbarItem>
+        <ToolbarItem
+            Text="Tips"
+            Icon="tips.png"
+            Priority="0">
+        </ToolbarItem>
+        <ToolbarItem
+            Text="Rendimiento"
+            Icon="rendimiento.png"
+            Priority="0">
+        </ToolbarItem>
+        <ToolbarItem
+            Text="Ajustes"
+            Icon="ajustes.png"
+            Priority="0">
+        </ToolbarItem>
+        <ToolbarItem
+            Text="Cerrar sesión"
+            Icon="cerrarsesion.png"
+            Priority="0"
+            Order="Secondary"
+            Clicked="CerrarSesion_Clicked">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+
+    </StackLayout>
+</ContentPage>

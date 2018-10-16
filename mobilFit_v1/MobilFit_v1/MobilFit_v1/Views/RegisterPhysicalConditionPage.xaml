@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobilFit_v1.Views.RegisterPhysicalConditionPage"
+             Title="Registro de condición física">
+    <ContentPage.Content>
+        <StackLayout Padding="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="¿Cual es su objetivo?"
+                    VerticalOptions="Center">
+                </Label>
+                <Picker
+                    Grid.Row="0"
+                    Grid.Column="1">
+                    <Picker.Items>
+                        <x:String>Bajar de peso</x:String>
+                        <x:String>Ganar Masa</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="¿Que tipo de cuerpo tiene?"
+                    VerticalOptions="Center">
+                </Label>
+                <Picker
+                    Grid.Row="1"
+                    Grid.Column="1">
+                    <Picker.Items>
+                        <x:String>Hectomorfo</x:String>
+                        <x:String>Mesomorfo</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Text="Peso"
+                    VerticalOptions="Center">
+                </Label>
+                <Entry
+                    Grid.Row="2"
+                    Grid.Column="1">
+                </Entry>
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Text="Altura"
+                    VerticalOptions="Center">
+                </Label>
+                <Entry
+                    Grid.Row="3"
+                    Grid.Column="1">
+                </Entry>
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Text="Nivel"
+                    VerticalOptions="Center">
+                </Label>
+                <Picker
+                    Grid.Row="4"
+                    Grid.Column="1">
+                    <Picker.Items>
+                        <x:String>Principiante</x:String>
+                        <x:String>Intermedio</x:String>
+                        <x:String>Avanzado</x:String>
+                        <x:String>Díos</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Text="¿Presenta alguna contraindicación médica?"
+                    VerticalOptions="Center">
+                </Label>
+                <Label
+                    Text="Si"
+                    HorizontalOptions="End"
+                    Grid.Row="6"
+                    Grid.Column="0" ></Label>
+                <Switch
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"></Switch>
+                <Label
+                    Grid.Row="7"
+                    Grid.Column="0"
+                    Text="Seleccione"
+                    VerticalOptions="Center">
+                </Label>
+                <Picker
+                    Grid.Row="7"
+                    Grid.Column="1">
+                    <Picker.Items>
+                        <x:String>Asma</x:String>
+                        <x:String>Lesión</x:String>
+                        <x:String>Flojera</x:String>
+                        <x:String>Se me partio una uña</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Grid>
+
+            <Button
+                BackgroundColor="Navy"
+                BorderRadius="23"
+                HeightRequest="45"
+                HorizontalOptions="CenterAndExpand"
+                IsEnabled="True"
+                Text="Continuar"
+                TextColor="White"
+                x:Name="btnContunarRegistro"
+                Clicked="BtnContunarRegistro_Clicked">
+            </Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
