@@ -17,7 +17,17 @@ namespace MobilFit_v1.Views
 			InitializeComponent ();
 		}
 
+        private void BtnEjercicios_Clicked(object sender, EventArgs e)
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new RegisterPersonalDataPage());
+        }
+
         private void CerrarSesion_Clicked(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
+        }
+
+        private void ContentPage_ChildAdded(object sender, ElementEventArgs e)
         {
             Application.Current.MainPage = new NavigationPage(new LoginPage());
         }

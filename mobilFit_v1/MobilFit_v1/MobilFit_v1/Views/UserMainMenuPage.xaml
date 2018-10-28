@@ -3,7 +3,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:local ="clr-namespace:BottomBarApp"
                     x:Class="MobilFit_v1.Views.UserMainMenuPage"
-                    xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms">
+                    xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
+                    Title="Mobilfit">
     <ContentPage Title="Entrenamiento"
                  Icon="entrenamiento.png">
     </ContentPage>
@@ -13,7 +14,7 @@
     <ContentPage Title="Tips"
                  Icon="tips.png">
     </ContentPage>
-    <ContentPage Title="Ajustes"
+    <ContentPage Title="Cuenta"
                  Icon="ajustes.png">
     </ContentPage>
 
