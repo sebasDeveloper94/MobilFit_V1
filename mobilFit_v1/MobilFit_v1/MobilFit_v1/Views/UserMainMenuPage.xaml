@@ -4,18 +4,13 @@
                     xmlns:local ="clr-namespace:BottomBarApp"
                     x:Class="MobilFit_v1.Views.UserMainMenuPage"
                     xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
-                    Title="Mobilfit">
-    <ContentPage Title="Entrenamiento"
-                 Icon="entrenamiento.png">
-    </ContentPage>
-    <ContentPage Title="Rendimiento"
-                 Icon="rendimiento.png">
-    </ContentPage>
-    <ContentPage Title="Tips"
-                 Icon="tips.png">
-    </ContentPage>
-    <ContentPage Title="Cuenta"
-                 Icon="ajustes.png">
-    </ContentPage>
+                   xmlns:local1="clr-namespace:MobilFit_v1.Views"
+                   Title="Mobilfit">
+    <local1:RoutinesPage Title="Entrenamiento" Icon="entrenamiento.png">
+    </local1:RoutinesPage>
+    <local1:PerfomancePage Title="Rendimiento" Icon="rendimiento.png">
+    </local1:PerfomancePage>
+    <local1:AccountPage  Title="Cuenta"  Icon="cuenta.png">
+    </local1:AccountPage>
 
 </xf:BottomBarPage>

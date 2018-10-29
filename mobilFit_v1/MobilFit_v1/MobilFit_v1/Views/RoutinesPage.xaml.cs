@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BottomBar.XamarinForms;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MobilFit_v1.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class UserMainMenuPage : BottomBarPage
+	public partial class RoutinesPage : ContentPage
 	{
-		public UserMainMenuPage ()
+		public RoutinesPage ()
 		{
 			InitializeComponent ();
 		}
