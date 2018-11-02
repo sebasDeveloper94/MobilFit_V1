@@ -13,7 +13,7 @@
                     HorizontalOptions="CenterAndExpand"
                        ></Label>
                 <Image
-                    Source="mobilfitLogo.png"
+                    Source="mobilfitLogo.jpg"
                     WidthRequest="200">
                 </Image>
                 <Grid

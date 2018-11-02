@@ -109,9 +109,6 @@
     <AndroidResource Include="Resources\drawable\entrenamiento.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\mobilfitLogo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\rendimiento.png" />
   </ItemGroup>
   <ItemGroup>
@@ -121,7 +118,7 @@
     <AndroidResource Include="Resources\drawable\cuenta.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\entrenamiento2.png" />
+    <AndroidResource Include="Resources\drawable\mobilfitLogo.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
