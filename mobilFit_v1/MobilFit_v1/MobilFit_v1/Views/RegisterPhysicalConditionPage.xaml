@@ -18,11 +18,10 @@
                 </Label>
                 <Picker
                     Grid.Row="0"
-                    Grid.Column="1">
-                    <Picker.Items>
-                        <x:String>Bajar de peso</x:String>
-                        <x:String>Ganar Masa</x:String>
-                    </Picker.Items>
+                    Grid.Column="1"
+                    x:Name="cboObjetivo"
+                    ItemsSource="{Binding listObjetivos}"
+                    ItemDisplayBinding="{Binding value}">
                 </Picker>
                 <Label
                     Grid.Row="1"
@@ -32,11 +31,10 @@
                 </Label>
                 <Picker
                     Grid.Row="1"
-                    Grid.Column="1">
-                    <Picker.Items>
-                        <x:String>Hectomorfo</x:String>
-                        <x:String>Mesomorfo</x:String>
-                    </Picker.Items>
+                    Grid.Column="1"
+                    x:Name="cboTipoCuerpo"
+                    ItemsSource="{Binding listTipoCuerpos}"
+                    ItemDisplayBinding="{Binding value}">
                 </Picker>
                 <Label
                     Grid.Row="2"
@@ -46,7 +44,8 @@
                 </Label>
                 <Entry
                     Grid.Row="2"
-                    Grid.Column="1">
+                    Grid.Column="1"
+                    x:Name="txtPeso">
                 </Entry>
                 <Label
                     Grid.Row="3"
@@ -56,7 +55,8 @@
                 </Label>
                 <Entry
                     Grid.Row="3"
-                    Grid.Column="1">
+                    Grid.Column="1"
+                    x:Name="txtAltura">
                 </Entry>
                 <Label
                     Grid.Row="4"
@@ -66,13 +66,10 @@
                 </Label>
                 <Picker
                     Grid.Row="4"
-                    Grid.Column="1">
-                    <Picker.Items>
-                        <x:String>Principiante</x:String>
-                        <x:String>Intermedio</x:String>
-                        <x:String>Avanzado</x:String>
-                        <x:String>Díos</x:String>
-                    </Picker.Items>
+                    Grid.Column="1"
+                    x:Name="cboNivel"
+                    ItemsSource="{Binding listNiveles}"
+                    ItemDisplayBinding="{Binding value}">
                 </Picker>
                 <Label
                     Grid.Row="5"
@@ -88,7 +85,11 @@
                 <Switch
                     Grid.Row="6"
                     Grid.Column="1"
-                    HorizontalOptions="Center"></Switch>
+                    HorizontalOptions="FillAndExpand"
+                    IsToggled="{Binding isContraindicacion}"
+                    Toggled="Switch_Toggled"
+                    x:Name="chkContraindicacion">
+                </Switch>
                 <Label
                     Grid.Row="7"
                     Grid.Column="0"
@@ -97,13 +98,11 @@
                 </Label>
                 <Picker
                     Grid.Row="7"
-                    Grid.Column="1">
-                    <Picker.Items>
-                        <x:String>Asma</x:String>
-                        <x:String>Lesión</x:String>
-                        <x:String>Flojera</x:String>
-                        <x:String>Se me partio una uña</x:String>
-                    </Picker.Items>
+                    Grid.Column="1"
+                    IsEnabled="False"
+                    x:Name="cboContraindicacion"
+                    ItemsSource="{Binding listContraindicaciones}"
+                    ItemDisplayBinding="{Binding value}">
                 </Picker>
             </Grid>
 
@@ -118,6 +117,12 @@
                 x:Name="btnContunarRegistro"
                 Clicked="BtnContunarRegistro_Clicked">
             </Button>
+            <ActivityIndicator
+                x:Name="indicador"
+                Color="Blue"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand">
+            </ActivityIndicator>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

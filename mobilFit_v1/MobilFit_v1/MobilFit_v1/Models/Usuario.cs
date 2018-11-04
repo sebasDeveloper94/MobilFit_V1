@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MobilFit_v1.Models
 {
-    class Usuario
+    public class Usuario
     {
         public int id_usuario { get; set; }
         public string nombre { get; set; }
