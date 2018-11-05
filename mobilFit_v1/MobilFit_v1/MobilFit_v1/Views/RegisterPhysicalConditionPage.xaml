@@ -21,7 +21,8 @@
                     Grid.Column="1"
                     x:Name="cboObjetivo"
                     ItemsSource="{Binding listObjetivos}"
-                    ItemDisplayBinding="{Binding value}">
+                    ItemDisplayBinding="{Binding value}"
+                    SelectedItem="{Binding objetivo}">
                 </Picker>
                 <Label
                     Grid.Row="1"
@@ -34,7 +35,8 @@
                     Grid.Column="1"
                     x:Name="cboTipoCuerpo"
                     ItemsSource="{Binding listTipoCuerpos}"
-                    ItemDisplayBinding="{Binding value}">
+                    ItemDisplayBinding="{Binding value}"
+                    SelectedItem="{Binding tipoCuerpo}">
                 </Picker>
                 <Label
                     Grid.Row="2"
@@ -45,7 +47,8 @@
                 <Entry
                     Grid.Row="2"
                     Grid.Column="1"
-                    x:Name="txtPeso">
+                    x:Name="txtPeso"
+                    Text="{Binding peso}">
                 </Entry>
                 <Label
                     Grid.Row="3"
@@ -56,7 +59,8 @@
                 <Entry
                     Grid.Row="3"
                     Grid.Column="1"
-                    x:Name="txtAltura">
+                    x:Name="txtAltura"
+                    Text="{Binding altura}">
                 </Entry>
                 <Label
                     Grid.Row="4"
@@ -69,7 +73,8 @@
                     Grid.Column="1"
                     x:Name="cboNivel"
                     ItemsSource="{Binding listNiveles}"
-                    ItemDisplayBinding="{Binding value}">
+                    ItemDisplayBinding="{Binding value}"
+                    SelectedItem="{Binding nivel}">
                 </Picker>
                 <Label
                     Grid.Row="5"
@@ -102,7 +107,8 @@
                     IsEnabled="False"
                     x:Name="cboContraindicacion"
                     ItemsSource="{Binding listContraindicaciones}"
-                    ItemDisplayBinding="{Binding value}">
+                    ItemDisplayBinding="{Binding value}"
+                    SelectedItem="{Binding contraindicacion}">
                 </Picker>
             </Grid>
 
@@ -115,7 +121,7 @@
                 Text="Continuar"
                 TextColor="White"
                 x:Name="btnContunarRegistro"
-                Clicked="BtnContunarRegistro_Clicked">
+                Command="{Binding SecondRegisterCmd}">
             </Button>
             <ActivityIndicator
                 x:Name="indicador"

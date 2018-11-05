@@ -2,21 +2,66 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
+using MobilFit_v1.Views;
 
 namespace MobilFit_v1.ViewModels
 {
     class RegisterPersonalDataViewModel
     {
-        Usuario usuario;
+        #region propidades
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public string email { get; set; }
+        public string contraseña1 { get; set; }
+        public string contraseña2 { get; set; }
+        Usuario objUsuario;
+        #endregion
+        #region Contructor
         public RegisterPersonalDataViewModel()
         {
-            usuario = new Usuario();
+            objUsuario = new Usuario();
         }
+        #endregion
+        #region Comandos
+        public ICommand FirstRegisterCmd
+        {
+            get
+            {
+                return new RelayCommand(FirstRegister);
+            }
+        }
+        #endregion
+        #region Metodos
+        private async void FirstRegister()
+        {
+            if (string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(apellido) || string.IsNullOrEmpty(email) ||
+                string.IsNullOrEmpty(contraseña1) || string.IsNullOrEmpty(contraseña1))
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe completar todos los campos.", "Aceptar");
+                return;
+            }
+            if (contraseña1 != contraseña2)
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Las contraseñas no coinciden.", "Aceptar");
+                return;
+            }
 
+            objUsuario.nombre = nombre;
+            objUsuario.apellido_paterno = apellido;
+            objUsuario.email = email;
+            objUsuario.contraseña = contraseña1;
+            SendNewUsuario(objUsuario);
+            await Application.Current.MainPage.Navigation.PushAsync(new RegisterPhysicalConditionPage());
+        }
         public void SendNewUsuario(Usuario objUsuario)
         {
             RegisterPhysicalConditionViewModel rp = new RegisterPhysicalConditionViewModel();
             rp.ReceiveNewUser(objUsuario);
         }
+        #endregion
     }
 }

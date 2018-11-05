@@ -19,7 +19,8 @@
                 <Entry
                     Grid.Row="0"
                     Grid.Column="1"
-                    x:Name="txtNombre">
+                    x:Name="txtNombre"
+                    Text="{Binding nombre}">
                 </Entry>
                 <Label
                     Grid.Row="1"
@@ -30,7 +31,8 @@
                 <Entry
                     Grid.Row="1"
                     Grid.Column="1"
-                    x:Name="txtApellido">
+                    x:Name="txtApellido"
+                    Text="{Binding apellido}">
                 </Entry>
                 <Label
                     Grid.Row="2"
@@ -41,7 +43,8 @@
                 <Entry
                     Grid.Row="2"
                     Grid.Column="1"
-                    x:Name="txtEmail">
+                    x:Name="txtEmail"
+                    Text="{Binding email}">
                 </Entry>
                 <Label
                     Grid.Row="3"
@@ -53,7 +56,8 @@
                     Grid.Row="3"
                     Grid.Column="1"
                     IsPassword="true"
-                    x:Name="txtContraseña1">
+                    x:Name="txtContraseña1"
+                    Text="{Binding contraseña1}">
                 </Entry>
                 <Label
                     Grid.Row="4"
@@ -65,7 +69,8 @@
                     Grid.Row="4"
                     Grid.Column="1"
                     IsPassword="true"
-                    x:Name="txtContraseña2">
+                    x:Name="txtContraseña2"
+                    Text="{Binding contraseña2}">
                 </Entry>
             </Grid>
             <Button
@@ -77,7 +82,7 @@
                 Text="Continuar"
                 TextColor="White"
                 x:Name="btnContinuarRegistro"
-                Clicked="BtnContunarRegistro_Clicked">
+                Command="{Binding FirstRegisterCmd}">
             </Button>
         </StackLayout>
     </ContentPage.Content>

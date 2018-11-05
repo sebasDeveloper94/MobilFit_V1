@@ -3,17 +3,28 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using MobilFit_v1.Models;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
+using MobilFit_v1.Views;
 
 namespace MobilFit_v1.ViewModels
 {
     public class RegisterPhysicalConditionViewModel
     {
         #region propiedades
+        public Objetivo objetivo { get; set; }
+        public TipoCuerpo tipoCuerpo { get; set; }
+        public decimal peso { get; set; }
+        public decimal altura { get; set; }
+        public Nivel nivel { get; set; }
+        public Contraindicacion contraindicacion { get; set; }
         public List<Objetivo> listObjetivos { get; set; }
         public List<TipoCuerpo> listTipoCuerpos { get; set; }
         public List<Nivel> listNiveles { get; set; }
         public List<Contraindicacion> listContraindicaciones { get; set; }
-        public Usuario usuario;
+        public static Usuario usuario;
         #endregion
         #region Constructor
         public RegisterPhysicalConditionViewModel()
@@ -24,7 +35,38 @@ namespace MobilFit_v1.ViewModels
             this.listContraindicaciones = GetContraindicacion().OrderBy(x => x.key).ToList();
         }
         #endregion
+        #region Comandos
+        public ICommand SecondRegisterCmd
+        {
+            get
+            {
+                return new RelayCommand(SecondRegister);
+            }
+        }
+        #endregion
         #region metodos
+        private async void SecondRegister()
+        {
+            objetivo = objetivo as Objetivo;
+            tipoCuerpo = tipoCuerpo as TipoCuerpo;
+            peso = peso > 0 ? peso : 0;
+            altura = altura > 0 ? altura : 0;
+            nivel = nivel as Nivel;
+            contraindicacion = contraindicacion as Contraindicacion;
+
+            if (objetivo.key <= 0 || tipoCuerpo.key <= 0 || peso <= 0 || altura <= 0 || nivel.key <= 0)
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe completar todos los campos.", "Aceptar");
+                return;
+            }
+
+            usuario.id_tipoCuerpo = tipoCuerpo.key;
+            usuario.peso = peso;
+            usuario.altura = altura;
+            usuario.id_nivel = nivel.key;
+            var obj = usuario;
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
+        }
         public void ReceiveNewUser(Usuario objUsuario)
         {
             usuario = new Usuario();

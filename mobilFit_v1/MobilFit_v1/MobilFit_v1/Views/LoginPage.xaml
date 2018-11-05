@@ -13,7 +13,7 @@
                     HorizontalOptions="CenterAndExpand"
                        ></Label>
                 <Image
-                    Source="mobilfitLogo.jpg"
+                    Source="mobilfitLogo.png"
                     WidthRequest="200">
                 </Image>
                 <Grid
@@ -34,7 +34,8 @@
                         Grid.Column="1"
                         Keyboard="Email"
                         Placeholder="Email"
-                        x:Name="txtEmail">
+                        x:Name="txtEmail"
+                        Text="{Binding user}">
                     </Entry>
                     <Label
                         Grid.Row="1"
@@ -47,14 +48,15 @@
                         Grid.Column="1"
                         IsPassword="true"
                         Placeholder="Contraseña"
-                        x:Name="txtContraseña">
+                        x:Name="txtContraseña"
+                        Text="{Binding password}">
                     </Entry>
                 </Grid>
                 <ActivityIndicator
                     VerticalOptions="CenterAndExpand"
                     HorizontalOptions="CenterAndExpand"
                     Color="Blue"
-                    x:Name="progreso">
+                    IsRunning="{Binding isRuning}">
                 </ActivityIndicator>
                 <StackLayout
                     Margin="10,0"
@@ -65,8 +67,8 @@
                         Text="Recordarme">
                     </Label>
                     <Switch
-                        IsToggled="True"
-                        HorizontalOptions="FillAndExpand">
+                        HorizontalOptions="FillAndExpand"
+                        IsToggled="{Binding rememberme}">
                     </Switch>
                 </StackLayout>
                 <Label
@@ -84,21 +86,22 @@
                         BorderRadius="23"
                         HeightRequest="46"
                         HorizontalOptions="FillAndExpand"
-                        IsEnabled="True"
                         Text="Acceder"
                         TextColor="White"
-                        x:Name="btnAcceder">
+                        x:Name="btnAcceder"
+                        Command="{Binding LoginCommand}"
+                        IsEnabled="{Binding isEnabled}">
                     </Button>
                     <Button
                         BackgroundColor="Purple"
                         BorderRadius="23"
                         HeightRequest="46"
                         HorizontalOptions="FillAndExpand"
-                        IsEnabled="True"
                         Text="Registrarme"
                         TextColor="White"
                         x:Name="btnRegistrar"
-                        Clicked="BtnRegistrar_Clicked">
+                        Command="{Binding RegisterCommand}"
+                        IsEnabled="{Binding isEnabled}">
                     </Button>
                 </StackLayout>
                 <StackLayout
@@ -106,18 +109,14 @@
                     Orientation="Horizontal"
                     VerticalOptions="EndAndExpand">
                     <Image
-                        Source="facebook_logo"
-                        WidthRequest="100">
+                        Source="facebookLogo.png"
+                        WidthRequest="80">
                         <Image.GestureRecognizers>
                         </Image.GestureRecognizers>
                     </Image>
                     <Image
-                        Source="twitter_logo"
-                        WidthRequest="100">
-                    </Image>
-                    <Image
-                        Source="instagram_logo"
-                        WidthRequest="85">
+                        Source="googleLogo.png"
+                        WidthRequest="80">
                     </Image>
                 </StackLayout>
             </StackLayout>

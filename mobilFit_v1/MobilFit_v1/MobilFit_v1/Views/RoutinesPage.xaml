@@ -3,10 +3,127 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobilFit_v1.Views.RoutinesPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Rutinas"
-                VerticalOptions="StartAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout
+            Padding="10">
+                <Label Text="Entrenamiento" HorizontalOptions="CenterAndExpand" TextColor="Black" FontSize="Large" FontFamily="Verdana"></Label>
+                <Grid Margin="20" VerticalOptions="StartAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image 
+                    Source="circulodia.png"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    WidthRequest="35">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer>
+                            </TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image 
+                    Source="circulodia.png"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    WidthRequest="35">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer>
+                            </TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image 
+                    Source="circulodia.png"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    WidthRequest="35">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer>
+                            </TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image 
+                    Source="circulodia.png"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    WidthRequest="35">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer>
+                            </TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image 
+                    Source="circulodia.png"
+                    Grid.Row="0"
+                    Grid.Column="4"
+                    WidthRequest="35">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer>
+                            </TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image 
+                    Source="circulodia.png"
+                    Grid.Row="0"
+                    Grid.Column="5"
+                    WidthRequest="35">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer>
+                            </TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image 
+                    Source="circulodia.png"
+                    Grid.Row="0"
+                    Grid.Column="6"
+                    WidthRequest="35">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer>
+                            </TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+                <StackLayout
+                    Margin="60,0"
+                    Orientation="Horizontal"
+                    VerticalOptions="CenterAndExpand">
+                    <Button 
+                        Text="Guardar días"
+                        BackgroundColor="DimGray"
+                        TextColor="White"
+                        BorderColor="Black"
+                        BorderRadius="10"
+                        HeightRequest="46"
+                        HorizontalOptions="EndAndExpand">
+                    </Button>
+                </StackLayout>
+                <StackLayout
+                    Margin="20,0"
+                    Orientation="Horizontal"
+                    VerticalOptions="CenterAndExpand">
+                    <ListView>
+                        <ListView.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Rutina 1</x:String>
+                            </x:Array>
+                        </ListView.ItemsSource>
+                    </ListView>
+                </StackLayout>
+                <StackLayout
+                    Margin="20,0"
+                    Orientation="Horizontal"
+                    VerticalOptions="CenterAndExpand">
+                    <Button               
+                    Text="Iniciar rutina"
+                    BackgroundColor="DimGray"
+                    TextColor="White"
+                    BorderColor="Black"
+                    BorderRadius="20"
+                    HeightRequest="46"
+                    HorizontalOptions="CenterAndExpand">
+                    </Button>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
