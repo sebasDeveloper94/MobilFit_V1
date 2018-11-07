@@ -19,6 +19,7 @@ namespace MobilFit_v1.ViewModels
         public bool isRuning { get; set; }
         public bool isEnabled { get; set; }
         public bool rememberme { get; set; }
+        public bool isDebug = false;
         #endregion
         #region Constructor
         public LoginViewModel()
@@ -47,6 +48,7 @@ namespace MobilFit_v1.ViewModels
         private async void Login()
         {
             bool isCorrect = false;
+            isDebug = true;
             //if (string.IsNullOrEmpty(this.user))
             //{
             //    await Application.Current.MainPage.DisplayAlert("Atención", "Debe indicar un email.", "Aceptar");
@@ -61,24 +63,30 @@ namespace MobilFit_v1.ViewModels
             this.isEnabled = false;
             try
             {
-                Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
-                //LoginService loginService = new LoginService();
-                //isCorrect = loginService.Acceso(this.user, this.password);
-                //if (isCorrect)
-                //{
-                //    Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
-                //    App.Current.Properties["isLogged"] = true;
-                //}
-                //else
-                //{
-                //    await Application.Current.MainPage.DisplayAlert("Atención", "Usuario o contraseña incorrectos, intente nuevamente.", "Aceptar");
-                //}
-                this.isRuning = false;
-                this.isEnabled = true;
+                if (!isDebug)
+                {
+                    LoginService loginService = new LoginService();
+                    isCorrect = loginService.Acceso(this.user, this.password);
+                    if (isCorrect)
+                    {
+                        Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
+                        App.Current.Properties["isLogged"] = true;
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Atención", "Usuario o contraseña incorrectos, intente nuevamente.", "Aceptar");
+                    }
+                    this.isRuning = false;
+                    this.isEnabled = true;
+                }
+                else
+                {
+                    Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Atención", "No hay conexión a internet.", "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Atención", "No se puede conectar con el servidor.", "Aceptar");
             }
 
         }

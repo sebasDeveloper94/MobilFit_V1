@@ -2,38 +2,43 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobilFit_v1.Views.TrainingPage"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              Title="Entrenamiento">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Dominadas en barra" HorizontalOptions="CenterAndExpand" TextColor="Black" FontSize="Large" FontFamily="Verdana"></Label>
             <WebView
-                WidthRequest="350"
-                HeightRequest="350"
+                WidthRequest="450"
+                HeightRequest="450"
                 Source="https://www.youtube.com/embed/_7rWrkWGkUA">
             </WebView>
             <StackLayout>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Text="Repeticiones:" FontSize="Medium">
+                    <Label Grid.Row="0" Grid.Column="0" Text="Repeticiones:"  FontSize="Medium">
                     </Label>
                     <Label Grid.Row="0" Grid.Column="1" Text="2" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="0" Grid.Column="2" Text="Series" FontSize="Medium">
+                    <Label Grid.Row="0" Grid.Column="2" Text="Series:" FontSize="Medium">
                     </Label>
                     <Label Grid.Row="0" Grid.Column="3" Text="4" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="0" Text="Distacia" FontSize="Medium">
+                    <Label Grid.Row="1" Grid.Column="0" Text="Distacia:" FontSize="Medium">
                     </Label>
                     <Label Grid.Row="1" Grid.Column="1" Text="0" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="2" Text="Tiempo" FontSize="Medium">
+                    <Label Grid.Row="1" Grid.Column="2" Text="Tiempo:" FontSize="Medium">
                     </Label>
                     <Label Grid.Row="1" Grid.Column="3" Text="00:00" FontSize="Medium">
                     </Label>
+                    <Label Grid.Row="2" Grid.Column="0"  Text="Completado" FontSize="Medium">
+                    </Label>
+                    <controls:CheckBox Grid.Row="2" Grid.Column="1">
+                    </controls:CheckBox>
                     <Image
                         Grid.Row="4" Grid.Column="0"
                         Source="back_icon.png">
@@ -53,6 +58,7 @@
                         </Image.GestureRecognizers>
                     </Image>
                 </Grid>
+
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

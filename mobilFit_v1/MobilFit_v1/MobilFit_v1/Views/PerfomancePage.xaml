@@ -2,10 +2,39 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobilFit_v1.Views.PerfomancePage"
+             xmlns:chart="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              Title="Entrenamiento">
     <ContentPage.Content>
         <StackLayout>
-            <Label></Label>
+            <Label Text="Avances" FontSize="Large" HorizontalOptions="CenterAndExpand" TextColor="Black"></Label>
+            <chart:ChartView x:Name="grafica1" HeightRequest="380">
+            </chart:ChartView>
+            <StackLayout Padding="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="IMC:" FontSize="Medium">
+                    </Label>
+                    <Label Grid.Row="0" Grid.Column="1" Text="82.2:" FontSize="Medium">
+                    </Label>
+                    <Label Grid.Row="0" Grid.Column="2" Text="Masa muscular:" FontSize="Medium">
+                    </Label>
+                    <Label Grid.Row="0" Grid.Column="3" Text="14.5" FontSize="Medium">
+                    </Label>
+                    <Label Grid.Row="1" Grid.Column="0" Text="IGC:" FontSize="Medium">
+                    </Label>
+                    <Label Grid.Row="1" Grid.Column="1" Text="72.2" FontSize="Medium">
+                    </Label>
+                    <Label Grid.Row="1" Grid.Column="2" Text="Peso:" FontSize="Medium">
+                    </Label>
+                    <Label Grid.Row="1" Grid.Column="3" Text="104kg:" FontSize="Medium">
+                    </Label>
+                </Grid>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
