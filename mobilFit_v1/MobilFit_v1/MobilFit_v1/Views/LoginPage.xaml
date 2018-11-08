@@ -5,13 +5,14 @@
              Title="MobilFit">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="5">
+            <StackLayout
+                BackgroundColor="Silver"
+                Padding="5">
                 <Label 
                     Text="Acceso"
                     TextColor="Black"
                     FontSize="Medium"
-                    HorizontalOptions="CenterAndExpand"
-                       ></Label>
+                    HorizontalOptions="CenterAndExpand"></Label>
                 <Image
                     Source="mobilfitLogo.png"
                     WidthRequest="200">
@@ -109,13 +110,13 @@
                     Orientation="Horizontal"
                     VerticalOptions="EndAndExpand">
                     <Image
-                        Source="facebookLogo.png"
+                        Source="facebook_icon.png"
                         WidthRequest="80">
                         <Image.GestureRecognizers>
                         </Image.GestureRecognizers>
                     </Image>
                     <Image
-                        Source="googleLogo.png"
+                        Source="google_icon.png"
                         WidthRequest="80">
                     </Image>
                 </StackLayout>

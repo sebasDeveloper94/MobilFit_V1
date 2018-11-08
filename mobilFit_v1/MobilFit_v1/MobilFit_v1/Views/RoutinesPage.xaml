@@ -4,8 +4,14 @@
              x:Class="MobilFit_v1.Views.RoutinesPage">
     <ContentPage.Content>
         <StackLayout
-        Padding="10">
-            <Label Text="Entrenamiento" HorizontalOptions="CenterAndExpand" TextColor="Black" FontSize="Large" FontFamily="Verdana"></Label>
+            BackgroundColor="Silver"
+            Padding="5">
+            <Label 
+                Text="Entrenamiento"
+                HorizontalOptions="CenterAndExpand" 
+                TextColor="Black"
+                FontSize="Large"
+                FontFamily="Verdana"></Label>
             <Grid Margin="20" VerticalOptions="StartAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -84,7 +90,7 @@
             </Grid>
             <Grid></Grid>
             <StackLayout
-                Margin="15"
+                Padding="5"
                 Orientation="Horizontal"
                 VerticalOptions="CenterAndExpand">
                 <Button 
@@ -98,19 +104,54 @@
                 </Button>
             </StackLayout>
             <StackLayout
-                Margin="10"
                 Orientation="Horizontal"
                 VerticalOptions="CenterAndExpand">
-                <ListView Margin="2">
-                    <ListView.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Rutina 1</x:String>
-                        </x:Array>
-                    </ListView.ItemsSource>
+                <ListView 
+                    HasUnevenRows="True"
+                    IsPullToRefreshEnabled="True"
+                    SeparatorVisibility="None"
+                    ItemsSource="{Binding rutinas, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame
+                                    Margin="5"
+                                    CornerRadius="20"
+                                    HasShadow="True">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout 
+                                            Grid.Column="0"
+                                            VerticalOptions="CenterAndExpand">
+                                            <Label 
+                                            Text="{Binding name, Mode=TwoWay}"
+                                            FontSize="Medium"
+                                            TextColor="Black">
+                                            </Label>
+                                        </StackLayout>
+                                        <Image 
+                                            Grid.Column="1" 
+                                            HorizontalOptions="End" 
+                                            Source="ic_chevron_right.png">
+                                        </Image>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
+            <StackLayout>
+                <Label
+                    Text="Entrenamiento recomendado por el profesional Sebastian Henao"
+                    TextColor="Black">
+                </Label>
+            </StackLayout>
             <StackLayout
-                Margin="5"
+                Padding="2"
                 Orientation="Horizontal"
                 VerticalOptions="CenterAndExpand">
                 <Button               

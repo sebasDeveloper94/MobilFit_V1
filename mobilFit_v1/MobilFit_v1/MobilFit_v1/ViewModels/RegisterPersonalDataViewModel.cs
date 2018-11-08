@@ -10,7 +10,7 @@ using MobilFit_v1.Views;
 
 namespace MobilFit_v1.ViewModels
 {
-    class RegisterPersonalDataViewModel
+    public class RegisterPersonalDataViewModel
     {
         #region propidades
         public string nombre { get; set; }

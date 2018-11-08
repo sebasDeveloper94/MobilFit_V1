@@ -5,9 +5,17 @@
              xmlns:chart="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              Title="Entrenamiento">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Avances" FontSize="Large" HorizontalOptions="CenterAndExpand" TextColor="Black"></Label>
-            <chart:ChartView x:Name="grafica1" HeightRequest="380">
+        <StackLayout 
+            BackgroundColor="Silver"
+            Padding="5">
+            <Label 
+                Text="Avances"
+                FontSize="Large" 
+                HorizontalOptions="CenterAndExpand"
+                TextColor="Black"></Label>
+            <chart:ChartView 
+                x:Name="grafica1" 
+                HeightRequest="380">
             </chart:ChartView>
             <StackLayout Padding="5">
                 <Grid>

@@ -5,19 +5,27 @@
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              Title="Entrenamiento">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Dominadas en barra" HorizontalOptions="CenterAndExpand" TextColor="Black" FontSize="Large" FontFamily="Verdana"></Label>
+        <StackLayout
+            BackgroundColor="Silver"
+            Padding="5">
+            <Label 
+                Text="Dominadas en barra"
+                HorizontalOptions="CenterAndExpand"
+                TextColor="Black"
+                FontSize="Large" 
+                FontFamily="Verdana"></Label>
             <WebView
-                WidthRequest="450"
+                WidthRequest="420"
                 HeightRequest="450"
                 Source="https://www.youtube.com/embed/_7rWrkWGkUA">
             </WebView>
             <StackLayout>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                        <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                        <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                        <ColumnDefinition Width="AUTO"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Text="Repeticiones:"  FontSize="Medium">
                     </Label>

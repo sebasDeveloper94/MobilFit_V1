@@ -8,13 +8,15 @@ using System.Windows.Input;
 
 namespace MobilFit_v1.ViewModels
 {
-    class RoutinesViewModel
+    public class RoutinesViewModel
     {
-
+        #region Propiedades
+        public List<Rutinas> rutinas { get; set; }
+        #endregion
         #region Constructor
         public RoutinesViewModel()
         {
-
+            ChargeRoutines();
         }
         #endregion
         #region Comandos
@@ -31,6 +33,17 @@ namespace MobilFit_v1.ViewModels
         {
              Application.Current.MainPage = new NavigationPage(new TrainingPage());
         }
+        private async void ChargeRoutines()
+        {
+            rutinas = new List<Rutinas>();
+            rutinas.Add(new Rutinas() { name = "Rutina 1" });
+            rutinas.Add(new Rutinas() { name = "Rutina 1" });
+            rutinas.Add(new Rutinas() { name = "Rutina 1" });
+        }
         #endregion
+    }
+    public class Rutinas
+    {
+        public string name { get; set; }
     }
 }

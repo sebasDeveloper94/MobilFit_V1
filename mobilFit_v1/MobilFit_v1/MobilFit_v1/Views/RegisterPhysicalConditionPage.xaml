@@ -4,7 +4,9 @@
              x:Class="MobilFit_v1.Views.RegisterPhysicalConditionPage"
              Title="Registro de condición física">
     <ContentPage.Content>
-        <StackLayout Padding="5">
+        <StackLayout 
+            BackgroundColor="Silver"
+            Padding="5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.5*"/>

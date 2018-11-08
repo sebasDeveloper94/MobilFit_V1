@@ -11,7 +11,7 @@ using MobilFit_v1.Views;
 
 namespace MobilFit_v1.ViewModels
 {
-    class LoginViewModel
+    public class LoginViewModel
     {
         #region Propiedades
         public string user { get; set; }
