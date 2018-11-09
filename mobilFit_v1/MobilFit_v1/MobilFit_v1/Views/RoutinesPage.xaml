@@ -21,7 +21,7 @@
                 Source="circulodia.png"
                 Grid.Row="0"
                 Grid.Column="0"
-                WidthRequest="45">
+                WidthRequest="55">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
@@ -31,7 +31,7 @@
                 Source="circulodia.png"
                 Grid.Row="0"
                 Grid.Column="1"
-                WidthRequest="45">
+                WidthRequest="55">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
@@ -41,7 +41,7 @@
                 Source="circulodia.png"
                 Grid.Row="0"
                 Grid.Column="2"
-                WidthRequest="45">
+                WidthRequest="55">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
@@ -51,7 +51,7 @@
                 Source="circulodia.png"
                 Grid.Row="0"
                 Grid.Column="3"
-                WidthRequest="45">
+                WidthRequest="55">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
@@ -61,7 +61,7 @@
                 Source="circulodia.png"
                 Grid.Row="0"
                 Grid.Column="4"
-                WidthRequest="45">
+                WidthRequest="55">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
@@ -71,7 +71,7 @@
                 Source="circulodia.png"
                 Grid.Row="0"
                 Grid.Column="5"
-                WidthRequest="45">
+                WidthRequest="55">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
@@ -81,7 +81,7 @@
                 Source="circulodia.png"
                 Grid.Row="0"
                 Grid.Column="6"
-                WidthRequest="45">
+                WidthRequest="55">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>

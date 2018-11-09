@@ -5,11 +5,11 @@
                     xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
                    xmlns:local1="clr-namespace:MobilFit_v1.Views"
                    Title="Mobilfit">
-    <local1:RoutinesPage Title="Entrenamiento" Icon="entrenamiento.png">
+    <local1:RoutinesPage Title="Entrenamiento" WidthRequest="1.2" Icon="entrenamiento.png">
     </local1:RoutinesPage>
-    <local1:PerfomancePage Title="Rendimiento" Icon="rendimiento.png">
+    <local1:PerfomancePage Title="Rendimiento" WidthRequest="1.2"  Icon="rendimiento.png">
     </local1:PerfomancePage>
-    <local1:AccountPage  Title="Cuenta"  Icon="cuenta.png">
+    <local1:AccountPage  Title="Cuenta" WidthRequest="1.2"   Icon="cuenta.png">
     </local1:AccountPage>
 
 </xf:BottomBarPage>

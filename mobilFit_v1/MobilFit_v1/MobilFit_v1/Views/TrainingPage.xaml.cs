@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobilFit_v1.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace MobilFit_v1.Views
 		public TrainingPage ()
 		{
 			InitializeComponent ();
+            this.BindingContext = new TrainingViewModel();
 		}
 	}
 }

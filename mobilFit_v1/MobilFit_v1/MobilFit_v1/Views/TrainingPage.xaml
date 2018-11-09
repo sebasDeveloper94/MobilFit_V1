@@ -4,8 +4,11 @@
              x:Class="MobilFit_v1.Views.TrainingPage"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              Title="Entrenamiento">
-    <ContentPage.Content>
-        <StackLayout
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Terminar rutina" Order="Secondary" Command="{Binding endTrainingCommand}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <StackLayout
             BackgroundColor="Silver"
             Padding="5">
             <Label 
@@ -15,17 +18,17 @@
                 FontSize="Large" 
                 FontFamily="Verdana"></Label>
             <WebView
-                WidthRequest="420"
+                WidthRequest="450"
                 HeightRequest="450"
                 Source="https://www.youtube.com/embed/_7rWrkWGkUA">
             </WebView>
             <StackLayout>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="AUTO"></ColumnDefinition>
-                        <ColumnDefinition Width="AUTO"></ColumnDefinition>
-                        <ColumnDefinition Width="AUTO"></ColumnDefinition>
-                        <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Text="Repeticiones:"  FontSize="Medium">
                     </Label>
@@ -43,21 +46,21 @@
                     </Label>
                     <Label Grid.Row="1" Grid.Column="3" Text="00:00" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="2" Grid.Column="0"  Text="Completado" FontSize="Medium">
+                    <Label Grid.Row="2" Grid.Column="0" Text="Completado" FontSize="Medium">
                     </Label>
-                    <controls:CheckBox Grid.Row="2" Grid.Column="1">
-                    </controls:CheckBox>
+                    <controls:CheckBox Grid.Row="2" Grid.Column="1" VerticalOptions="StartAndExpand">
+                    </controls:CheckBox >
                     <Image
-                        Grid.Row="4" Grid.Column="0"
-                        Source="back_icon.png">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer>
+                    Grid.Row="4" Grid.Column="0"
+                    Source="back_icon.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer>
                                 
-                            </TapGestureRecognizer>
-                        </Image.GestureRecognizers>
+                        </TapGestureRecognizer>
+                    </Image.GestureRecognizers>
                     </Image>
                     <Image
-                        Grid.Row="4" Grid.Column="3"
+                        Grid.Row="4" Grid.Column="2"
                         Source="next_icon.png">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer>
@@ -69,5 +72,5 @@
 
             </StackLayout>
         </StackLayout>
-    </ContentPage.Content>
+
 </ContentPage>

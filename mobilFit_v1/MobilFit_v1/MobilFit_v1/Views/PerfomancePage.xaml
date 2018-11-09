@@ -15,7 +15,7 @@
                 TextColor="Black"></Label>
             <chart:ChartView 
                 x:Name="grafica1" 
-                HeightRequest="380">
+                HeightRequest="350">
             </chart:ChartView>
             <StackLayout Padding="5">
                 <Grid>

@@ -59,7 +59,7 @@ namespace MobilFit_v1.Views
                 },
 
             };
-            grafica1.Chart = new DonutChart
+            grafica1.Chart = new BarChart
             {
                 Entries = dataList
             };
