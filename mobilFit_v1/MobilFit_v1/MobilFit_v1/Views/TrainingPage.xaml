@@ -9,7 +9,6 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <StackLayout
-            BackgroundColor="Silver"
             Padding="5">
             <Label 
                 Text="Dominadas en barra"
@@ -30,25 +29,25 @@
                         <ColumnDefinition Width="1.5*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Text="Repeticiones:"  FontSize="Medium">
+                    <Label Grid.Row="0" Grid.Column="0" TextColor="Black" Text="Repeticiones:"  FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="0" Grid.Column="1" Text="2" FontSize="Medium">
+                <Label Grid.Row="0" Grid.Column="1" TextColor="Black" Text="2" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="0" Grid.Column="2" Text="Series:" FontSize="Medium">
+                <Label Grid.Row="0" Grid.Column="2" TextColor="Black" Text="Series:" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="0" Grid.Column="3" Text="4" FontSize="Medium">
+                <Label Grid.Row="0" Grid.Column="3" TextColor="Black"  Text="4" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="0" Text="Distacia:" FontSize="Medium">
+                <Label Grid.Row="1" Grid.Column="0" TextColor="Black" Text="Distacia:" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="1" Text="0" FontSize="Medium">
+                <Label Grid.Row="1" Grid.Column="1" TextColor="Black" Text="0" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="2" Text="Tiempo:" FontSize="Medium">
+                <Label Grid.Row="1" Grid.Column="2" TextColor="Black" Text="Tiempo:" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="3" Text="00:00" FontSize="Medium">
+                <Label Grid.Row="1" Grid.Column="3" TextColor="Black" Text="00:00" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="2" Grid.Column="0" Text="Completado" FontSize="Medium">
+                <Label Grid.Row="2" Grid.Column="0" TextColor="Black" Text="Completado" FontSize="Medium">
                     </Label>
-                    <controls:CheckBox Grid.Row="2" Grid.Column="1" VerticalOptions="StartAndExpand">
+                <controls:CheckBox Grid.Row="2" Grid.Column="1" VerticalOptions="StartAndExpand">
                     </controls:CheckBox >
                     <Image
                     Grid.Row="4" Grid.Column="0"

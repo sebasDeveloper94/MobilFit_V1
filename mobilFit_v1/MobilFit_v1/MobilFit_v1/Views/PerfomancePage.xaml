@@ -5,8 +5,7 @@
              xmlns:chart="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              Title="Entrenamiento">
     <ContentPage.Content>
-        <StackLayout 
-            BackgroundColor="Silver"
+        <StackLayout
             Padding="5">
             <Label 
                 Text="Avances"
@@ -25,21 +24,21 @@
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Text="IMC:" FontSize="Medium">
+                    <Label Grid.Row="0" Grid.Column="0" Text="IMC:" TextColor="Black" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="0" Grid.Column="1" Text="82.2:" FontSize="Medium">
+                    <Label Grid.Row="0" Grid.Column="1" Text="82.2:" TextColor="Black" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="0" Grid.Column="2" Text="Masa muscular:" FontSize="Medium">
+                    <Label Grid.Row="0" Grid.Column="2" Text="Masa muscular:" TextColor="Black" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="0" Grid.Column="3" Text="14.5" FontSize="Medium">
+                    <Label Grid.Row="0" Grid.Column="3" Text="14.5" TextColor="Black" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="0" Text="IGC:" FontSize="Medium">
+                    <Label Grid.Row="1" Grid.Column="0" Text="IGC:" TextColor="Black" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="1" Text="72.2" FontSize="Medium">
+                    <Label Grid.Row="1" Grid.Column="1" Text="72.2" TextColor="Black" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="2" Text="Peso:" FontSize="Medium">
+                    <Label Grid.Row="1" Grid.Column="2" Text="Peso:" TextColor="Black" FontSize="Medium">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="3" Text="104kg:" FontSize="Medium">
+                    <Label Grid.Row="1" Grid.Column="3" Text="104kg:" TextColor="Black" FontSize="Medium">
                     </Label>
                 </Grid>
             </StackLayout>

@@ -37,8 +37,6 @@ namespace MobilFit_v1.ViewModels
         {
             rutinas = new List<Rutinas>();
             rutinas.Add(new Rutinas() { name = "Rutina 1" });
-            rutinas.Add(new Rutinas() { name = "Rutina 1" });
-            rutinas.Add(new Rutinas() { name = "Rutina 1" });
         }
         #endregion
     }

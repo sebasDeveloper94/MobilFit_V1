@@ -4,7 +4,6 @@
              x:Class="MobilFit_v1.Views.RoutinesPage">
     <ContentPage.Content>
         <StackLayout
-            BackgroundColor="Silver"
             Padding="5">
             <Label 
                 Text="Entrenamiento"
@@ -117,7 +116,8 @@
                                 <Frame
                                     Margin="5"
                                     CornerRadius="20"
-                                    HasShadow="True">
+                                    HasShadow="True"
+                                    BackgroundColor="LightSlateGray">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -129,7 +129,7 @@
                                             <Label 
                                             Text="{Binding name, Mode=TwoWay}"
                                             FontSize="Medium"
-                                            TextColor="Black">
+                                            TextColor="White">
                                             </Label>
                                         </StackLayout>
                                         <Image 
@@ -156,7 +156,7 @@
                 VerticalOptions="CenterAndExpand">
                 <Button               
                     Text="Iniciar rutina"
-                    BackgroundColor="DimGray"
+                    BackgroundColor="LimeGreen"
                     TextColor="White"
                     BorderColor="Black"
                     BorderRadius="20"

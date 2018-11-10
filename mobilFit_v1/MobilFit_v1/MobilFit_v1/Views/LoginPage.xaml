@@ -6,7 +6,6 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout
-                BackgroundColor="Silver"
                 Padding="5">
                 <Label 
                     Text="Acceso"
