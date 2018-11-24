@@ -27,6 +27,13 @@ namespace MobilFit_v1.ViewModels
                 return new RelayCommand(SelectSetings); 
             }
         }
+        public ICommand closeSesion
+        {
+            get
+            {
+                return new RelayCommand(CloseSesion);
+            }
+        }
         #endregion
         #region Metodos
         public void AccountSettings()
@@ -35,11 +42,12 @@ namespace MobilFit_v1.ViewModels
             settings.Add(new AccountSettings() { description = "Notificaciones" });
             settings.Add(new AccountSettings() { description = "Ajustes de cuenta" });
             settings.Add(new AccountSettings() { description = "Acerca de MobilFit" });
-            settings.Add(new AccountSettings() { description = "Recomendar MobilFit" });
-            settings.Add(new AccountSettings() { description = "Cerrar sesión" });
         }
         private void SelectSetings()
         {
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
+        }
+        private void CloseSesion() {
             Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
         #endregion

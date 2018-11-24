@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
              x:Class="MobilFit_v1.Views.RoutinesPage">
     <ContentPage.Content>
         <StackLayout
+            BindingContext="{Binding Routines}"
             Padding="5">
             <Label 
                 Text="Entrenamiento"
@@ -13,81 +15,85 @@
                 FontFamily="Verdana"></Label>
             <Grid Margin="20" VerticalOptions="StartAndExpand">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Image 
-                Source="circulodia.png"
+                Source="lunes_icon.png"
                 Grid.Row="0"
                 Grid.Column="0"
-                WidthRequest="55">
+                WidthRequest="50">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
                     </Image.GestureRecognizers>
                 </Image>
                 <Image 
-                Source="circulodia.png"
+                Source="martes_icon.png"
                 Grid.Row="0"
                 Grid.Column="1"
-                WidthRequest="55">
+                WidthRequest="50">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
                     </Image.GestureRecognizers>
                 </Image>
                 <Image 
-                Source="circulodia.png"
+                Source="miercoles_icon.png"
                 Grid.Row="0"
                 Grid.Column="2"
-                WidthRequest="55">
+                WidthRequest="50">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
                     </Image.GestureRecognizers>
                 </Image>
                 <Image 
-                Source="circulodia.png"
+                Source="jueves_icon.png"
                 Grid.Row="0"
                 Grid.Column="3"
-                WidthRequest="55">
+                WidthRequest="50">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
                     </Image.GestureRecognizers>
                 </Image>
                 <Image 
-                Source="circulodia.png"
+                Source="viernes_icon.png"
                 Grid.Row="0"
                 Grid.Column="4"
-                WidthRequest="55">
+                WidthRequest="50">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
                     </Image.GestureRecognizers>
                 </Image>
                 <Image 
-                Source="circulodia.png"
+                Source="sabado_icon.png"
                 Grid.Row="0"
                 Grid.Column="5"
-                WidthRequest="55">
+                WidthRequest="50">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
                     </Image.GestureRecognizers>
                 </Image>
                 <Image 
-                Source="circulodia.png"
+                Source="domingo_icon.png"
                 Grid.Row="0"
                 Grid.Column="6"
-                WidthRequest="55">
+                WidthRequest="50">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer>
                         </TapGestureRecognizer>
                     </Image.GestureRecognizers>
                 </Image>
             </Grid>
-            <Grid></Grid>
             <StackLayout
                 Padding="5"
                 Orientation="Horizontal"
@@ -106,43 +112,43 @@
                 Orientation="Horizontal"
                 VerticalOptions="CenterAndExpand">
                 <ListView 
-                    HasUnevenRows="True"
-                    IsPullToRefreshEnabled="True"
-                    SeparatorVisibility="None"
-                    ItemsSource="{Binding rutinas, Mode=TwoWay}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Frame
-                                    Margin="5"
-                                    CornerRadius="20"
-                                    HasShadow="True"
-                                    BackgroundColor="LightSlateGray">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="AUTO"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <StackLayout 
-                                            Grid.Column="0"
-                                            VerticalOptions="CenterAndExpand">
-                                            <Label 
-                                            Text="{Binding name, Mode=TwoWay}"
-                                            FontSize="Medium"
-                                            TextColor="White">
-                                            </Label>
-                                        </StackLayout>
-                                        <Image 
-                                            Grid.Column="1" 
-                                            HorizontalOptions="End" 
-                                            Source="ic_chevron_right.png">
-                                        </Image>
-                                    </Grid>
-                                </Frame>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                        HasUnevenRows="True"
+                        IsPullToRefreshEnabled="True"
+                        SeparatorVisibility="None"
+                        ItemsSource="{Binding rutinas, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame
+                                        Margin="5"
+                                        CornerRadius="20"
+                                        HasShadow="True"
+                                        BackgroundColor="LightSlateGray">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout 
+                                                Grid.Column="0"
+                                                VerticalOptions="CenterAndExpand">
+                                                <Label 
+                                                Text="{Binding name, Mode=TwoWay}"
+                                                FontSize="Medium"
+                                                TextColor="White">
+                                                </Label>
+                                            </StackLayout>
+                                            <Image 
+                                                Grid.Column="1" 
+                                                HorizontalOptions="End" 
+                                                Source="ic_chevron_right.png">
+                                            </Image>
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
             </StackLayout>
             <StackLayout>
                 <Label

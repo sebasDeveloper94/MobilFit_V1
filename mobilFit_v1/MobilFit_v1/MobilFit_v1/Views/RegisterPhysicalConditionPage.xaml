@@ -49,6 +49,7 @@
                     Grid.Row="2"
                     Grid.Column="1"
                     x:Name="txtPeso"
+                    MaxLength="5"
                     Text="{Binding peso}">
                 </Entry>
                 <Label
@@ -61,56 +62,39 @@
                     Grid.Row="3"
                     Grid.Column="1"
                     x:Name="txtAltura"
+                    MaxLength="5"
+                    Keyboard="Telephone"
                     Text="{Binding altura}">
                 </Entry>
                 <Label
                     Grid.Row="4"
                     Grid.Column="0"
-                    Text="Nivel"
+                    Text="Sexo"
                     VerticalOptions="Center">
                 </Label>
                 <Picker
                     Grid.Row="4"
+                    Grid.Column="1"
+                    x:Name="cboSexo"
+                    ItemsSource="{Binding listsexos}"
+                    ItemDisplayBinding="{Binding value}"
+                    SelectedItem="{Binding sexo}">
+                </Picker>
+                <Label
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Text="Nivel"
+                    VerticalOptions="Center">
+                </Label>
+                <Picker
+                    Grid.Row="5"
                     Grid.Column="1"
                     x:Name="cboNivel"
                     ItemsSource="{Binding listNiveles}"
                     ItemDisplayBinding="{Binding value}"
                     SelectedItem="{Binding nivel}">
                 </Picker>
-                <Label
-                    Grid.Row="5"
-                    Grid.Column="0"
-                    Text="¿Presenta alguna contraindicación médica?"
-                    VerticalOptions="Center">
-                </Label>
-                <Label
-                    Text="Si"
-                    HorizontalOptions="End"
-                    Grid.Row="6"
-                    Grid.Column="0" ></Label>
-                <Switch
-                    Grid.Row="6"
-                    Grid.Column="1"
-                    HorizontalOptions="FillAndExpand"
-                    IsToggled="{Binding isContraindicacion}"
-                    Toggled="Switch_Toggled"
-                    x:Name="chkContraindicacion">
-                </Switch>
-                <Label
-                    Grid.Row="7"
-                    Grid.Column="0"
-                    Text="Seleccione"
-                    VerticalOptions="Center">
-                </Label>
-                <Picker
-                    Grid.Row="7"
-                    Grid.Column="1"
-                    IsEnabled="False"
-                    x:Name="cboContraindicacion"
-                    ItemsSource="{Binding listContraindicaciones}"
-                    ItemDisplayBinding="{Binding value}"
-                    SelectedItem="{Binding contraindicacion}">
-                </Picker>
+                
             </Grid>
 
             <Button

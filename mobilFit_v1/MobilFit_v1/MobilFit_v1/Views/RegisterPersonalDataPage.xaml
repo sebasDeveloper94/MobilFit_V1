@@ -21,6 +21,7 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     x:Name="txtNombre"
+                    MaxLength="50"
                     Text="{Binding nombre}">
                 </Entry>
                 <Label
@@ -33,6 +34,7 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     x:Name="txtApellido"
+                    MaxLength="50"
                     Text="{Binding apellido}">
                 </Entry>
                 <Label
@@ -45,6 +47,8 @@
                     Grid.Row="2"
                     Grid.Column="1"
                     x:Name="txtEmail"
+                    Keyboard="Email"
+                    MaxLength="50"
                     Text="{Binding email}">
                 </Entry>
                 <Label
@@ -58,6 +62,7 @@
                     Grid.Column="1"
                     IsPassword="true"
                     x:Name="txtContraseña1"
+                    MaxLength="8"
                     Text="{Binding contraseña1}">
                 </Entry>
                 <Label
@@ -71,6 +76,7 @@
                     Grid.Column="1"
                     IsPassword="true"
                     x:Name="txtContraseña2"
+                    MaxLength="8"
                     Text="{Binding contraseña2}">
                 </Entry>
             </Grid>

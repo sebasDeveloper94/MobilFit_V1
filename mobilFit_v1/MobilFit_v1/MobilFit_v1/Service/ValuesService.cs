@@ -6,6 +6,6 @@ namespace MobilFit_v1.Service
 {
     class ValuesService
     {
-        public static readonly string url = "https://mobilfitapi.azurewebsites.net/api/";
+        public static readonly string url = "https://mobilfitapiservice.azurewebsites.net/api/";
     }
 }

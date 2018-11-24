@@ -16,7 +16,6 @@ namespace MobilFit_v1.Views
 		public RoutinesPage ()
 		{
 			InitializeComponent ();
-            this.BindingContext = new RoutinesViewModel();
 		}
 	}
 }

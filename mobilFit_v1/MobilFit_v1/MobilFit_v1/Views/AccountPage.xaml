@@ -2,53 +2,56 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobilFit_v1.Views.AccountPage">
-    <ContentPage.Content>
-        <StackLayout 
-            Padding="5"
-            BackgroundColor="White">
-                <Label Text="Cuenta" 
-                       VerticalOptions="StartAndExpand"
-                       HorizontalOptions="StartAndExpand"
-                       FontSize="Large"
-                       TextColor="Black"/>
-                <ListView 
-                    HasUnevenRows="True"
-                    IsPullToRefreshEnabled="True"
-                    ItemsSource="{Binding settings, Mode=TwoWay}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Frame>
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer>
-                                    </TapGestureRecognizer>
-                                </Frame.GestureRecognizers>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="10"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <StackLayout 
-                                            Grid.Column="0"
-                                            VerticalOptions="CenterAndExpand">
-                                            <Label 
-                                                Text="{Binding description}"
-                                                FontSize="Medium"
-                                                TextColor="Black">
-                                            </Label>
-                                        </StackLayout>
-                                        <Image 
-                                            Grid.Column="1" 
-                                            HorizontalOptions="EndAndExpand"
-                                            HeightRequest="20"
-                                            Source="chevron_right.png">
-                                        </Image>
-                                    </Grid>
-                                </Frame>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-    </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Cerrar Sesión" Order="Secondary" Command="{Binding closeSesion}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <StackLayout 
+        Padding="5"
+        BackgroundColor="White">
+            <Label Text="Cuenta" 
+                    VerticalOptions="StartAndExpand"
+                    HorizontalOptions="StartAndExpand"
+                    FontSize="Large"
+                    TextColor="Black"/>
+            <ListView 
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                ItemsSource="{Binding settings, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer>
+                                </TapGestureRecognizer>
+                            </Frame.GestureRecognizers>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout 
+                                        Grid.Column="0"
+                                        VerticalOptions="CenterAndExpand">
+                                        <Label 
+                                            Text="{Binding description}"
+                                            FontSize="Medium"
+                                            TextColor="Black">
+                                        </Label>
+                                    </StackLayout>
+                                    <Image 
+                                        Grid.Column="1" 
+                                        HorizontalOptions="EndAndExpand"
+                                        HeightRequest="20"
+                                        Source="chevron_right.png">
+                                    </Image>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
 </ContentPage>

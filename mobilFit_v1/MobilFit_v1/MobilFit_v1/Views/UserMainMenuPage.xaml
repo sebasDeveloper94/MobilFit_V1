@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<xf:BottomBarPage  xmlns="http://xamarin.com/schemas/2014/forms"
+<xf:BottomBarPage   xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     x:Class="MobilFit_v1.Views.UserMainMenuPage"
                     xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
-                   xmlns:local1="clr-namespace:MobilFit_v1.Views"
-                   Title="Mobilfit">
-    <local1:RoutinesPage Title="Entrenamiento" WidthRequest="1.2" Icon="entrenamiento.png">
+                    xmlns:local1="clr-namespace:MobilFit_v1.Views"
+                    Title="Mobilfit">
+    <local1:RoutinesPage Title="Entrenamiento" WidthRequest="1.2" Icon="entrenamiento.ico">
     </local1:RoutinesPage>
-    <local1:PerfomancePage Title="Rendimiento" WidthRequest="1.2"  Icon="rendimiento.png">
+    <local1:PerfomancePage Title="Rendimiento" WidthRequest="1.2"  Icon="rendimiento.ico">
     </local1:PerfomancePage>
-    <local1:AccountPage  Title="Cuenta" WidthRequest="1.2"   Icon="cuenta.png">
+    <local1:AccountPage  Title="Cuenta" WidthRequest="1.2"   Icon="cuenta.ico">
     </local1:AccountPage>
 
 </xf:BottomBarPage>

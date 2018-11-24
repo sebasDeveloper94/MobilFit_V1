@@ -20,17 +20,20 @@ namespace MobilFit_v1.Service
             }
         }
 
-        //public HttpRequest Post(string url, object obj)
-        //{
-        //    WebRequest request = WebRequest.Create(url);
-        //    request.ContentType = "application/json";
-        //    request.Method = "POST";
-        //    request.coint
-        //    //using (HttpWebResponse httpWebResponse = request.GetResponse() as HttpWebResponse)
-        //    //{
-        //    //    return BuildRequest(httpWebResponse);
-        //    //}
-        //}
+        public HttpResponse Post(string url, string json)
+        {
+            var data = Encoding.ASCII.GetBytes(json);
+            WebRequest request = WebRequest.Create(url);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+            request.ContentLength = data.Length;
+
+            using (HttpWebResponse httpWebResponse = request.GetResponse() as HttpWebResponse)
+            {
+                return BuildRequest(httpWebResponse);
+            }
+        }
+
         //realiza las conversiones de llamadas json de mandera sincrona
         private HttpResponse BuildResponse(HttpWebResponse httpWebResponse)
         {
@@ -43,15 +46,15 @@ namespace MobilFit_v1.Service
                 return response;
             }
         }
-        private HttpRequest BuildRequest(HttpWebRequest httpWebRequest)
+        private HttpResponse BuildRequest(HttpWebResponse httpWebResponse)
         {
-            using (StreamReader reader = new StreamReader(httpWebRequest.GetRequestStream()))
+            using (StreamReader reader = new StreamReader(httpWebResponse.GetResponseStream()))
             {
                 string content = reader.ReadToEnd();
-                HttpRequest request = new HttpRequest();
-                request.content = content;
-                //request.httpstatuscode = httpWebRequest.StatusCode;
-                return request;
+                HttpResponse response = new HttpResponse();
+                response.content = content;
+                response.httpstatuscode = httpWebResponse.StatusCode;
+                return response;
             }
         }
         //realiza las conversiones de llamadas json de mandera asincrona
@@ -65,5 +68,34 @@ namespace MobilFit_v1.Service
                 return BuildResponse(httpWebResponse);
             }
         }
+
+        //public async Task<Response> CheckConnection()
+        //{
+        //    if (!CrossConnectivity.Current.IsConnected)
+        //    {
+        //        return new Response
+        //        {
+        //            IsSuccess = false,
+        //            Message = "Please turn on your internet settings.",
+        //        };
+        //    }
+
+        //    var isReachable = await CrossConnectivity.Current.IsRemoteReachable(
+        //        "google.com");
+        //    if (!isReachable)
+        //    {
+        //        return new Response
+        //        {
+        //            IsSuccess = false,
+        //            Message = "Check you internet connection.",
+        //        };
+        //    }
+
+        //    return new Response
+        //    {
+        //        IsSuccess = true,
+        //        Message = "Ok",
+        //    };
+        //}
     }
 }

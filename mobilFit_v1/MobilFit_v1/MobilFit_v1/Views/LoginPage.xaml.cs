@@ -17,7 +17,6 @@ namespace MobilFit_v1.Views
         public LoginPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
         }
     }
 }

@@ -36,7 +36,9 @@ namespace MobilFit_v1.ViewModels
         private async void ChargeRoutines()
         {
             rutinas = new List<Rutinas>();
-            rutinas.Add(new Rutinas() { name = "Rutina 1" });
+            rutinas.Add(new Rutinas() { name = "Pecho y espalda" });
+            rutinas.Add(new Rutinas() { name = "Brazos y hombros" });
+            rutinas.Add(new Rutinas() { name = "Piernas" });
         }
         #endregion
     }

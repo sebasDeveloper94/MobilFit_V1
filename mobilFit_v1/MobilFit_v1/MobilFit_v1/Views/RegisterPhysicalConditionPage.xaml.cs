@@ -20,18 +20,6 @@ namespace MobilFit_v1.Views
             this.BindingContext = new RegisterPhysicalConditionViewModel();
         }
 
-        private void Switch_Toggled(object sender, ToggledEventArgs e)
-        {
-            bool isContraindicacion = chkContraindicacion.IsToggled;
-            if (isContraindicacion)
-            {
-                cboContraindicacion.IsEnabled = true;
-            }
-            else
-            {
-                cboContraindicacion.IsEnabled = false;
-                cboContraindicacion.SelectedItem = string.Empty;
-            }
-        }
+
     }
 }

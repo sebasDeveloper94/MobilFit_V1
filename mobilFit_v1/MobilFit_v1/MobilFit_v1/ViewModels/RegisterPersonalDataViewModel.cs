@@ -38,20 +38,21 @@ namespace MobilFit_v1.ViewModels
         #region Metodos
         private async void FirstRegister()
         {
-            if (string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(apellido) || string.IsNullOrEmpty(email) ||
-                string.IsNullOrEmpty(contraseña1) || string.IsNullOrEmpty(contraseña1))
-            {
-                await Application.Current.MainPage.DisplayAlert("Atención", "Debe completar todos los campos.", "Aceptar");
-                return;
-            }
-            if (contraseña1 != contraseña2)
-            {
-                await Application.Current.MainPage.DisplayAlert("Atención", "Las contraseñas no coinciden.", "Aceptar");
-                return;
-            }
+            //if (string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(apellido) || string.IsNullOrEmpty(email) ||
+            //    string.IsNullOrEmpty(contraseña1) || string.IsNullOrEmpty(contraseña1))
+            //{
+            //    await Application.Current.MainPage.DisplayAlert("Atención", "Debe completar todos los campos.", "Aceptar");
+            //    return;
+            //}
+            //if (contraseña1 != contraseña2)
+            //{
+            //    await Application.Current.MainPage.DisplayAlert("Atención", "Las contraseñas no coinciden.", "Aceptar");
+            //    return;
+            //}
 
             objUsuario.nombre = nombre;
             objUsuario.apellido_paterno = apellido;
+            objUsuario.apellido_materno = string.Empty;
             objUsuario.email = email;
             objUsuario.contraseña = contraseña1;
             SendNewUsuario(objUsuario);

@@ -8,26 +8,62 @@ using Xamarin.Forms.Xaml;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using MobilFit_v1.Views;
+using System.IO;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace MobilFit_v1.ViewModels
 {
-    public class LoginViewModel
+    public class LoginViewModel : BaseViewModel
     {
+        #region Attributes
+        private string email = string.Empty;
+        private string password = string.Empty;
+        private bool isRunning = false;
+        private bool isEnabled = false;
+        #endregion
+
         #region Propiedades
-        public string user { get; set; }
-        public string password { get; set; }
-        public bool isRuning { get; set; }
-        public bool isEnabled { get; set; }
-        public bool rememberme { get; set; }
+        public string Email
+        {
+            get { return this.email; }
+            set { SetValue(ref this.email, value); }
+        }
+
+        public string Password
+        {
+            get { return this.password; }
+            set { SetValue(ref this.password, value); }
+        }
+
+        public bool IsRunning
+        {
+            get { return this.isRunning; }
+            set { SetValue(ref this.isRunning, value); }
+        }
+
+        public bool IsRemembered
+        {
+            get;
+            set;
+        }
+
+        public bool IsEnabled
+        {
+            get { return this.isEnabled; }
+            set { SetValue(ref this.isEnabled, value); }
+        }
         public bool isDebug = false;
         #endregion
+
         #region Constructor
         public LoginViewModel()
         {
-            isEnabled = true;
-            rememberme = true;
+            IsEnabled = true;
+            IsRemembered = true;
         }
         #endregion
+
         #region Comandos
         public ICommand LoginCommand
         {
@@ -44,29 +80,30 @@ namespace MobilFit_v1.ViewModels
             }
         }
         #endregion
+
         #region Metodos
         private async void Login()
         {
             bool isCorrect = false;
             isDebug = true;
-            //if (string.IsNullOrEmpty(this.user))
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Atención", "Debe indicar un email.", "Aceptar");
-            //    return;
-            //}
-            //if (string.IsNullOrEmpty(this.password))
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Atención", "Debe indicar una contraseña.", "Aceptar");
-            //    return;
-            //}
-            this.isRuning = true;
-            this.isEnabled = false;
+            if (string.IsNullOrEmpty(this.Email))
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe indicar un email.", "Aceptar");
+                return;
+            }
+            if (string.IsNullOrEmpty(this.Password))
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe indicar una contraseña.", "Aceptar");
+                return;
+            }
+            this.IsRunning = true;
+            this.IsEnabled = false;
             try
             {
                 if (!isDebug)
                 {
                     LoginService loginService = new LoginService();
-                    isCorrect = loginService.Acceso(this.user, this.password);
+                    isCorrect = loginService.Acceso(this.Email, this.Password);
                     if (isCorrect)
                     {
                         Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
@@ -76,13 +113,16 @@ namespace MobilFit_v1.ViewModels
                     {
                         await Application.Current.MainPage.DisplayAlert("Atención", "Usuario o contraseña incorrectos, intente nuevamente.", "Aceptar");
                     }
-                    this.isRuning = false;
-                    this.isEnabled = true;
+                    this.IsRunning = false;
+                    this.IsEnabled = true;
                 }
                 else
                 {
+                    MainViewModel.GetInstance().Routines = new RoutinesViewModel();
                     Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
                 }
+                this.Email = string.Empty;
+                this.password = string.Empty; 
             }
             catch (Exception ex)
             {
