@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,19 +7,45 @@ namespace MobilFit_v1.Models
 {
     public class Usuario
     {
-        public int id_usuario { get; set; }
-        public string nombre { get; set; }
-        public string apellido_paterno { get; set; }
-        public string apellido_materno { get; set; }
-        public int sexo { get; set; }
-        public string email { get; set; }
-        public string contraseña { get; set; }
-        public DateTime fechaRegistro { get; set; }
-        public decimal peso { get; set; }
-        public decimal altura { get; set; }
-        public int id_tipoCuerpo { get; set; }
-        public int id_nivel { get; set; }
-        public int id_objetivo { get; set; }
+        [JsonProperty(PropertyName = "id_usuario")]
+        public int Id_usuario { get; set; }
+
+        [JsonProperty(PropertyName = "nombre")]
+        public string Nombre { get; set; }
+
+        [JsonProperty(PropertyName = "apellido_paterno")]
+        public string Apellido_paterno { get; set; }
+
+        [JsonProperty(PropertyName = "apellido_materno")]
+        public string Apellido_materno { get; set; }
+
+        [JsonProperty(PropertyName = "sexo")]
+        public int Sexo { get; set; }
+
+        [JsonProperty(PropertyName = "email")]
+        public string Email { get; set; }
+
+        [JsonProperty(PropertyName = "contraseña")]
+        public string Password { get; set; }
+
+        [JsonProperty(PropertyName = "fechaRegistro")]
+        public DateTime FechaRegistro { get; set; }
+
+        [JsonProperty(PropertyName = "peso")]
+        public decimal Peso { get; set; }
+
+        [JsonProperty(PropertyName = "altura")]
+        public decimal Altura { get; set; }
+
+        [JsonProperty(PropertyName = "id_tipoCuerpo")]
+        public int Id_tipoCuerpo { get; set; }
+
+        [JsonProperty(PropertyName = "id_nivel")]
+        public int Id_nivel { get; set; }
+
+        [JsonProperty(PropertyName = "id_objetivo")]
+        public int Id_objetivo { get; set; }
+
         public Usuario()
         {
 

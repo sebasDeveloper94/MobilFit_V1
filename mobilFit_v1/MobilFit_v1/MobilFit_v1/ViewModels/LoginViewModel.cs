@@ -23,7 +23,7 @@ namespace MobilFit_v1.ViewModels
         private bool isEnabled = false;
         #endregion
 
-        #region Propiedades
+        #region properties
         public string Email
         {
             get { return this.email; }
@@ -61,10 +61,13 @@ namespace MobilFit_v1.ViewModels
         {
             IsEnabled = true;
             IsRemembered = true;
+
+            this.Email = "a";
+            this.Password = "a";    
         }
         #endregion
 
-        #region Comandos
+        #region Commands
         public ICommand LoginCommand
         {
             get
@@ -81,7 +84,7 @@ namespace MobilFit_v1.ViewModels
         }
         #endregion
 
-        #region Metodos
+        #region Methods
         private async void Login()
         {
             bool isCorrect = false;
@@ -98,6 +101,7 @@ namespace MobilFit_v1.ViewModels
             }
             this.IsRunning = true;
             this.IsEnabled = false;
+
             try
             {
                 if (!isDebug)
@@ -106,6 +110,7 @@ namespace MobilFit_v1.ViewModels
                     isCorrect = loginService.Acceso(this.Email, this.Password);
                     if (isCorrect)
                     {
+                        MainViewModel.GetInstance().TrainingPlan = new TrainingPlanViewModel();
                         Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
                         App.Current.Properties["isLogged"] = true;
                     }
@@ -113,14 +118,14 @@ namespace MobilFit_v1.ViewModels
                     {
                         await Application.Current.MainPage.DisplayAlert("Atención", "Usuario o contraseña incorrectos, intente nuevamente.", "Aceptar");
                     }
-                    this.IsRunning = false;
-                    this.IsEnabled = true;
                 }
                 else
                 {
-                    MainViewModel.GetInstance().Routines = new RoutinesViewModel();
+                    MainViewModel.GetInstance().TrainingPlan = new TrainingPlanViewModel();
                     Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
                 }
+                this.IsRunning = false;
+                this.IsEnabled = true;
                 this.Email = string.Empty;
                 this.password = string.Empty; 
             }

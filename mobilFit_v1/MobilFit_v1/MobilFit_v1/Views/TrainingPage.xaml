@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobilFit_v1.Views.TrainingPage"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              Title="Entrenamiento">
     <ContentPage.ToolbarItems>
@@ -9,7 +10,8 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <StackLayout
-            Padding="5">
+            Padding="5"
+            BindingContext="{Binding Training}">
             <Label 
                 Text="Dominadas en barra"
                 HorizontalOptions="CenterAndExpand"

@@ -65,11 +65,11 @@ namespace MobilFit_v1.ViewModels
                     return;
                 }
 
-                objUsuario.id_tipoCuerpo = tipoCuerpo.key;
-                objUsuario.peso = peso;
-                objUsuario.altura = altura;
-                objUsuario.id_nivel = nivel.key;
-                objUsuario.sexo = sexo.key;
+                objUsuario.Id_tipoCuerpo = tipoCuerpo.key;
+                objUsuario.Peso = peso;
+                objUsuario.Altura = altura;
+                objUsuario.Id_nivel = nivel.key;
+                objUsuario.Sexo = sexo.key;
                 LoginService loginService = new LoginService();
                 string jsonUsuario = JsonConvert.SerializeObject(objUsuario);
                 isCorrect = loginService.RegistrarNuevoUsuario(jsonUsuario);

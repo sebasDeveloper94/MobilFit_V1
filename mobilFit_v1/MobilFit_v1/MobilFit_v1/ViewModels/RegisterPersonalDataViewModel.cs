@@ -50,11 +50,11 @@ namespace MobilFit_v1.ViewModels
             //    return;
             //}
 
-            objUsuario.nombre = nombre;
-            objUsuario.apellido_paterno = apellido;
-            objUsuario.apellido_materno = string.Empty;
-            objUsuario.email = email;
-            objUsuario.contraseña = contraseña1;
+            objUsuario.Nombre = nombre;
+            objUsuario.Apellido_paterno = apellido;
+            objUsuario.Apellido_materno = string.Empty;
+            objUsuario.Email = email;
+            objUsuario.Password = contraseña1;
             SendNewUsuario(objUsuario);
             await Application.Current.MainPage.Navigation.PushAsync(new RegisterPhysicalConditionPage());
         }

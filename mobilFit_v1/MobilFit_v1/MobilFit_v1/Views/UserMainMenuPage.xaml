@@ -3,13 +3,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     x:Class="MobilFit_v1.Views.UserMainMenuPage"
                     xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
-                    xmlns:local1="clr-namespace:MobilFit_v1.Views"
+                    xmlns:views="clr-namespace:MobilFit_v1.Views"
                     Title="Mobilfit">
-    <local1:RoutinesPage Title="Entrenamiento" WidthRequest="1.2" Icon="entrenamiento.ico">
-    </local1:RoutinesPage>
-    <local1:PerfomancePage Title="Rendimiento" WidthRequest="1.2"  Icon="rendimiento.ico">
-    </local1:PerfomancePage>
-    <local1:AccountPage  Title="Cuenta" WidthRequest="1.2"   Icon="cuenta.ico">
-    </local1:AccountPage>
+    <views:TrainingPlan Title="Entrenamiento" WidthRequest="1.2" Icon="entrenamiento.ico">
+    </views:TrainingPlan>
+    <views:PerfomancePage Title="Rendimiento" WidthRequest="1.2"  Icon="rendimiento.ico">
+    </views:PerfomancePage>
+    <views:AccountPage  Title="Cuenta" WidthRequest="1.2"   Icon="cuenta.ico">
+    </views:AccountPage>
 
 </xf:BottomBarPage>
