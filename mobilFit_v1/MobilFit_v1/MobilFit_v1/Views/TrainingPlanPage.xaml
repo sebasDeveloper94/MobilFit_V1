@@ -8,106 +8,12 @@
             BindingContext="{Binding TrainingPlan}"
             Padding="5">
             <Label 
-                Text="Entrenamiento"
+                Text="Plan de entrenamiento"
                 HorizontalOptions="CenterAndExpand" 
                 TextColor="Black"
                 FontSize="Large"
+                FontAttributes="Bold"
                 FontFamily="Verdana"></Label>
-            <Grid Margin="20" VerticalOptions="StartAndExpand">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
-                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
-                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
-                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
-                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
-                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
-                    <ColumnDefinition Width="AUTO"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Image 
-                Source="lunes_icon.png"
-                Grid.Row="0"
-                Grid.Column="0"
-                WidthRequest="50">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer>
-                        </TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image 
-                Source="martes_icon.png"
-                Grid.Row="0"
-                Grid.Column="1"
-                WidthRequest="50">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer>
-                        </TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image 
-                Source="miercoles_icon.png"
-                Grid.Row="0"
-                Grid.Column="2"
-                WidthRequest="50">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer>
-                        </TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image 
-                Source="jueves_icon.png"
-                Grid.Row="0"
-                Grid.Column="3"
-                WidthRequest="50">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer>
-                        </TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image 
-                Source="viernes_icon.png"
-                Grid.Row="0"
-                Grid.Column="4"
-                WidthRequest="50">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer>
-                        </TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image 
-                Source="sabado_icon.png"
-                Grid.Row="0"
-                Grid.Column="5"
-                WidthRequest="50">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer>
-                        </TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image 
-                Source="domingo_icon.png"
-                Grid.Row="0"
-                Grid.Column="6"
-                WidthRequest="50">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer>
-                        </TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                </Image>
-            </Grid>
-            <StackLayout
-                Padding="5"
-                Orientation="Horizontal"
-                VerticalOptions="CenterAndExpand">
-                <Button 
-                    Text="Guardar días"
-                    BackgroundColor="DimGray"
-                    TextColor="White"
-                    BorderColor="Black"
-                    BorderRadius="10"
-                    HeightRequest="46"
-                    HorizontalOptions="EndAndExpand">
-                </Button>
-            </StackLayout>
             <StackLayout
                 Orientation="Horizontal"
                 VerticalOptions="CenterAndExpand">
@@ -126,6 +32,9 @@
                                     CornerRadius="15"
                                     HasShadow="True"
                                     BackgroundColor="LightSlateGray">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectRoutineCommand}"></TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -154,7 +63,7 @@
             </StackLayout>
             <StackLayout>
                 <Label
-                    Text="Entrenamiento recomendado por el profesional Sebastian Henao"
+                    Text="{Binding Recommended}"
                     TextColor="Black">
                 </Label>
             </StackLayout>
@@ -171,6 +80,7 @@
                     HeightRequest="46"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="StartAndExpand"
+                    IsEnabled="{Binding IsEnabled}"
                     Command="{Binding StartCommand}">
                 </Button>
             </StackLayout>

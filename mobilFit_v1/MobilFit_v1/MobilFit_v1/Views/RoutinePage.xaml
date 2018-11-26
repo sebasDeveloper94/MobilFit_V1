@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobilFit_v1.Views.RoutinePage"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Rutina de ejercicios">
+    <ContentPage.Content>
+        <StackLayout Padding="5" BindingContext="{Binding Routine}">
+            <Label
+                Text="{Binding Name, Mode=TwoWay}"
+                FontSize="Large"
+                HorizontalOptions="StartAndExpand"
+                TextColor="Black"
+                FontAttributes="Bold">
+            </Label>
+            <StackLayout Margin="5">
+                <Label 
+                    Text="Seleccione el día en el que realizará esta rutina"
+                    TextColor="Black">
+                </Label>
+                <Picker 
+                    ItemsSource="{Binding Days}"
+                    ItemDisplayBinding="{Binding Value}"
+                    SelectedItem="{Binding DiasRutina}">
+                </Picker>
+                <Button 
+                    Text="Guardar días"
+                    BackgroundColor="DimGray"
+                    TextColor="White"
+                    BorderColor="Black"
+                    BorderRadius="10"
+                    HeightRequest="46"
+                    Command="{Binding SaveDaysCommand}"
+                    HorizontalOptions="EndAndExpand">
+                </Button>
+            </StackLayout>
+            <ActivityIndicator IsRunning="{Binding IsRunning}">
+            </ActivityIndicator>
+            <StackLayout Margin="2">
+                <Label 
+                    Text="Meta"
+                    FontSize="Medium"
+                    TextColor="Black"
+                    HorizontalOptions="StartAndExpand">
+                </Label>
+                <Label
+                    Text="{Binding Meta, Mode=TwoWay}"
+                    FontSize="Small"
+                    HorizontalOptions="StartAndExpand"
+                    TextColor="Black">
+                </Label>
+            </StackLayout>
+            <Label
+                Text="Ejercicios"
+                FontSize="Medium"
+                TextColor="Black"
+                >
+            </Label>
+            <ListView 
+                Margin="3"
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                ItemsSource="{Binding Exercises, Mode=TwoWay}"
+                IsRefreshing="{Binding IsRefresing, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer>
+                                    </TapGestureRecognizer>
+                                </Frame.GestureRecognizers>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="AUTO"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout 
+                                        Grid.Column="0"
+                                        VerticalOptions="CenterAndExpand">
+                                        <Label 
+                                            Text="{Binding Nombre_ejercicio}"
+                                            FontSize="Medium"
+                                            TextColor="Black">
+                                        </Label>
+                                        <Label 
+                                            Text="{Binding Descripcion}"
+                                            FontSize="Small"
+                                            TextColor="Black">
+                                        </Label>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

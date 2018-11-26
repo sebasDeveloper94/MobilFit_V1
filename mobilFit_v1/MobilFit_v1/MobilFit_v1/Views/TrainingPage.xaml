@@ -6,21 +6,21 @@
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              Title="Entrenamiento">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Terminar rutina" Order="Secondary" Command="{Binding endTrainingCommand}">
+        <ToolbarItem Name="Terminar rutina" Order="Secondary" BindingContext="{Binding Training}" Command="{Binding endTrainingCommand}">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <StackLayout
-            Padding="5"
-            BindingContext="{Binding Training}">
+            BindingContext="{Binding Training}"
+            Padding="5">
             <Label 
-                Text="Dominadas en barra"
+                Text="{Binding Name}"
                 HorizontalOptions="CenterAndExpand"
                 TextColor="Black"
                 FontSize="Large" 
                 FontFamily="Verdana"></Label>
             <WebView
                 WidthRequest="450"
-                HeightRequest="450"
+                HeightRequest="500"
                 Source="https://www.youtube.com/embed/_7rWrkWGkUA">
             </WebView>
             <StackLayout>
@@ -33,30 +33,25 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" TextColor="Black" Text="Repeticiones:"  FontSize="Medium">
                     </Label>
-                <Label Grid.Row="0" Grid.Column="1" TextColor="Black" Text="2" FontSize="Medium">
+                <Label Grid.Row="0" Grid.Column="1" TextColor="Black" Text="{Binding Repetitions}" FontSize="Medium">
                     </Label>
                 <Label Grid.Row="0" Grid.Column="2" TextColor="Black" Text="Series:" FontSize="Medium">
                     </Label>
-                <Label Grid.Row="0" Grid.Column="3" TextColor="Black"  Text="4" FontSize="Medium">
+                <Label Grid.Row="0" Grid.Column="3" TextColor="Black"  Text="{Binding Sets}" FontSize="Medium">
                     </Label>
                 <Label Grid.Row="1" Grid.Column="0" TextColor="Black" Text="Distacia:" FontSize="Medium">
                     </Label>
-                <Label Grid.Row="1" Grid.Column="1" TextColor="Black" Text="0" FontSize="Medium">
+                <Label Grid.Row="1" Grid.Column="1" TextColor="Black" Text="{Binding Distance}" FontSize="Medium">
                     </Label>
                 <Label Grid.Row="1" Grid.Column="2" TextColor="Black" Text="Tiempo:" FontSize="Medium">
                     </Label>
-                <Label Grid.Row="1" Grid.Column="3" TextColor="Black" Text="00:00" FontSize="Medium">
-                    </Label>
-                <Label Grid.Row="2" Grid.Column="0" TextColor="Black" Text="Completado" FontSize="Medium">
-                    </Label>
-                <controls:CheckBox Grid.Row="2" Grid.Column="1" VerticalOptions="StartAndExpand">
-                    </controls:CheckBox >
-                    <Image
+                <Label Grid.Row="1" Grid.Column="3" TextColor="Black" Text="{Binding Time}" FontSize="Medium">
+                </Label>
+                <Image
                     Grid.Row="4" Grid.Column="0"
                     Source="back_icon.png">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer>
-                                
+                        <TapGestureRecognizer Command="{Binding changeCommandLeft}">
                         </TapGestureRecognizer>
                     </Image.GestureRecognizers>
                     </Image>
@@ -64,8 +59,7 @@
                         Grid.Row="4" Grid.Column="2"
                         Source="next_icon.png">
                         <Image.GestureRecognizers>
-                            <TapGestureRecognizer>
-
+                            <TapGestureRecognizer Command="{Binding changeCommandRight}">
                             </TapGestureRecognizer>
                         </Image.GestureRecognizers>
                     </Image>

@@ -14,7 +14,7 @@ namespace MobilFit_v1.Models
         public string Nombre { get; set; }
 
         [JsonProperty(PropertyName = "meta")]
-        public object Meta { get; set; }
+        public string Meta { get; set; }
 
         [JsonProperty(PropertyName = "id_tipoRutina")]
         public int Id_tipoRutina { get; set; }

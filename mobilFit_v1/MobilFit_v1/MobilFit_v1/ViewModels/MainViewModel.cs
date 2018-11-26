@@ -9,6 +9,7 @@ namespace MobilFit_v1.ViewModels
         public LoginViewModel Login { get; set; }
         public TrainingPlanViewModel TrainingPlan { get; set; }
         public TrainingViewModel Training { get; set; }
+        public RoutineViewModel Routine { get; set; }
         public MainViewModel()
         {
             instance = this;
