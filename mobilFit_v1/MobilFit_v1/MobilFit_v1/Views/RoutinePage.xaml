@@ -21,7 +21,7 @@
                 <Picker 
                     ItemsSource="{Binding Days}"
                     ItemDisplayBinding="{Binding Value}"
-                    SelectedItem="{Binding DiasRutina}">
+                    SelectedItem="{Binding DaySelected}">
                 </Picker>
                 <Button 
                     Text="Guardar días"

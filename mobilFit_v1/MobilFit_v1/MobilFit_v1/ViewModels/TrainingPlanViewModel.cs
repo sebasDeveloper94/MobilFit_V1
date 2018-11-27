@@ -16,7 +16,7 @@ namespace MobilFit_v1.ViewModels
         public ApiService apiService = new ApiService();
 
         #region Attributes
-        private PlanEntrenamiento objPlan;
+        public PlanEntrenamiento objPlan;
         private ObservableCollection<RoutinesItemViewModel> routines;
         private bool isRefresing = false;
         private bool isEnabled = false;

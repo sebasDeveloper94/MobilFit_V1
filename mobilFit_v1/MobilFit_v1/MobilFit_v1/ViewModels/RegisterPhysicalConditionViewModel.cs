@@ -15,6 +15,7 @@ namespace MobilFit_v1.ViewModels
 {
     public class RegisterPhysicalConditionViewModel
     {
+        private ApiService apiService;
         #region propiedades
         public Objetivo objetivo { get; set; }
         public TipoCuerpo tipoCuerpo { get; set; }
@@ -64,28 +65,38 @@ namespace MobilFit_v1.ViewModels
                     await Application.Current.MainPage.DisplayAlert("Atención", "Debe completar todos los campos.", "Aceptar");
                     return;
                 }
+                apiService = new ApiService();
+                var connection = await apiService.CheckConnection();
+                if (!connection.IsSuccess)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Atención", "No hay conexión.", "Aceptar");
+                    return;
+                }
 
+                objUsuario.Apellido_materno = string.Empty;
+                objUsuario.FechaRegistro = DateTime.Now;
                 objUsuario.Id_tipoCuerpo = tipoCuerpo.key;
                 objUsuario.Peso = peso;
                 objUsuario.Altura = altura;
                 objUsuario.Id_nivel = nivel.key;
                 objUsuario.Sexo = sexo.key;
-                LoginService loginService = new LoginService();
                 string jsonUsuario = JsonConvert.SerializeObject(objUsuario);
-                isCorrect = loginService.RegistrarNuevoUsuario(jsonUsuario);
-                if (isCorrect)
+
+                var response = await this.apiService.Post<string>("https://mobilfitapiservice.azurewebsites.net/", "api/", "Login/?jsonUsuario=" + jsonUsuario, "");
+                if (!response.IsSuccess)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Éxito", "Usuario creado correctamente.", "Aceptar");
+                    await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
+                    Application.Current.MainPage = new NavigationPage(new LoginPage());
+                    return;
                 }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Error al crear usuario.", "Aceptar");
-                }
+
+                await Application.Current.MainPage.DisplayAlert("Exito", "Se ha creado al nuevo usuario "+  objUsuario.Nombre + " " + objUsuario.Apellido_paterno, "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
             }
             catch (Exception ex)
             {
-                throw;
+                await Application.Current.MainPage.DisplayAlert("Atención", "Ha ocurrido un error, por favor intente nuevamente.", "Aceptar");
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
             }
         }
         public void ReceiveNewUser(Usuario objUsuario)

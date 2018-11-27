@@ -16,6 +16,7 @@ namespace MobilFit_v1.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
+        private ApiService apiService;
         #region Attributes
         private string email = string.Empty;
         private string password = string.Empty;
@@ -59,11 +60,12 @@ namespace MobilFit_v1.ViewModels
         #region Constructor
         public LoginViewModel()
         {
+            this.apiService = new ApiService();
             IsEnabled = true;
             IsRemembered = true;
 
             this.Email = "a";
-            this.Password = "a";    
+            this.Password = "a";
         }
         #endregion
 
@@ -102,37 +104,54 @@ namespace MobilFit_v1.ViewModels
             this.IsRunning = true;
             this.IsEnabled = false;
 
-            try
+            if (!isDebug)
             {
-                if (!isDebug)
+                var connection = await apiService.CheckConnection();
+                if (!connection.IsSuccess)
                 {
-                    LoginService loginService = new LoginService();
-                    isCorrect = loginService.Acceso(this.Email, this.Password);
-                    if (isCorrect)
-                    {
-                        MainViewModel.GetInstance().TrainingPlan = new TrainingPlanViewModel();
-                        Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
-                        App.Current.Properties["isLogged"] = true;
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Atención", "Usuario o contraseña incorrectos, intente nuevamente.", "Aceptar");
-                    }
+                    this.IsRunning = false;
+                    this.IsEnabled = true;
+                    await Application.Current.MainPage.DisplayAlert("Atención", "No hay conexión.", "Aceptar");
+                    return;
                 }
-                else
+
+                var token = await apiService.GetToken("https://mobilfitapiservice.azurewebsites.net/", this.Email, this.Password);
+
+                if (token == null)
                 {
-                    MainViewModel.GetInstance().TrainingPlan = new TrainingPlanViewModel();
-                    Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
+                    this.IsRunning = false;
+                    this.IsEnabled = true;
+                    await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, intente nuevamente.", "Aceptar");
+                    return; 
                 }
+
+                if (string.IsNullOrEmpty(token.AccessToken))
+                {
+                    this.IsRunning = false;
+                    this.IsEnabled = true;
+                    await Application.Current.MainPage.DisplayAlert("Atención", token.ErrorDescription, "Aceptar");
+                    this.password = string.Empty;
+                    return;
+                }
+
+                MainViewModel mainViewModel = MainViewModel.GetInstance();
+                mainViewModel.Token = token;
+                mainViewModel.TrainingPlan = new TrainingPlanViewModel();
+                Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
+
                 this.IsRunning = false;
                 this.IsEnabled = true;
+
                 this.Email = string.Empty;
-                this.password = string.Empty; 
+                this.password = string.Empty;
             }
-            catch (Exception ex)
+            else
             {
-                await Application.Current.MainPage.DisplayAlert("Atención", "No se puede conectar con el servidor.", "Aceptar");
+                MainViewModel.GetInstance().TrainingPlan = new TrainingPlanViewModel();
+                Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
             }
+
+
 
         }
         private async void Register()

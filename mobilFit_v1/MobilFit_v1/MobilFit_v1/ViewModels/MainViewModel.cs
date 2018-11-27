@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobilFit_v1.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,6 +11,7 @@ namespace MobilFit_v1.ViewModels
         public TrainingPlanViewModel TrainingPlan { get; set; }
         public TrainingViewModel Training { get; set; }
         public RoutineViewModel Routine { get; set; }
+        public TokenResponse Token { get; set; }
         public MainViewModel()
         {
             instance = this;

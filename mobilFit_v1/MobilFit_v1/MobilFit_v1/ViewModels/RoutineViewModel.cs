@@ -9,6 +9,7 @@ using System.Linq;
 using Xamarin.Forms;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
 
 namespace MobilFit_v1.ViewModels
 {
@@ -25,6 +26,8 @@ namespace MobilFit_v1.ViewModels
         private bool isRefresing;
         private bool isEnabled;
         private bool isRunning;
+        private List<DiasRutina> days;
+        private DiasRutina daySelected;
         #endregion
 
         #region Properties
@@ -68,7 +71,16 @@ namespace MobilFit_v1.ViewModels
             get { return this.isRefresing; }
             set { SetValue(ref this.isRefresing, value); }
         }
-        public List<DiasRutina> Days { get; set; }
+        public List<DiasRutina> Days
+        {
+            get { return this.days; }
+            set { SetValue(ref this.days, value); }
+        }
+        public DiasRutina DaySelected
+        {
+            get { return this.daySelected; }
+            set { SetValue(ref this.daySelected, value); }
+        }
         #endregion
 
         #region Constructor
@@ -149,18 +161,25 @@ namespace MobilFit_v1.ViewModels
                 IsRefresing = false;
                 return;
             }
+            int idPlan = MainViewModel.GetInstance().TrainingPlan.objPlan.Id_PlanUsuario;
 
-            //var response = await this.apiService.GetList<Ejercicio>("https://mobilfitapiservice.azurewebsites.net/", "api/", "Ejercicios/?id_rutina=" + IdRutina);
-            //if (!response.IsSuccess)
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
-            //    Application.Current.MainPage = new NavigationPage(new LoginPage());
-            //    IsRefresing = false;
-            //    return;
-            //}
+            DiasEntrenamiento objDia = new DiasEntrenamiento();
+            objDia.idPlan = idPlan;
+            objDia.idRutina = IdRutina;
+            objDia.dia = DaySelected.Key;
 
-            await Application.Current.MainPage.DisplayAlert("Exito", "El día de la ruitna ha sido guardado", "Aceptar");
+            var json = JsonConvert.SerializeObject(objDia);
+            var response = await this.apiService.Post<string>("https://mobilfitapiservice.azurewebsites.net/", "api/", "PlanEntrenamiento/?jsonDias="+json, "");
+            if (!response.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
+                Application.Current.MainPage = new NavigationPage(new LoginPage());
+                IsRefresing = false;
+                return;
+            }
+
             IsRunning = false;
+            await Application.Current.MainPage.DisplayAlert("Exito", "El día de la ruitna ha sido guardado", "Aceptar");
         }
         #endregion
     }
