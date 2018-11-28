@@ -20,5 +20,10 @@ namespace MobilFit.Backend.Models
         {
             throw new NotImplementedException();
         }
+
+        internal object Entry(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

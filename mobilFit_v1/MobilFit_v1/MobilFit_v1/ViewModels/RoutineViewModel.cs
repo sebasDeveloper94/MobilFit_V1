@@ -28,6 +28,7 @@ namespace MobilFit_v1.ViewModels
         private bool isRunning;
         private List<DiasRutina> days;
         private DiasRutina daySelected;
+        private RutinaSeleccionada rutinaSeleccionada;
         #endregion
 
         #region Properties
@@ -58,18 +59,18 @@ namespace MobilFit_v1.ViewModels
         }
         public bool IsRefresing
         {
-            get { return this.isEnabled; }
-            set { SetValue(ref this.isEnabled, value); }
+            get { return this.isRefresing; }
+            set { SetValue(ref this.isRefresing, value); }
         }
         public bool IsEnabled
         {
-            get { return this.isRefresing; }
-            set { SetValue(ref this.isRefresing, value); }
+            get { return this.isEnabled; }
+            set { SetValue(ref this.isEnabled, value); }
         }
         public bool IsRunning
         {
-            get { return this.isRefresing; }
-            set { SetValue(ref this.isRefresing, value); }
+            get { return this.isRunning; }
+            set { SetValue(ref this.isRunning, value); }
         }
         public List<DiasRutina> Days
         {
@@ -81,20 +82,31 @@ namespace MobilFit_v1.ViewModels
             get { return this.daySelected; }
             set { SetValue(ref this.daySelected, value); }
         }
+        public RutinaSeleccionada RutinaSeleccionada
+        {
+            get { return this.rutinaSeleccionada; }
+            set { SetValue(ref this.rutinaSeleccionada, value); }
+        }
         #endregion
 
         #region Constructor
         public RoutineViewModel(Rutinas routinesItemViewModel)
         {
-            this.IsEnabled = true;
-            this.IsRunning = false;
+            apiService = new ApiService();
+
             this.RoutinesItemViewModel = routinesItemViewModel;
             this.Name = this.RoutinesItemViewModel.Nombre;
             this.Meta = this.RoutinesItemViewModel.Meta;
             this.IdRutina = this.RoutinesItemViewModel.Id_rutina;
-            this.ChargeExercises();
+
             Days = new List<DiasRutina>();
             this.Days = this.ChargeDays().OrderBy(d => d.Key).ToList();
+
+            this.ChargeExercises();
+        }
+        public RoutineViewModel()
+        {
+                
         }
         #endregion
 
@@ -112,42 +124,36 @@ namespace MobilFit_v1.ViewModels
         private async void ChargeExercises()
         {
             var connection = await this.apiService.CheckConnection();
-            IsRefresing = true;
-
+            this.IsRefresing = true;
+            this.IsRunning = true;
+            this.IsEnabled = false;
             if (!connection.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
-                IsRefresing = false;
+                this.IsRefresing = false;
                 return;
             }
 
-            var response = await this.apiService.GetList<Ejercicio>("https://mobilfitapiservice.azurewebsites.net/", "api/", "Ejercicios/?id_rutina=" + IdRutina);
+            var response = await this.apiService.Get<RutinaSeleccionada>(ValuesService.url, "api/", "PlanEntrenamiento/?idRutina=", IdRutina);
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
-                IsRefresing = false;
+                this.IsRefresing = false;
                 return;
             }
 
-            Exercises = new List<Ejercicio>();
-            Exercises = (List<Ejercicio>)response.Result;
-            IsRefresing = false;
-        }
-        public List<DiasRutina> ChargeDays()
-        {
-            List<DiasRutina> Days = new List<DiasRutina>()
-            {
-                new DiasRutina() {Key = 1, Value="Lunes" },
-                new DiasRutina() {Key = 2, Value="Martes" },
-                new DiasRutina() {Key = 3, Value="Miércoles" },
-                new DiasRutina() {Key = 4, Value="Jueves" },
-                new DiasRutina() {Key = 5, Value="Viernes" },
-                new DiasRutina() {Key = 6, Value="Sábado" },
-                new DiasRutina() {Key = 7, Value="Domingo" },
-            };
-            return Days;
+            this.RutinaSeleccionada = new RutinaSeleccionada();
+            this.RutinaSeleccionada = (RutinaSeleccionada)response.Result;
+            this.Exercises = new List<Ejercicio>();
+            this.Exercises = RutinaSeleccionada.Ejercicios;
+
+            this.IsRefresing = false;
+            this.IsRunning = false;
+            this.IsEnabled = true;
+
+            this.SelectedDay();
         }
         private async void SaveDay()
         {
@@ -169,7 +175,7 @@ namespace MobilFit_v1.ViewModels
             objDia.dia = DaySelected.Key;
 
             var json = JsonConvert.SerializeObject(objDia);
-            var response = await this.apiService.Post<string>("https://mobilfitapiservice.azurewebsites.net/", "api/", "PlanEntrenamiento/?jsonDias="+json, "");
+            var response = await this.apiService.Post<string>(ValuesService.url, "api/", "PlanEntrenamiento/?jsonDias=" + json, "");
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
@@ -179,7 +185,58 @@ namespace MobilFit_v1.ViewModels
             }
 
             IsRunning = false;
-            await Application.Current.MainPage.DisplayAlert("Exito", "El día de la ruitna ha sido guardado", "Aceptar");
+            await Application.Current.MainPage.DisplayAlert("Exito", "El día de la rutina ha sido guardado", "Aceptar");
+        }
+        public List<DiasRutina> ChargeDays()
+        {
+            List<DiasRutina> Days = new List<DiasRutina>()
+            {
+                new DiasRutina() {Key = 1, Value="Lunes" },
+                new DiasRutina() {Key = 2, Value="Martes" },
+                new DiasRutina() {Key = 3, Value="Miércoles" },
+                new DiasRutina() {Key = 4, Value="Jueves" },
+                new DiasRutina() {Key = 5, Value="Viernes" },
+                new DiasRutina() {Key = 6, Value="Sábado" },
+                new DiasRutina() {Key = 7, Value="Domingo" },
+            };
+            return Days;
+        }
+        public void SelectedDay()
+        {
+            DaySelected = new DiasRutina();
+            DaySelected.Key = RutinaSeleccionada.DiaEntrenamientos.dia;
+            DaySelected.Value = DayName(RutinaSeleccionada.DiaEntrenamientos.dia);
+        }
+        private string DayName(int numDay)
+        {
+            string dayName = string.Empty;
+            switch (numDay)
+            {
+                case 1:
+                    dayName = "Lunes";
+                    break;
+                case 2:
+                    dayName = "Martes";
+                    break;
+                case 3:
+                    dayName = "Miércoles";
+                    break;
+                case 4:
+                    dayName = "Jueves";
+                    break;
+                case 5:
+                    dayName = "Viernes";
+                    break;
+                case 6:
+                    dayName = "Sábado";
+                    break;
+                case 7:
+                    dayName = "Domingo";
+                    break;
+                default:
+                    break;
+            }
+            return dayName;
         }
         #endregion
     }

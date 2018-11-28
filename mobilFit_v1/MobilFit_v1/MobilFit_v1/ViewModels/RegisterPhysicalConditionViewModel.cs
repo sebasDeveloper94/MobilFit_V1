@@ -13,31 +13,93 @@ using Newtonsoft.Json;
 
 namespace MobilFit_v1.ViewModels
 {
-    public class RegisterPhysicalConditionViewModel
-    {
+    public class RegisterPhysicalConditionViewModel : BaseViewModel
+    { 
         private ApiService apiService;
-        #region propiedades
-        public Objetivo objetivo { get; set; }
-        public TipoCuerpo tipoCuerpo { get; set; }
-        public decimal peso { get; set; }
-        public decimal altura { get; set; }
-        public Nivel nivel { get; set; }
-        public Sexo sexo { get; set; }
-        public List<Objetivo> listObjetivos { get; set; }
-        public List<TipoCuerpo> listTipoCuerpos { get; set; }
-        public List<Nivel> listNiveles { get; set; }
-        public List<Sexo> listsexos { get; set; }
-        public static Usuario objUsuario;
+
+        #region Attributes
+        private Objetivo objetivo;
+        private TipoCuerpo tipoCuerpo;
+        private Nivel nivel;
+        private Sexo sexo;
+        private decimal peso;
+        private decimal altura;
+        private List<Objetivo> listObjetivos;
+        private List<TipoCuerpo> listTipoCuerpos;
+        private List<Nivel> listNiveles;
+        private List<Sexo> listsexos;
+        public static Usuario ObjUsuario;
+        public bool isRunning;
         #endregion
+
+        #region propiedades
+        public Objetivo Objetivo
+        {
+            get { return this.objetivo; }
+            set { SetValue(ref this.objetivo, value); }
+        }
+        public TipoCuerpo TipoCuerpo
+        {
+            get { return this.tipoCuerpo; }
+            set { SetValue(ref this.tipoCuerpo, value); }
+        }
+        public Nivel Nivel
+        {
+            get { return this.nivel; }
+            set { SetValue(ref this.nivel, value); }
+        }
+        public Sexo Sexo
+        {
+            get { return this.sexo; }
+            set { SetValue(ref this.sexo, value); }
+        }
+        public decimal Peso
+        {
+            get { return this.peso; }
+            set { SetValue(ref this.peso, value); }
+        }
+        public decimal Altura
+        {
+            get { return this.altura; }
+            set { SetValue(ref this.altura, value); }
+        }
+        public List<Objetivo> ListObjetivos
+        {
+            get { return this.listObjetivos; }
+            set { SetValue(ref this.listObjetivos, value); }
+        }
+        public List<TipoCuerpo> ListTipoCuerpos
+        {
+            get { return this.listTipoCuerpos; }
+            set { SetValue(ref this.listTipoCuerpos, value); }
+        }
+        public List<Nivel> ListNiveles
+        {
+            get { return this.listNiveles; }
+            set { SetValue(ref this.listNiveles, value); }
+        }
+        public List<Sexo> Listsexos
+        {
+            get { return this.listsexos; }
+            set { SetValue(ref this.listsexos, value); }
+        }
+        public bool IsRunning
+        {
+            get { return this.isRunning; }
+            set { SetValue(ref this.isRunning, value); }
+        }
+        #endregion
+
         #region Constructor
         public RegisterPhysicalConditionViewModel()
         {
-            this.listObjetivos = GetObjetivos().OrderBy(x => x.key).ToList();
-            this.listTipoCuerpos = GetTipoCuerpo().OrderBy(x => x.key).ToList();
-            this.listNiveles = GetNivel().OrderBy(x => x.key).ToList();
-            this.listsexos = GetSexos().OrderBy(s => s.key).ToList();
+            this.ListObjetivos = GetObjetivos().OrderBy(x => x.key).ToList();
+            this.ListTipoCuerpos = GetTipoCuerpo().OrderBy(x => x.key).ToList();
+            this.ListNiveles = GetNivel().OrderBy(x => x.key).ToList();
+            this.Listsexos = GetSexos().OrderBy(s => s.key).ToList();
         }
         #endregion
+
         #region Comandos
         public ICommand SecondRegisterCmd
         {
@@ -47,73 +109,79 @@ namespace MobilFit_v1.ViewModels
             }
         }
         #endregion
+
         #region metodos
         private async void SecondRegister()
         {
             try
             {
-                this.objetivo = objetivo as Objetivo;
-                this.tipoCuerpo = tipoCuerpo as TipoCuerpo;
-                this.peso = peso > 0 ? peso : 0;
-                this.altura = altura > 0 ? altura : 0;
-                this.nivel = nivel as Nivel;
-                this.sexo = sexo as Sexo;
-                bool isCorrect = false;
+                this.Objetivo = Objetivo as Objetivo;
+                this.TipoCuerpo = TipoCuerpo as TipoCuerpo;
+                this.Peso = Peso > 0 ? Peso : 0;
+                this.Altura = Altura > 0 ? Altura : 0;
+                this.Nivel = Nivel as Nivel;
+                this.Sexo = Sexo as Sexo;
 
-                if (objetivo.key <= 0 || tipoCuerpo.key <= 0 || peso <= 0 || altura <= 0 || nivel.key <= 0 || sexo.key <= 0)
+                if (Objetivo.key <= 0 || TipoCuerpo.key <= 0 || Peso <= 0 || Altura <= 0 || Nivel.key <= 0 || Sexo.key <= 0)
                 {
                     await Application.Current.MainPage.DisplayAlert("Atención", "Debe completar todos los campos.", "Aceptar");
                     return;
                 }
+
+                IsRunning = true;
+
                 apiService = new ApiService();
                 var connection = await apiService.CheckConnection();
                 if (!connection.IsSuccess)
                 {
                     await Application.Current.MainPage.DisplayAlert("Atención", "No hay conexión.", "Aceptar");
+                    IsRunning = false;
                     return;
                 }
 
-                objUsuario.Apellido_materno = string.Empty;
-                objUsuario.FechaRegistro = DateTime.Now;
-                objUsuario.Id_tipoCuerpo = tipoCuerpo.key;
-                objUsuario.Peso = peso;
-                objUsuario.Altura = altura;
-                objUsuario.Id_nivel = nivel.key;
-                objUsuario.Sexo = sexo.key;
-                string jsonUsuario = JsonConvert.SerializeObject(objUsuario);
+                ObjUsuario.Apellido_materno = string.Empty;
+                ObjUsuario.FechaRegistro = DateTime.Now;
+                ObjUsuario.Id_tipoCuerpo = TipoCuerpo.key;
+                ObjUsuario.Peso = Peso;
+                ObjUsuario.Altura = Altura;
+                ObjUsuario.Id_nivel = Nivel.key;
+                ObjUsuario.Id_objetivo = Objetivo.key;
+                ObjUsuario.Sexo = Sexo.key;
 
-                var response = await this.apiService.Post<string>("https://mobilfitapiservice.azurewebsites.net/", "api/", "Login/?jsonUsuario=" + jsonUsuario, "");
+                string jsonUsuario = JsonConvert.SerializeObject(ObjUsuario);
+
+                var response = await this.apiService.Post<string>(ValuesService.url, "api/", "Login/?jsonUsuario=" + jsonUsuario, "");
                 if (!response.IsSuccess)
                 {
                     await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
                     Application.Current.MainPage = new NavigationPage(new LoginPage());
+                    IsRunning = false;
                     return;
                 }
-
-                await Application.Current.MainPage.DisplayAlert("Exito", "Se ha creado al nuevo usuario "+  objUsuario.Nombre + " " + objUsuario.Apellido_paterno, "Aceptar");
+                IsRunning = false;
+                await Application.Current.MainPage.DisplayAlert("Exito", "Se ha creado al nuevo usuario "+  ObjUsuario.Nombre + " " + ObjUsuario.Apellido_paterno, "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Ha ocurrido un error, por favor intente nuevamente.", "Aceptar");
-                await Application.Current.MainPage.Navigation.PopToRootAsync();
             }
         }
         public void ReceiveNewUser(Usuario objUsuario)
         {
-            RegisterPhysicalConditionViewModel.objUsuario = new Usuario();
-            RegisterPhysicalConditionViewModel.objUsuario = objUsuario;
+            RegisterPhysicalConditionViewModel.ObjUsuario = new Usuario();
+            RegisterPhysicalConditionViewModel.ObjUsuario = objUsuario;
         }
         public List<Objetivo> GetObjetivos()
         {
             List<Objetivo> objetivos = new List<Objetivo>()
             {
-                new Objetivo() {key = 3, value="Ganar mas fuerza" },
-                new Objetivo() {key = 4, value="Bajar de peso" },
-                new Objetivo() {key = 5, value="Tonificar" },
-                new Objetivo() {key = 6, value="Ganar masa muscular" },
-                new Objetivo() {key = 7, value="Mantenerme" },
-                new Objetivo() {key = 8, value="Buena salud" }
+                new Objetivo() {key = 1, value="Ganar mas fuerza" },
+                new Objetivo() {key = 2, value="Bajar de peso" },
+                new Objetivo() {key = 3, value="Tonificar" },
+                new Objetivo() {key = 4, value="Ganar masa muscular" },
+                new Objetivo() {key = 5, value="Mantenerme" },
+                new Objetivo() {key = 6, value="Buena salud" }
             };
             return objetivos;
         }
@@ -121,9 +189,9 @@ namespace MobilFit_v1.ViewModels
         {
             List<TipoCuerpo> tipoCuerpos = new List<TipoCuerpo>()
             {
-                new TipoCuerpo() {key = 2, value="Endomorfo (Contextura gruesa)" },
-                new TipoCuerpo() {key = 3, value="Mesomorfo (Contextura atlética)" },
-                new TipoCuerpo() {key = 4, value="Ectomorfo (Contextura delgada)" }
+                new TipoCuerpo() {key = 1, value="Endomorfo (Contextura gruesa)" },
+                new TipoCuerpo() {key = 2, value="Mesomorfo (Contextura atlética)" },
+                new TipoCuerpo() {key = 3, value="Ectomorfo (Contextura delgada)" }
             };
             return tipoCuerpos;
         }

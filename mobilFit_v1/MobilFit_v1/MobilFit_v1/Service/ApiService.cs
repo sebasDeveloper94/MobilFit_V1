@@ -66,9 +66,51 @@ namespace MobilFit_v1.Service
             }
         }
 
-        
-            //string tokenType,
-            //string accessToken,
+
+        //string tokenType,
+        //string accessToken,
+        public async Task<Response> GetLogin<T>(string urlBase,string servicePrefix, string controller, string parameters)
+        {
+            try
+            {
+                var client = new HttpClient();
+                //client.DefaultRequestHeaders.Authorization =
+                //    new AuthenticationHeaderValue(tokenType, accessToken);
+                client.BaseAddress = new Uri(urlBase);
+                var url = string.Format(
+                    "{0}{1}{2}",
+                    servicePrefix,
+                    controller, parameters);
+                var response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = response.StatusCode.ToString(),
+                    };
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<T>(result);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Ok",
+                    Result = model,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
         public async Task<Response> Get<T>(
             string urlBase,
             string servicePrefix,

@@ -28,7 +28,7 @@ namespace MobilFit_v1.Models
         [JsonProperty(PropertyName = "contraseña")]
         public string Password { get; set; }
 
-        [JsonProperty(PropertyName = "fechaRegistro")]
+        [JsonProperty(PropertyName = "fecha_registro")]
         public DateTime FechaRegistro { get; set; }
 
         [JsonProperty(PropertyName = "peso")]

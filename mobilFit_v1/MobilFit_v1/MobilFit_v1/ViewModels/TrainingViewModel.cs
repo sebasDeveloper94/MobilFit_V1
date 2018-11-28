@@ -68,7 +68,6 @@ namespace MobilFit_v1.ViewModels
         #region Constructor
         public TrainingViewModel()
         {
-            Name = "el ejercicio";
             Index = 0;
             LoadExercise();
         }
@@ -98,7 +97,7 @@ namespace MobilFit_v1.ViewModels
         }
         #endregion
 
-        #region Functions
+        #region Methods
         private void EndTraining()
         {
             MainViewModel.GetInstance().TrainingPlan = new TrainingPlanViewModel();
@@ -117,7 +116,9 @@ namespace MobilFit_v1.ViewModels
                 return;
             }
 
-            var response = await this.apiService.GetList<Ejercicio>("https://mobilfitapiservice.azurewebsites.net/", "api/", "Ejercicios/?id_rutina=" + 2);
+            int idRutina = MainViewModel.GetInstance().Routine.IdRutina;
+
+            var response = await this.apiService.GetList<Ejercicio>(ValuesService.url, "api/", "Ejercicios/?id_rutina=" + idRutina);
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");

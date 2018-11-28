@@ -20,8 +20,8 @@
                 </Label>
                 <Picker 
                     ItemsSource="{Binding Days}"
-                    ItemDisplayBinding="{Binding Value}"
-                    SelectedItem="{Binding DaySelected}">
+                    SelectedItem="{Binding DaySelected, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding Value}">
                 </Picker>
                 <Button 
                     Text="Guardar días"
@@ -30,6 +30,7 @@
                     BorderColor="Black"
                     BorderRadius="10"
                     HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled}"
                     Command="{Binding SaveDaysCommand}"
                     HorizontalOptions="EndAndExpand">
                 </Button>

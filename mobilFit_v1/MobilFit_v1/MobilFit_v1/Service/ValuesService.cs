@@ -4,8 +4,8 @@ using System.Text;
 
 namespace MobilFit_v1.Service
 {
-    class ValuesService
+    public class ValuesService
     {
-        public static readonly string url = "https://mobilfitapiservice.azurewebsites.net/api/";
+        public static readonly string url = "https://mobilfitapiservice.azurewebsites.net/";
     }
 }

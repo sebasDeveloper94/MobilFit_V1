@@ -34,8 +34,12 @@ namespace MobilFit_v1.Models
         [JsonProperty(PropertyName = "objUsuario")]
         public Usuario ObjUsuario { get; set; }
 
+        [JsonProperty(PropertyName = "DiasEntrenamiento")]
+        public List<DiasEntrenamiento> DiasEntrenamiento { get; set; }
+
         [JsonProperty(PropertyName = "id_planUsuario")]
         public int Id_PlanUsuario { get; set; }
+
         public PlanEntrenamiento()
         {
 

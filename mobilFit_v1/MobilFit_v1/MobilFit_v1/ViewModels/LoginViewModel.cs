@@ -63,9 +63,8 @@ namespace MobilFit_v1.ViewModels
             this.apiService = new ApiService();
             IsEnabled = true;
             IsRemembered = true;
-
-            this.Email = "a";
-            this.Password = "a";
+            Email = "user@gmail.com";
+            Password = "123";
         }
         #endregion
 
@@ -89,8 +88,7 @@ namespace MobilFit_v1.ViewModels
         #region Methods
         private async void Login()
         {
-            bool isCorrect = false;
-            isDebug = true;
+            this.isDebug = false;
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe indicar un email.", "Aceptar");
@@ -115,27 +113,32 @@ namespace MobilFit_v1.ViewModels
                     return;
                 }
 
-                var token = await apiService.GetToken("https://mobilfitapiservice.azurewebsites.net/", this.Email, this.Password);
+                var response = await this.apiService.GetLogin<int>(ValuesService.url, "api/", "Login/", "?email="+ Email+ "&password=" + Password);
 
-                if (token == null)
+                if (!response.IsSuccess)
                 {
+                    await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
+                    Application.Current.MainPage = new NavigationPage(new LoginPage());
                     this.IsRunning = false;
                     this.IsEnabled = true;
-                    await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, intente nuevamente.", "Aceptar");
-                    return; 
+                    return;
                 }
 
-                if (string.IsNullOrEmpty(token.AccessToken))
+                int id_usuario = (int)response.Result;
+
+                if (id_usuario == 0)
                 {
                     this.IsRunning = false;
                     this.IsEnabled = true;
-                    await Application.Current.MainPage.DisplayAlert("Atención", token.ErrorDescription, "Aceptar");
-                    this.password = string.Empty;
+                    await Application.Current.MainPage.DisplayAlert("Atención", "Email o contraseña incorrecta, por favor intente nuevamente.", "Aceptar");
+                    this.Password = string.Empty;
+                    this.Email = string.Empty;
                     return;
                 }
 
                 MainViewModel mainViewModel = MainViewModel.GetInstance();
-                mainViewModel.Token = token;
+                mainViewModel.Usuario = new Usuario();
+                mainViewModel.Usuario.Id_usuario = id_usuario;
                 mainViewModel.TrainingPlan = new TrainingPlanViewModel();
                 Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
 
@@ -150,9 +153,6 @@ namespace MobilFit_v1.ViewModels
                 MainViewModel.GetInstance().TrainingPlan = new TrainingPlanViewModel();
                 Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
             }
-
-
-
         }
         private async void Register()
         {

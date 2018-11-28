@@ -74,41 +74,68 @@ namespace MobilFit_v1.ViewModels
         #region Metodos
         private void StartTraining()
         {
-            MainViewModel.GetInstance().Training = new TrainingViewModel();
+            int numDay = (int)DateTime.Today.DayOfWeek;
+            int idRutina = 0;
+            foreach (var item in objPlan.DiasEntrenamiento)
+            {
+                if (numDay == item.dia)
+                {
+                    idRutina = item.idRutina;
+                    break;
+                }
+            }
+
+            if (idRutina == 0)
+            {
+                Application.Current.MainPage.DisplayAlert("Atención", "No tiene una rutina para el día de hoy.", "Aceptar");
+                return;
+            }
+
+            MainViewModel mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Training = new TrainingViewModel();
+            mainViewModel.Routine = new RoutineViewModel();
+            mainViewModel.Routine.IdRutina = idRutina;
+
             Application.Current.MainPage = new NavigationPage(new TrainingPage());
         }
         private async void LoadRoutines()
         {
             var connection = await this.apiService.CheckConnection();
-            IsRefresing = true;
-
+            this.IsRefresing = true;
+            this.IsEnabled = false;
             if (!connection.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
-                IsRefresing = false;
+                this.IsRefresing = false;
+                this.IsEnabled = true;
                 return;
             }
 
-            var response = await this.apiService.Get<PlanEntrenamiento>("https://mobilfitapiservice.azurewebsites.net/", "api/", "PlanEntrenamiento/?id_usuario=", 3);
+            int idUsuario = MainViewModel.GetInstance().Usuario.Id_usuario;
+
+            var response = await this.apiService.Get<PlanEntrenamiento>(ValuesService.url, "api/", "PlanEntrenamiento/?id_usuario=", idUsuario);
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
-                IsRefresing = false;
+                this.IsRefresing = false;
+                this.IsEnabled = true;
                 return;
             }
 
-            objPlan = new PlanEntrenamiento();
-            objPlan = (PlanEntrenamiento)response.Result;
+            this.objPlan = new PlanEntrenamiento();
+            this.objPlan = (PlanEntrenamiento)response.Result;
             this.Routines = new ObservableCollection<RoutinesItemViewModel>(this.ToRoutineItemViewModel());
-            Recommended = string.Format("Entrenamiento recomendado por el profesional \n {0}", objPlan.ObjPresional.Nombre);
-            IsRefresing = false;
-            IsEnabled = true;
+            this.Recommended = string.Format("Entrenamiento recomendado por el profesional \n {0}", objPlan.ObjPresional.Nombre);
+
+            this.IsRefresing = false;
+            this.IsEnabled = true;
         }
         private IEnumerable<RoutinesItemViewModel> ToRoutineItemViewModel()
         {
-            return this.objPlan.RutinasPlan.Select(r => new RoutinesItemViewModel {
+            return this.objPlan.RutinasPlan.Select(r => new RoutinesItemViewModel
+            {
 
                 Id_rutina = r.Id_rutina,
                 Nombre = r.Nombre,

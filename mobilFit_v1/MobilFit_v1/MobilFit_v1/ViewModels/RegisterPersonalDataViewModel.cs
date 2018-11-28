@@ -10,6 +10,7 @@ using MobilFit_v1.Views;
 
 namespace MobilFit_v1.ViewModels
 {
+
     public class RegisterPersonalDataViewModel
     {
         #region propidades
@@ -38,17 +39,17 @@ namespace MobilFit_v1.ViewModels
         #region Metodos
         private async void FirstRegister()
         {
-            //if (string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(apellido) || string.IsNullOrEmpty(email) ||
-            //    string.IsNullOrEmpty(contraseña1) || string.IsNullOrEmpty(contraseña1))
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Atención", "Debe completar todos los campos.", "Aceptar");
-            //    return;
-            //}
-            //if (contraseña1 != contraseña2)
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Atención", "Las contraseñas no coinciden.", "Aceptar");
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(apellido) || string.IsNullOrEmpty(email) ||
+                string.IsNullOrEmpty(contraseña1) || string.IsNullOrEmpty(contraseña1))
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe completar todos los campos.", "Aceptar");
+                return;
+            }
+            if (contraseña1 != contraseña2)
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Las contraseñas no coinciden.", "Aceptar");
+                return;
+            }
 
             objUsuario.Nombre = nombre;
             objUsuario.Apellido_paterno = apellido;

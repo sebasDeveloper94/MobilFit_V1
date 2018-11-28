@@ -21,9 +21,9 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     x:Name="cboObjetivo"
-                    ItemsSource="{Binding listObjetivos}"
+                    ItemsSource="{Binding ListObjetivos}"
                     ItemDisplayBinding="{Binding value}"
-                    SelectedItem="{Binding objetivo}">
+                    SelectedItem="{Binding Objetivo}">
                 </Picker>
                 <Label
                     Grid.Row="1"
@@ -35,9 +35,9 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     x:Name="cboTipoCuerpo"
-                    ItemsSource="{Binding listTipoCuerpos}"
+                    ItemsSource="{Binding ListTipoCuerpos}"
                     ItemDisplayBinding="{Binding value}"
-                    SelectedItem="{Binding tipoCuerpo}">
+                    SelectedItem="{Binding TipoCuerpo}">
                 </Picker>
                 <Label
                     Grid.Row="2"
@@ -50,7 +50,8 @@
                     Grid.Column="1"
                     x:Name="txtPeso"
                     MaxLength="5"
-                    Text="{Binding peso}">
+                    Keyboard="Telephone"
+                    Text="{Binding Peso}">
                 </Entry>
                 <Label
                     Grid.Row="3"
@@ -64,7 +65,7 @@
                     x:Name="txtAltura"
                     MaxLength="5"
                     Keyboard="Telephone"
-                    Text="{Binding altura}">
+                    Text="{Binding Altura}">
                 </Entry>
                 <Label
                     Grid.Row="4"
@@ -76,9 +77,9 @@
                     Grid.Row="4"
                     Grid.Column="1"
                     x:Name="cboSexo"
-                    ItemsSource="{Binding listsexos}"
+                    ItemsSource="{Binding Listsexos}"
                     ItemDisplayBinding="{Binding value}"
-                    SelectedItem="{Binding sexo}">
+                    SelectedItem="{Binding Sexo}">
                 </Picker>
                 <Label
                     Grid.Row="5"
@@ -90,9 +91,9 @@
                     Grid.Row="5"
                     Grid.Column="1"
                     x:Name="cboNivel"
-                    ItemsSource="{Binding listNiveles}"
+                    ItemsSource="{Binding ListNiveles}"
                     ItemDisplayBinding="{Binding value}"
-                    SelectedItem="{Binding nivel}">
+                    SelectedItem="{Binding Nivel}">
                 </Picker>
                 
             </Grid>
@@ -112,7 +113,7 @@
                 x:Name="indicador"
                 Color="Blue"
                 HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand">
+                IsRunning="{Binding IsRunning, Mode=TwoWay}">
             </ActivityIndicator>
         </StackLayout>
     </ContentPage.Content>
