@@ -18,6 +18,7 @@ namespace MobilFit_v1.ViewModels
         #region Attributes
         public PlanEntrenamiento objPlan;
         private ObservableCollection<RoutinesItemViewModel> routines;
+        private List<DiasEntrenamiento> diasEntrenamiento;
         private bool isRefresing = false;
         private bool isEnabled = false;
         private string recommended;
@@ -28,6 +29,11 @@ namespace MobilFit_v1.ViewModels
         {
             get { return this.routines; }
             set { SetValue(ref this.routines, value); }
+        }
+        public List<DiasEntrenamiento> DiasEntrenamiento
+        {
+            get { return this.diasEntrenamiento; }
+            set { SetValue(ref this.diasEntrenamiento, value); }
         }
         public string Recommended
         {
@@ -49,6 +55,7 @@ namespace MobilFit_v1.ViewModels
         #region Contructor
         public TrainingPlanViewModel()
         {
+            IsRefresing = false;
             IsEnabled = false;
             LoadRoutines();
         }
@@ -74,33 +81,10 @@ namespace MobilFit_v1.ViewModels
         #region Metodos
         private async void StartTraining()
         {
-            var connection = await this.apiService.CheckConnection();
             this.IsRefresing = true;
             this.IsEnabled = false;
-            if (!connection.IsSuccess)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Debe tener conexión a internet", "Aceptar");
-                Application.Current.MainPage = new NavigationPage(new LoginPage());
-                this.IsRefresing = false;
-                this.IsEnabled = true;
-                return;
-            }
 
-            int idPlanEntrenamiento = objPlan.Id_PlanUsuario;
-
-            var response = await this.apiService.GetList<DiasEntrenamiento>(ValuesService.url, "api/", "PlanEntrenamiento/?idPlanUsuario="+ idPlanEntrenamiento);
-
-            if (!response.IsSuccess)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "No ha indicado los días en que realizara las rutinas de entrenamiento.", "Aceptar");
-                this.IsRefresing = false;
-                this.IsEnabled = true;
-                return;
-            }
-
-            List<DiasEntrenamiento> dias = (List<DiasEntrenamiento>)response.Result;
-
-            if (dias.Count() == 0 || dias == null)
+            if (this.DiasEntrenamiento == null || this.DiasEntrenamiento.Count() == 0)
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "No ha indicado los días en que realizara las rutinas de entrenamiento.", "Aceptar");
                 this.IsRefresing = false;
@@ -111,7 +95,7 @@ namespace MobilFit_v1.ViewModels
             int numDay = (int)DateTime.Today.DayOfWeek;
             int idRutina = 0;
 
-            foreach (var item in dias)
+            foreach (var item in this.DiasEntrenamiento)
             {
                 if (numDay == item.dia)
                 {
@@ -165,6 +149,17 @@ namespace MobilFit_v1.ViewModels
 
             this.objPlan = new PlanEntrenamiento();
             this.objPlan = (PlanEntrenamiento)response.Result;
+
+            if (connection.IsSuccess)
+            {
+                var responseDias = await this.apiService.GetList<DiasEntrenamiento>(ValuesService.url, "api/", "PlanEntrenamiento/?idPlanUsuario=" + objPlan.Id_PlanUsuario);
+
+                if (response.IsSuccess)
+                {
+                    this.DiasEntrenamiento = (List<DiasEntrenamiento>)responseDias.Result;
+                }
+            }
+
             this.Routines = new ObservableCollection<RoutinesItemViewModel>(this.ToRoutineItemViewModel());
             this.Recommended = string.Format("Entrenamiento recomendado por el profesional \n {0}", objPlan.ObjPresional.Nombre);
 

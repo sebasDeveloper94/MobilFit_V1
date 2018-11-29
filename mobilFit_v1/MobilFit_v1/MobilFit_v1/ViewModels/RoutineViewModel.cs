@@ -29,6 +29,8 @@ namespace MobilFit_v1.ViewModels
         private List<DiasRutina> days;
         private DiasRutina daySelected;
         private RutinaSeleccionada rutinaSeleccionada;
+        private List<DiasEntrenamiento> diasSeleccionados;
+        private MainViewModel main;
         #endregion
 
         #region Properties
@@ -87,13 +89,18 @@ namespace MobilFit_v1.ViewModels
             get { return this.rutinaSeleccionada; }
             set { SetValue(ref this.rutinaSeleccionada, value); }
         }
+        public List<DiasEntrenamiento> DiasSeleccionados
+        {
+            get { return this.diasSeleccionados; }
+            set { SetValue(ref this.diasSeleccionados, value); }
+        }
         #endregion
 
         #region Constructor
         public RoutineViewModel(Rutinas routinesItemViewModel)
         {
-            apiService = new ApiService();
-
+            this.apiService = new ApiService();
+            this.main = MainViewModel.GetInstance();
             this.RoutinesItemViewModel = routinesItemViewModel;
             this.Name = this.RoutinesItemViewModel.Nombre;
             this.Meta = this.RoutinesItemViewModel.Meta;
@@ -101,12 +108,13 @@ namespace MobilFit_v1.ViewModels
 
             Days = new List<DiasRutina>();
             this.Days = this.ChargeDays().OrderBy(d => d.Key).ToList();
-
+            this.DiasSeleccionados = main.TrainingPlan.DiasEntrenamiento;
             this.ChargeExercises();
         }
         public RoutineViewModel()
         {
-                
+            this.main = MainViewModel.GetInstance();
+            this.DiasSeleccionados = main.TrainingPlan.DiasEntrenamiento;
         }
         #endregion
 
@@ -142,6 +150,7 @@ namespace MobilFit_v1.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
                 await Application.Current.MainPage.Navigation.PopAsync();
                 this.IsRefresing = false;
+                this.IsEnabled = true;
                 return;
             }
 
@@ -160,12 +169,14 @@ namespace MobilFit_v1.ViewModels
         {
             var connection = await this.apiService.CheckConnection();
             IsRunning = true;
+            this.IsEnabled = false;
 
             if (!connection.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
-                IsRefresing = false;
+                this.IsRunning = false;
+                this.IsEnabled = true;
                 return;
             }
             int idPlan = MainViewModel.GetInstance().TrainingPlan.objPlan.Id_PlanUsuario;
@@ -175,17 +186,32 @@ namespace MobilFit_v1.ViewModels
             objDia.idRutina = IdRutina;
             objDia.dia = DaySelected.Key;
 
+            if (this.DiasSeleccionados != null || this.DiasSeleccionados.Count() > 0)
+            {
+                var listDias = this.DiasSeleccionados.Where(d => d.dia == objDia.dia).ToList();
+                if (listDias != null && listDias.Count() > 0)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Atención", "Ya hay una rutina agendada para este día, porfavor selecciona otro día.", "Aceptar");
+                    this.IsRunning = false;
+                    this.IsEnabled = true;
+                    return;
+                }
+            }
+
             var json = JsonConvert.SerializeObject(objDia);
             var response = await this.apiService.Post<string>(ValuesService.url, "api/", "PlanEntrenamiento/?jsonDias=" + json, "");
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
-                IsRefresing = false;
+                this.IsRunning = false;
+                this.IsEnabled = true;
                 return;
             }
 
-            IsRunning = false;
+            main.TrainingPlan.DiasEntrenamiento.Add(objDia);
+            this.IsRunning = false;
+            this.IsEnabled = true;
             await Application.Current.MainPage.DisplayAlert("Exito", "El día de la rutina ha sido guardado", "Aceptar");
         }
         public List<DiasRutina> ChargeDays()

@@ -22,7 +22,7 @@
                     Grid.Column="1"
                     x:Name="txtNombre"
                     MaxLength="50"
-                    Text="{Binding nombre}">
+                    Text="{Binding Nombre}">
                 </Entry>
                 <Label
                     Grid.Row="1"
@@ -35,7 +35,7 @@
                     Grid.Column="1"
                     x:Name="txtApellido"
                     MaxLength="50"
-                    Text="{Binding apellido}">
+                    Text="{Binding Apellido}">
                 </Entry>
                 <Label
                     Grid.Row="2"
@@ -49,7 +49,7 @@
                     x:Name="txtEmail"
                     Keyboard="Email"
                     MaxLength="50"
-                    Text="{Binding email}">
+                    Text="{Binding Email}">
                 </Entry>
                 <Label
                     Grid.Row="3"
@@ -63,7 +63,7 @@
                     IsPassword="true"
                     x:Name="txtContraseña1"
                     MaxLength="8"
-                    Text="{Binding contraseña1}">
+                    Text="{Binding Contraseña1}">
                 </Entry>
                 <Label
                     Grid.Row="4"
@@ -77,7 +77,7 @@
                     IsPassword="true"
                     x:Name="txtContraseña2"
                     MaxLength="8"
-                    Text="{Binding contraseña2}">
+                    Text="{Binding Contraseña2}">
                 </Entry>
             </Grid>
             <Button
@@ -85,12 +85,14 @@
                 BorderRadius="23"
                 HeightRequest="45"
                 HorizontalOptions="CenterAndExpand"
-                IsEnabled="True"
                 Text="Continuar"
                 TextColor="White"
                 x:Name="btnContinuarRegistro"
+                IsEnabled="{Binding IsEnabled}"
                 Command="{Binding FirstRegisterCmd}">
             </Button>
+            <ActivityIndicator IsRunning="{Binding IsRunning}"/>
+            <Label Text="{Binding LoadText}" FontSize="Medium" TextColor="Black"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -390,8 +390,6 @@ namespace MobilFit_v1.Service
             string urlBase,
             string servicePrefix,
             string controller,
-            string tokenType,
-            string accessToken,
             T model)
         {
             try
@@ -401,8 +399,8 @@ namespace MobilFit_v1.Service
                     request,
                     Encoding.UTF8, "application/json");
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue(tokenType, accessToken);
+                //client.DefaultRequestHeaders.Authorization =
+                //    new AuthenticationHeaderValue(tokenType, accessToken);
                 client.BaseAddress = new Uri(urlBase);
                 var url = string.Format(
                     "{0}{1}/{2}",

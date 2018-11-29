@@ -31,6 +31,7 @@ namespace MobilFit_v1.ViewModels
         public static Usuario ObjUsuario;
         public bool isRunning;
         public bool isEnabled;
+        private string loadText;
         #endregion
 
         #region propiedades
@@ -94,6 +95,11 @@ namespace MobilFit_v1.ViewModels
             get { return this.isEnabled; }
             set { SetValue(ref this.isEnabled, value); }
         }
+        public string LoadText
+        {
+            get { return this.loadText; }
+            set { SetValue(ref this.loadText, value); }
+        }
         #endregion
 
         #region Constructor
@@ -135,14 +141,16 @@ namespace MobilFit_v1.ViewModels
                     return;
                 }
 
-                IsRunning = true;
+                this.IsRunning = true;
+                this.IsEnabled = false;
 
-                apiService = new ApiService();
+                this.apiService = new ApiService();
                 var connection = await apiService.CheckConnection();
                 if (!connection.IsSuccess)
                 {
                     await Application.Current.MainPage.DisplayAlert("Atención", "No hay conexión.", "Aceptar");
-                    IsRunning = false;
+                    this.IsRunning = false;
+                    this.IsEnabled = true;
                     return;
                 }
 
@@ -156,35 +164,45 @@ namespace MobilFit_v1.ViewModels
                 ObjUsuario.Sexo = Sexo.key;
 
                 string jsonUsuario = JsonConvert.SerializeObject(ObjUsuario);
-
                 var response = await this.apiService.Post<int>(ValuesService.url, "api/", "Login/?jsonUsuario=" + jsonUsuario, 0);
+
+                this.LoadText = "Generando plan de entrenamiento inicial, porfavor espere.";
+
                 if (!response.IsSuccess)
                 {
                     await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
                     Application.Current.MainPage = new NavigationPage(new LoginPage());
-                    IsRunning = false;
+                    this.IsRunning = false;
+                    this.IsEnabled = true;
+                    this.LoadText = string.Empty;
                     return;
                 }
 
-                int id_usuario = (int)response.Result;
+                Usuario usuario = new Usuario();
+                usuario = (Usuario)response.Result;
 
-                if (id_usuario == 0)
+                if (usuario == null || usuario.Id_usuario == 0)
                 {
                     await Application.Current.MainPage.DisplayAlert("Atención", "Ha ocurrido un error al registrar usuario, por favor intente nuevamente.", "Aceptar");
                     IsRunning = false;
                     IsEnabled = true;
+                    this.LoadText = string.Empty;
                     return;
                 }
 
                 MainViewModel mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Usuario = new Usuario();
-                mainViewModel.Usuario.Id_usuario = id_usuario;
+                mainViewModel.Usuario = usuario;
                 mainViewModel.TrainingPlan = new TrainingPlanViewModel();
                 Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
 
-                IsRunning = false;
+                
                 await Application.Current.MainPage.DisplayAlert("Exito", "Se ha creado al nuevo usuario "+  ObjUsuario.Nombre + " " + ObjUsuario.Apellido_paterno, "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
+
+                IsRunning = false;
+                IsEnabled = true;
+                this.LoadText = string.Empty;
             }
             catch (Exception)
             {

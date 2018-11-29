@@ -115,6 +115,7 @@
                 HorizontalOptions="CenterAndExpand"
                 IsRunning="{Binding IsRunning, Mode=TwoWay}">
             </ActivityIndicator>
+            <Label Text="{Binding LoadText}" FontSize="Medium" TextColor="Black"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

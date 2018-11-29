@@ -1,8 +1,6 @@
 ﻿using MobilFit_v1.Service;
 using MobilFit_v1.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Windows.Input;
@@ -10,7 +8,6 @@ using GalaSoft.MvvmLight.Command;
 using MobilFit_v1.Views;
 using System.IO;
 using Newtonsoft.Json;
-using System.Linq;
 
 namespace MobilFit_v1.ViewModels
 {
@@ -99,6 +96,14 @@ namespace MobilFit_v1.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe indicar una contraseña.", "Aceptar");
                 return;
             }
+
+            if (!ValidateEmail.Validate(this.Email))
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Dirección de email invalida.", "Aceptar");
+                this.Email = string.Empty;
+                return;
+            }
+
             this.IsRunning = true;
             this.IsEnabled = false;
 
@@ -113,7 +118,7 @@ namespace MobilFit_v1.ViewModels
                     return;
                 }
 
-                var response = await this.apiService.GetParameter<int>(ValuesService.url, "api/", "Login/", "?email="+ Email+ "&password=" + Password);
+                var response = await this.apiService.GetParameter<Usuario>(ValuesService.url, "api/", "Login/", "?email="+ Email+ "&password=" + Password);
 
                 if (!response.IsSuccess)
                 {
@@ -124,9 +129,10 @@ namespace MobilFit_v1.ViewModels
                     return;
                 }
 
-                int id_usuario = (int)response.Result;
+                Usuario usuario = new Usuario();
+                usuario = (Usuario)response.Result;
 
-                if (id_usuario == 0)
+                if (usuario == null || usuario.Id_usuario == 0)
                 {
                     this.IsRunning = false;
                     this.IsEnabled = true;
@@ -138,7 +144,7 @@ namespace MobilFit_v1.ViewModels
 
                 MainViewModel mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Usuario = new Usuario();
-                mainViewModel.Usuario.Id_usuario = id_usuario;
+                mainViewModel.Usuario = usuario;
                 mainViewModel.TrainingPlan = new TrainingPlanViewModel();
                 Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
 
