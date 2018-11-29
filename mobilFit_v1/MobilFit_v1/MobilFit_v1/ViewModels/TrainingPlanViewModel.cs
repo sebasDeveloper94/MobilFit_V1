@@ -72,11 +72,46 @@ namespace MobilFit_v1.ViewModels
         #endregion
 
         #region Metodos
-        private void StartTraining()
+        private async void StartTraining()
         {
+            var connection = await this.apiService.CheckConnection();
+            this.IsRefresing = true;
+            this.IsEnabled = false;
+            if (!connection.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Debe tener conexión a internet", "Aceptar");
+                Application.Current.MainPage = new NavigationPage(new LoginPage());
+                this.IsRefresing = false;
+                this.IsEnabled = true;
+                return;
+            }
+
+            int idPlanEntrenamiento = objPlan.Id_PlanUsuario;
+
+            var response = await this.apiService.GetList<DiasEntrenamiento>(ValuesService.url, "api/", "PlanEntrenamiento/?idPlanUsuario="+ idPlanEntrenamiento);
+
+            if (!response.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "No ha indicado los días en que realizara las rutinas de entrenamiento.", "Aceptar");
+                this.IsRefresing = false;
+                this.IsEnabled = true;
+                return;
+            }
+
+            List<DiasEntrenamiento> dias = (List<DiasEntrenamiento>)response.Result;
+
+            if (dias.Count() == 0 || dias == null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "No ha indicado los días en que realizara las rutinas de entrenamiento.", "Aceptar");
+                this.IsRefresing = false;
+                this.IsEnabled = true;
+                return;
+            }
+
             int numDay = (int)DateTime.Today.DayOfWeek;
             int idRutina = 0;
-            foreach (var item in objPlan.DiasEntrenamiento)
+
+            foreach (var item in dias)
             {
                 if (numDay == item.dia)
                 {
@@ -87,7 +122,9 @@ namespace MobilFit_v1.ViewModels
 
             if (idRutina == 0)
             {
-                Application.Current.MainPage.DisplayAlert("Atención", "No tiene una rutina para el día de hoy.", "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Atención", "No tiene una rutina para el día de hoy.", "Aceptar");
+                this.IsRefresing = false;
+                this.IsEnabled = true;
                 return;
             }
 
@@ -103,9 +140,10 @@ namespace MobilFit_v1.ViewModels
             var connection = await this.apiService.CheckConnection();
             this.IsRefresing = true;
             this.IsEnabled = false;
+
             if (!connection.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", connection.Message, "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Error", "Debe tener conexión a internet", "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
                 this.IsRefresing = false;
                 this.IsEnabled = true;
@@ -115,6 +153,7 @@ namespace MobilFit_v1.ViewModels
             int idUsuario = MainViewModel.GetInstance().Usuario.Id_usuario;
 
             var response = await this.apiService.Get<PlanEntrenamiento>(ValuesService.url, "api/", "PlanEntrenamiento/?id_usuario=", idUsuario);
+
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");

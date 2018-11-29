@@ -103,10 +103,10 @@
                 BorderRadius="23"
                 HeightRequest="45"
                 HorizontalOptions="CenterAndExpand"
-                IsEnabled="True"
                 Text="Continuar"
                 TextColor="White"
                 x:Name="btnContunarRegistro"
+                IsEnabled="{Binding IsEnabled}"
                 Command="{Binding SecondRegisterCmd}">
             </Button>
             <ActivityIndicator

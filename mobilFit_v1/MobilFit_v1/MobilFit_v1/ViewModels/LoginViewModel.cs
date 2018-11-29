@@ -113,7 +113,7 @@ namespace MobilFit_v1.ViewModels
                     return;
                 }
 
-                var response = await this.apiService.GetLogin<int>(ValuesService.url, "api/", "Login/", "?email="+ Email+ "&password=" + Password);
+                var response = await this.apiService.GetParameter<int>(ValuesService.url, "api/", "Login/", "?email="+ Email+ "&password=" + Password);
 
                 if (!response.IsSuccess)
                 {

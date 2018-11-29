@@ -30,6 +30,7 @@ namespace MobilFit_v1.ViewModels
         private List<Sexo> listsexos;
         public static Usuario ObjUsuario;
         public bool isRunning;
+        public bool isEnabled;
         #endregion
 
         #region propiedades
@@ -88,11 +89,17 @@ namespace MobilFit_v1.ViewModels
             get { return this.isRunning; }
             set { SetValue(ref this.isRunning, value); }
         }
+        public bool IsEnabled
+        {
+            get { return this.isEnabled; }
+            set { SetValue(ref this.isEnabled, value); }
+        }
         #endregion
 
         #region Constructor
         public RegisterPhysicalConditionViewModel()
         {
+            this.IsEnabled = true;
             this.ListObjetivos = GetObjetivos().OrderBy(x => x.key).ToList();
             this.ListTipoCuerpos = GetTipoCuerpo().OrderBy(x => x.key).ToList();
             this.ListNiveles = GetNivel().OrderBy(x => x.key).ToList();
@@ -150,7 +157,7 @@ namespace MobilFit_v1.ViewModels
 
                 string jsonUsuario = JsonConvert.SerializeObject(ObjUsuario);
 
-                var response = await this.apiService.Post<string>(ValuesService.url, "api/", "Login/?jsonUsuario=" + jsonUsuario, "");
+                var response = await this.apiService.Post<int>(ValuesService.url, "api/", "Login/?jsonUsuario=" + jsonUsuario, 0);
                 if (!response.IsSuccess)
                 {
                     await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
@@ -158,6 +165,23 @@ namespace MobilFit_v1.ViewModels
                     IsRunning = false;
                     return;
                 }
+
+                int id_usuario = (int)response.Result;
+
+                if (id_usuario == 0)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Atención", "Ha ocurrido un error al registrar usuario, por favor intente nuevamente.", "Aceptar");
+                    IsRunning = false;
+                    IsEnabled = true;
+                    return;
+                }
+
+                MainViewModel mainViewModel = MainViewModel.GetInstance();
+                mainViewModel.Usuario = new Usuario();
+                mainViewModel.Usuario.Id_usuario = id_usuario;
+                mainViewModel.TrainingPlan = new TrainingPlanViewModel();
+                Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
+
                 IsRunning = false;
                 await Application.Current.MainPage.DisplayAlert("Exito", "Se ha creado al nuevo usuario "+  ObjUsuario.Nombre + " " + ObjUsuario.Apellido_paterno, "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());

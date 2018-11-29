@@ -69,7 +69,7 @@ namespace MobilFit_v1.Service
 
         //string tokenType,
         //string accessToken,
-        public async Task<Response> GetLogin<T>(string urlBase,string servicePrefix, string controller, string parameters)
+        public async Task<Response> GetParameter<T>(string urlBase,string servicePrefix, string controller, string parameters)
         {
             try
             {

@@ -135,11 +135,12 @@ namespace MobilFit_v1.ViewModels
                 return;
             }
 
-            var response = await this.apiService.Get<RutinaSeleccionada>(ValuesService.url, "api/", "PlanEntrenamiento/?idRutina=", IdRutina);
+            int idPlanUsuario = MainViewModel.GetInstance().TrainingPlan.objPlan.Id_PlanUsuario;
+            var response = await this.apiService.GetParameter<RutinaSeleccionada>(ValuesService.url, "api/", "PlanEntrenamiento/", "?idRutina=" + IdRutina + "&idPlanUsuario=" + idPlanUsuario);
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
-                Application.Current.MainPage = new NavigationPage(new LoginPage());
+                await Application.Current.MainPage.Navigation.PopAsync();
                 this.IsRefresing = false;
                 return;
             }
