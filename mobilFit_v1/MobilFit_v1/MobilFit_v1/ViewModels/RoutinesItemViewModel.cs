@@ -1,9 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using MobilFit_v1.Models;
 using MobilFit_v1.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 

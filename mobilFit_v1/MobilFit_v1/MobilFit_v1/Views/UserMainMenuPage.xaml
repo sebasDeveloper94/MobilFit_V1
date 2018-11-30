@@ -9,7 +9,7 @@
     </views:TrainingPlan>
     <views:PerfomancePage Title="Rendimiento" WidthRequest="1.2"  Icon="rendimiento.ico">
     </views:PerfomancePage>
-    <views:AccountPage  Title="Cuenta" WidthRequest="1.2"   Icon="cuenta.ico">
-    </views:AccountPage>
+    <views:SettingsPage  Title="Cuenta" WidthRequest="1.2"   Icon="cuenta.ico">
+    </views:SettingsPage>
 
 </xf:BottomBarPage>

@@ -1,10 +1,7 @@
 ﻿using MobilFit_v1.Models;
 using MobilFit_v1.Service;
 using MobilFit_v1.Views;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
 using System.Linq;
 using Xamarin.Forms;
 using System.Windows.Input;
@@ -108,13 +105,14 @@ namespace MobilFit_v1.ViewModels
 
             Days = new List<DiasRutina>();
             this.Days = this.ChargeDays().OrderBy(d => d.Key).ToList();
-            this.DiasSeleccionados = main.TrainingPlan.DiasEntrenamiento;
+            this.DiasSeleccionados = main.TrainingPlan.DiasEntrenamiento == null ? new List<DiasEntrenamiento>(): main.TrainingPlan.DiasEntrenamiento;
             this.ChargeExercises();
         }
         public RoutineViewModel()
         {
+            this.apiService = new ApiService();
             this.main = MainViewModel.GetInstance();
-            this.DiasSeleccionados = main.TrainingPlan.DiasEntrenamiento;
+            this.DiasSeleccionados = main.TrainingPlan.DiasEntrenamiento == null ? new List<DiasEntrenamiento>() : main.TrainingPlan.DiasEntrenamiento;
         }
         #endregion
 
@@ -179,14 +177,14 @@ namespace MobilFit_v1.ViewModels
                 this.IsEnabled = true;
                 return;
             }
-            int idPlan = MainViewModel.GetInstance().TrainingPlan.objPlan.Id_PlanUsuario;
+            int idPlan = main.TrainingPlan.objPlan.Id_PlanUsuario;
 
             DiasEntrenamiento objDia = new DiasEntrenamiento();
             objDia.idPlan = idPlan;
             objDia.idRutina = IdRutina;
             objDia.dia = DaySelected.Key;
 
-            if (this.DiasSeleccionados != null || this.DiasSeleccionados.Count() > 0)
+            if (this.DiasSeleccionados.Count() > 0)
             {
                 var listDias = this.DiasSeleccionados.Where(d => d.dia == objDia.dia).ToList();
                 if (listDias != null && listDias.Count() > 0)
@@ -207,6 +205,11 @@ namespace MobilFit_v1.ViewModels
                 this.IsRunning = false;
                 this.IsEnabled = true;
                 return;
+            }
+
+            if (main.TrainingPlan.DiasEntrenamiento == null)
+            {
+                main.TrainingPlan.DiasEntrenamiento = new List<DiasEntrenamiento>();
             }
 
             main.TrainingPlan.DiasEntrenamiento.Add(objDia);

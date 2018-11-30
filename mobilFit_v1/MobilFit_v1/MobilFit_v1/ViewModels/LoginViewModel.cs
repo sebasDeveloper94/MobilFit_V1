@@ -145,6 +145,7 @@ namespace MobilFit_v1.ViewModels
                 MainViewModel mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Usuario = new Usuario();
                 mainViewModel.Usuario = usuario;
+                mainViewModel.Settings = new SettingsViewModel();
                 mainViewModel.TrainingPlan = new TrainingPlanViewModel();
                 Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
 

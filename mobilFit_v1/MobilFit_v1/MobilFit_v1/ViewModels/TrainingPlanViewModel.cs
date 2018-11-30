@@ -55,9 +55,9 @@ namespace MobilFit_v1.ViewModels
         #region Contructor
         public TrainingPlanViewModel()
         {
-            IsRefresing = false;
-            IsEnabled = false;
-            LoadRoutines();
+            this.IsRefresing = false;
+            this.IsEnabled = false;
+            this.LoadRoutines();
         }
         #endregion
 
@@ -116,7 +116,6 @@ namespace MobilFit_v1.ViewModels
             mainViewModel.Training = new TrainingViewModel();
             mainViewModel.Routine = new RoutineViewModel();
             mainViewModel.Routine.IdRutina = idRutina;
-
             Application.Current.MainPage = new NavigationPage(new TrainingPage());
         }
         private async void LoadRoutines()

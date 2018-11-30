@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobilFit_v1.Views.AccountSettingsPage"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Ajustes de cuenta">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout 
+                Padding="5"
+                BindingContext="{Binding AccountSettings}">
+                
+                <Label
+                    Text="Información de la cuenta"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    FontSize="Medium">
+                </Label>
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Nombre"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        x:Name="txtNombre"
+                        MaxLength="50"
+                        Text="{Binding Nombre}">
+                    </Entry>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Text="Apellido"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        x:Name="txtApellido"
+                        MaxLength="50"
+                        Text="{Binding Apellido}">
+                    </Entry>
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Text="Email"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        x:Name="txtEmail"
+                        Keyboard="Email"
+                        MaxLength="50"
+                        Text="{Binding Email}">
+                    </Entry>
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Text="Contraseña"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        IsPassword="true"
+                        x:Name="txtContraseña1"
+                        MaxLength="8"
+                        Text="{Binding Contraseña}">
+                    </Entry>
+                </Grid>
+                
+                <Label
+                    Text="Información de codición física y objetivos"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    FontSize="Medium">
+                </Label>
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Objetivo"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Picker
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        x:Name="cboObjetivo"
+                        ItemsSource="{Binding ListObjetivos}"
+                        ItemDisplayBinding="{Binding value}"
+                        SelectedItem="{Binding Objetivo}">
+                    </Picker>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Text="Tipo de cuerpo"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Picker
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        x:Name="cboTipoCuerpo"
+                        ItemsSource="{Binding ListTipoCuerpos}"
+                        ItemDisplayBinding="{Binding value}"
+                        SelectedItem="{Binding TipoCuerpo}">
+                    </Picker>
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Text="Peso"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        x:Name="txtPeso"
+                        MaxLength="5"
+                        Keyboard="Telephone"
+                        Text="{Binding Peso}">
+                    </Entry>
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Text="Altura"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        x:Name="txtAltura"
+                        MaxLength="5"
+                        Keyboard="Telephone"
+                        Text="{Binding Altura}">
+                    </Entry>
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Text="Sexo"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Picker
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        x:Name="cboSexo"
+                        ItemsSource="{Binding Listsexos}"
+                        ItemDisplayBinding="{Binding value}"
+                        SelectedItem="{Binding Sexo}">
+                    </Picker>
+                    <Label
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Text="Nivel"
+                        VerticalOptions="Center">
+                    </Label>
+                    <Picker
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        x:Name="cboNivel"
+                        ItemsSource="{Binding ListNiveles}"
+                        ItemDisplayBinding="{Binding value}"
+                        SelectedItem="{Binding Nivel}">
+                    </Picker>
+                </Grid>
+                <StackLayout Margin="15,15,5,5">
+                    <Button
+                        Text="Guardar Cambios"
+                        BackgroundColor="DimGray"
+                        TextColor="White"
+                        BorderColor="Black"
+                        BorderRadius="10"
+                        HeightRequest="46"
+                        IsEnabled="{Binding IsEnabled}"
+                        Command="{Binding SaveCommand}"
+                        HorizontalOptions="EndAndExpand">
+                    </Button>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

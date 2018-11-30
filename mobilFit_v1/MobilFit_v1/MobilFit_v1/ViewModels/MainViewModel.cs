@@ -13,10 +13,13 @@ namespace MobilFit_v1.ViewModels
         public RoutineViewModel Routine { get; set; }
         public TokenResponse Token { get; set; }
         public Usuario Usuario { get; set; }
+        public SettingsViewModel Settings { get; set; }
+        public AccountSettingsViewModel AccountSettings { get; set; }
         public MainViewModel()
         {
             instance = this;
             this.Login = new LoginViewModel();
+
         }
 
         #region Singleton

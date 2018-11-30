@@ -135,7 +135,7 @@ namespace MobilFit_v1.ViewModels
                 this.Nivel = Nivel as Nivel;
                 this.Sexo = Sexo as Sexo;
 
-                if (Objetivo.key <= 0 || TipoCuerpo.key <= 0 || Peso <= 0 || Altura <= 0 || Nivel.key <= 0 || Sexo.key <= 0)
+                if (Objetivo == null || Objetivo.key <= 0 || TipoCuerpo == null || TipoCuerpo.key <= 0 || Peso <= 0 || Altura <= 0 || Nivel == null || Nivel.key <= 0 || Sexo == null || Sexo.key <= 0)
                 {
                     await Application.Current.MainPage.DisplayAlert("Atención", "Debe completar todos los campos.", "Aceptar");
                     return;
@@ -164,7 +164,7 @@ namespace MobilFit_v1.ViewModels
                 ObjUsuario.Sexo = Sexo.key;
 
                 string jsonUsuario = JsonConvert.SerializeObject(ObjUsuario);
-                var response = await this.apiService.Post<int>(ValuesService.url, "api/", "Login/?jsonUsuario=" + jsonUsuario, 0);
+                var response = await this.apiService.Post<Usuario>(ValuesService.url, "api/", "Login/?jsonUsuario=" + jsonUsuario, null);
 
                 this.LoadText = "Generando plan de entrenamiento inicial, porfavor espere.";
 
@@ -193,6 +193,7 @@ namespace MobilFit_v1.ViewModels
                 MainViewModel mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Usuario = new Usuario();
                 mainViewModel.Usuario = usuario;
+                mainViewModel.Settings = new SettingsViewModel();
                 mainViewModel.TrainingPlan = new TrainingPlanViewModel();
                 Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
 

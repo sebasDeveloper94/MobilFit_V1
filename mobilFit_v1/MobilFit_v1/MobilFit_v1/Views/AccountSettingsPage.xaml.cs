@@ -1,5 +1,4 @@
-﻿using MobilFit_v1.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace MobilFit_v1.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AccountPage : ContentPage
+	public partial class AccountSettingsPage : ContentPage
 	{
-		public AccountPage ()
+		public AccountSettingsPage ()
 		{
 			InitializeComponent ();
-            this.BindingContext = new AccountViewModel();
 		}
 	}
 }
