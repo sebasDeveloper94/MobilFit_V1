@@ -22,12 +22,11 @@
                 <Grid Margin="20, 35, 10, 10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label 
                         Text="Ajustes de cuenta"
                         TextColor="Black"
-                        FontSize="Large"
+                        FontSize="Medium"
                         Grid.Row="0"
                         Grid.Column="0">
                         <Label.GestureRecognizers>
@@ -35,16 +34,10 @@
                             </TapGestureRecognizer>
                         </Label.GestureRecognizers>
                     </Label>
-                    <Image 
-                        Source="chevron_right.png"
-                        WidthRequest="5"
-                        Grid.Row="0"
-                        Grid.Column="1">
-                    </Image>
                     <Label 
                         Text="Notificaciones"
                         TextColor="Black"
-                        FontSize="Large"
+                        FontSize="Medium"
                         Grid.Row="2"
                         Grid.Column="0">
                         <Label.GestureRecognizers>
@@ -52,16 +45,10 @@
                             </TapGestureRecognizer>
                         </Label.GestureRecognizers>
                     </Label>
-                    <Image 
-                        Source="chevron_right.png"
-                        WidthRequest="5"
-                        Grid.Row="2"
-                        Grid.Column="1">
-                    </Image>
                     <Label 
                         Text="Acerca de MobilFit"
                         TextColor="Black"
-                        FontSize="Large"
+                        FontSize="Medium"
                         Grid.Row="4"
                         Grid.Column="0">
                         <Label.GestureRecognizers>
@@ -69,12 +56,6 @@
                             </TapGestureRecognizer>
                         </Label.GestureRecognizers>
                     </Label>
-                    <Image 
-                        Source="chevron_right.png"
-                        WidthRequest="5"
-                        Grid.Row="4"
-                        Grid.Column="1">
-                    </Image>
                 </Grid>
             </StackLayout>
         </ScrollView>

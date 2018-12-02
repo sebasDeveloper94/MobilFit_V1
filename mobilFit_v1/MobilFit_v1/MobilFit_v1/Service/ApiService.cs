@@ -402,11 +402,7 @@ namespace MobilFit_v1.Service
                 //client.DefaultRequestHeaders.Authorization =
                 //    new AuthenticationHeaderValue(tokenType, accessToken);
                 client.BaseAddress = new Uri(urlBase);
-                var url = string.Format(
-                    "{0}{1}/{2}",
-                    servicePrefix,
-                    controller,
-                    model.GetHashCode());
+                var url = string.Format("{0}{1}",servicePrefix,controller);
                 var response = await client.PutAsync(url, content);
                 var result = await response.Content.ReadAsStringAsync();
 

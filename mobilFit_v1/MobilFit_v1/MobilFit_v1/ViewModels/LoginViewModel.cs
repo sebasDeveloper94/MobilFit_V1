@@ -1,13 +1,9 @@
 ﻿using MobilFit_v1.Service;
 using MobilFit_v1.Models;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using MobilFit_v1.Views;
-using System.IO;
-using Newtonsoft.Json;
 
 namespace MobilFit_v1.ViewModels
 {
@@ -85,7 +81,7 @@ namespace MobilFit_v1.ViewModels
         #region Methods
         private async void Login()
         {
-            this.isDebug = false;
+
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe indicar un email.", "Aceptar");
@@ -107,59 +103,52 @@ namespace MobilFit_v1.ViewModels
             this.IsRunning = true;
             this.IsEnabled = false;
 
-            if (!isDebug)
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
             {
-                var connection = await apiService.CheckConnection();
-                if (!connection.IsSuccess)
-                {
-                    this.IsRunning = false;
-                    this.IsEnabled = true;
-                    await Application.Current.MainPage.DisplayAlert("Atención", "No hay conexión.", "Aceptar");
-                    return;
-                }
-
-                var response = await this.apiService.GetParameter<Usuario>(ValuesService.url, "api/", "Login/", "?email="+ Email+ "&password=" + Password);
-
-                if (!response.IsSuccess)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
-                    Application.Current.MainPage = new NavigationPage(new LoginPage());
-                    this.IsRunning = false;
-                    this.IsEnabled = true;
-                    return;
-                }
-
-                Usuario usuario = new Usuario();
-                usuario = (Usuario)response.Result;
-
-                if (usuario == null || usuario.Id_usuario == 0)
-                {
-                    this.IsRunning = false;
-                    this.IsEnabled = true;
-                    await Application.Current.MainPage.DisplayAlert("Atención", "Email o contraseña incorrecta, por favor intente nuevamente.", "Aceptar");
-                    this.Password = string.Empty;
-                    this.Email = string.Empty;
-                    return;
-                }
-
-                MainViewModel mainViewModel = MainViewModel.GetInstance();
-                mainViewModel.Usuario = new Usuario();
-                mainViewModel.Usuario = usuario;
-                mainViewModel.Settings = new SettingsViewModel();
-                mainViewModel.TrainingPlan = new TrainingPlanViewModel();
-                Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
-
                 this.IsRunning = false;
                 this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert("Atención", "No hay conexión.", "Aceptar");
+                return;
+            }
 
-                this.Email = string.Empty;
-                this.password = string.Empty;
-            }
-            else
+            var response = await this.apiService.GetParameter<Usuario>(ValuesService.url, "api/", "Login/", "?email=" + Email + "&password=" + Password);
+
+            if (!response.IsSuccess)
             {
-                MainViewModel.GetInstance().TrainingPlan = new TrainingPlanViewModel();
-                Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
+                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
+                Application.Current.MainPage = new NavigationPage(new LoginPage());
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                return;
             }
+
+            Usuario usuario = new Usuario();
+            usuario = (Usuario)response.Result;
+
+            if (usuario == null || usuario.Id_usuario == 0)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert("Atención", "Email o contraseña incorrecta, por favor intente nuevamente.", "Aceptar");
+                this.Password = string.Empty;
+                this.Email = string.Empty;
+                return;
+            }
+            
+            MainViewModel mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Usuario = new Usuario();
+            mainViewModel.Usuario = usuario;
+            mainViewModel.Settings = new SettingsViewModel();
+            mainViewModel.TrainingPlan = new TrainingPlanViewModel();
+            App.Current.Properties["IsLoggedIn"] = true;
+            Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
+
+            this.IsRunning = false;
+            this.IsEnabled = true;
+
+            this.Email = string.Empty;
+            this.password = string.Empty;
         }
         private async void Register()
         {

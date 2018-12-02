@@ -12,6 +12,9 @@ namespace MobilFit_v1.Models
 
         [JsonProperty(PropertyName = "Ejercicios")]
         public List<Ejercicio> Ejercicios { get; set; }
+
+        [JsonProperty(PropertyName = "RutinaCompletada")]
+        public bool RutinaCompletada { get; set; }
         public RutinaSeleccionada()
         {
 

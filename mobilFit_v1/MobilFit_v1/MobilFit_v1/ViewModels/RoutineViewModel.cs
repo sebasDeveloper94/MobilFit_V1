@@ -157,11 +157,10 @@ namespace MobilFit_v1.ViewModels
             this.Exercises = new List<Ejercicio>();
             this.Exercises = RutinaSeleccionada.Ejercicios;
 
+            this.SelectedDay(); 
             this.IsRefresing = false;
             this.IsRunning = false;
             this.IsEnabled = true;
-
-            this.SelectedDay();
         }
         private async void SaveDay()
         {
@@ -212,7 +211,18 @@ namespace MobilFit_v1.ViewModels
                 main.TrainingPlan.DiasEntrenamiento = new List<DiasEntrenamiento>();
             }
 
-            main.TrainingPlan.DiasEntrenamiento.Add(objDia);
+            if (DiasSeleccionados.Count > 0)
+            {
+                var dayRutina = this.DiasSeleccionados.Where(d => d.idRutina == this.IdRutina).FirstOrDefault() == null ? new DiasEntrenamiento() :
+                                        this.DiasSeleccionados.Where(d => d.idRutina == this.IdRutina).FirstOrDefault();
+                main.TrainingPlan.DiasEntrenamiento.Remove(dayRutina);
+                main.TrainingPlan.DiasEntrenamiento.Add(objDia);
+            }
+            else
+            {
+                main.TrainingPlan.DiasEntrenamiento.Add(objDia);
+            }
+
             this.IsRunning = false;
             this.IsEnabled = true;
             await Application.Current.MainPage.DisplayAlert("Exito", "El día de la rutina ha sido guardado", "Aceptar");
@@ -227,15 +237,16 @@ namespace MobilFit_v1.ViewModels
                 new DiasRutina() {Key = 4, Value="Jueves" },
                 new DiasRutina() {Key = 5, Value="Viernes" },
                 new DiasRutina() {Key = 6, Value="Sábado" },
-                new DiasRutina() {Key = 7, Value="Domingo" },
+                new DiasRutina() {Key = 0, Value="Domingo" },
             };
             return Days;
         }
         public void SelectedDay()
         {
             DaySelected = new DiasRutina();
-            DaySelected.Key = RutinaSeleccionada.DiaEntrenamientos.dia;
-            DaySelected.Value = DayName(RutinaSeleccionada.DiaEntrenamientos.dia);
+            var dayRutina = this.DiasSeleccionados.Where(d => d.idRutina == this.IdRutina).FirstOrDefault() == null ? new DiasEntrenamiento() :
+                                                                this.DiasSeleccionados.Where(d => d.idRutina == this.IdRutina).FirstOrDefault();
+            DaySelected = this.days.Where(d => d.Key == dayRutina.dia).FirstOrDefault();
         }
         private string DayName(int numDay)
         {

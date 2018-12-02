@@ -171,7 +171,7 @@ namespace MobilFit_v1.ViewModels
             {
 
                 Id_rutina = r.Id_rutina,
-                Nombre = r.Nombre,
+                Nombre = r.Nombre.ToUpper(),
                 Meta = r.Meta,
                 Id_tipoRutina = r.Id_tipoRutina,
                 Id_categoria = r.Id_categoria

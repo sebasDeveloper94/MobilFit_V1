@@ -6,66 +6,83 @@
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              Title="Entrenamiento">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Terminar rutina" Order="Secondary" BindingContext="{Binding Training}" Command="{Binding endTrainingCommand}">
-        </ToolbarItem>
+        <ToolbarItem Icon="informacion_icon.png" Order="Primary" BindingContext="{Binding Training}" Command="{Binding ShowTipCommand}" />
+        <ToolbarItem Name="Terminar rutina" Order="Secondary" BindingContext="{Binding Training}" Command="{Binding endTrainingCommand}"/>
     </ContentPage.ToolbarItems>
     <StackLayout
             BindingContext="{Binding Training}"
-            Padding="5">
-            <Label 
-                Text="{Binding Name}"
-                HorizontalOptions="CenterAndExpand"
-                TextColor="Black"
-                FontSize="Large" 
-                FontFamily="Verdana"></Label>
+            Margin="5">
+        <Label 
+            Text="{Binding Name}"
+            HorizontalOptions="CenterAndExpand"
+            TextColor="Black"
+            FontAttributes="Bold"
+            FontSize="Large">
+        </Label>
+        <StackLayout Margin="5">
             <WebView
-                WidthRequest="450"
-                HeightRequest="500"
+                WidthRequest="400"
+                HeightRequest="300"
                 Source="https://www.youtube.com/embed/_7rWrkWGkUA">
             </WebView>
-            <StackLayout>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" TextColor="Black" Text="Repeticiones:"  FontSize="Medium">
-                    </Label>
-                <Label Grid.Row="0" Grid.Column="1" TextColor="Black" Text="{Binding Repetitions}" FontSize="Medium">
-                    </Label>
-                <Label Grid.Row="0" Grid.Column="2" TextColor="Black" Text="Series:" FontSize="Medium">
-                    </Label>
-                <Label Grid.Row="0" Grid.Column="3" TextColor="Black"  Text="{Binding Sets}" FontSize="Medium">
-                    </Label>
-                <Label Grid.Row="1" Grid.Column="0" TextColor="Black" Text="Distacia:" FontSize="Medium">
-                    </Label>
-                <Label Grid.Row="1" Grid.Column="1" TextColor="Black" Text="{Binding Distance}" FontSize="Medium">
-                    </Label>
-                <Label Grid.Row="1" Grid.Column="2" TextColor="Black" Text="Tiempo:" FontSize="Medium">
-                    </Label>
-                <Label Grid.Row="1" Grid.Column="3" TextColor="Black" Text="{Binding Time}" FontSize="Medium">
-                </Label>
-                <Image
-                    Grid.Row="4" Grid.Column="0"
-                    Source="back_icon.png">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding changeCommandLeft}">
-                        </TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                    </Image>
-                    <Image
-                        Grid.Row="4" Grid.Column="2"
-                        Source="next_icon.png">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding changeCommandRight}">
-                            </TapGestureRecognizer>
-                        </Image.GestureRecognizers>
-                    </Image>
-                </Grid>
-
-            </StackLayout>
         </StackLayout>
+        <StackLayout Margin="5">
+            <Grid Padding="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" TextColor="Black" Text="Repeticiones:"  FontSize="Small">
+                </Label>
+                <Label Grid.Row="0" Grid.Column="1" TextColor="Black" Text="{Binding Repetitions}" FontSize="Small">
+                </Label>
+                <Label Grid.Row="0" Grid.Column="2" TextColor="Black" Text="Series:" FontSize="Small">
+                </Label>
+                <Label Grid.Row="0" Grid.Column="3" TextColor="Black"  Text="{Binding Sets}" FontSize="Small">
+                </Label>
+                <Label Grid.Row="1" Grid.Column="0" TextColor="Black" Text="Peso:" FontSize="Small">
+                </Label>
+                <Label Grid.Row="1" Grid.Column="1" TextColor="Black" Text="{Binding Peso}" FontSize="Small">
+                </Label>
+                <Label Grid.Row="1" Grid.Column="2" TextColor="Black" Text="Distancia:" FontSize="Small">
+                </Label>
+                <Label Grid.Row="1" Grid.Column="3" TextColor="Black" Text="{Binding Distance}" FontSize="Small">
+                </Label>
+                <Label Grid.Row="2" Grid.Column="0" TextColor="Black" Text="Tiempo:" FontSize="Small">
+                </Label>
+                <Label Grid.Row="2" Grid.Column="1" TextColor="Black" Text="{Binding Time}" FontSize="Small">
+                </Label>
+                <Label Grid.Row="2" Grid.Column="2" TextColor="Black" Text="Descanso:" FontSize="Small">
+                </Label>
+                <Label Grid.Row="2" Grid.Column="3" TextColor="Black" Text="{Binding Descanso}" FontSize="Small">
+                </Label>
+            </Grid>
+        </StackLayout>
+        <StackLayout
+            HorizontalOptions="Center"
+            Orientation="Horizontal"
+            VerticalOptions="EndAndExpand">
+            <Image
+                Source="back_icon.png"
+                Margin="20"
+                WidthRequest="80">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding changeCommandLeft}">
+                    </TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>
+            <Image
+                Source="next_icon.png"
+                Margin="20"
+                WidthRequest="80">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding changeCommandRight}">
+                    </TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+    </StackLayout>
 
 </ContentPage>

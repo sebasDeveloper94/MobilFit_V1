@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using MobilFit_v1.Models;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using MobilFit_v1.Views;
@@ -135,7 +133,7 @@ namespace MobilFit_v1.ViewModels
                 this.Nivel = Nivel as Nivel;
                 this.Sexo = Sexo as Sexo;
 
-                if (Objetivo == null || Objetivo.key <= 0 || TipoCuerpo == null || TipoCuerpo.key <= 0 || Peso <= 0 || Altura <= 0 || Nivel == null || Nivel.key <= 0 || Sexo == null || Sexo.key <= 0)
+                if (Objetivo == null || Objetivo.key <= 0 || TipoCuerpo == null || TipoCuerpo.key <= 0 || Peso <= 0 || Altura <= 0 || Nivel == null || Nivel.key <= 0 || Sexo == null)
                 {
                     await Application.Current.MainPage.DisplayAlert("Atención", "Debe completar todos los campos.", "Aceptar");
                     return;

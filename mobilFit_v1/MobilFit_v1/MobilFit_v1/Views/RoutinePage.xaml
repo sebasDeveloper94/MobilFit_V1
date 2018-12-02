@@ -25,7 +25,7 @@
                 </Picker>
                 <Button 
                     Text="Guardar días"
-                    BackgroundColor="DimGray"
+                    BackgroundColor="Black"
                     TextColor="White"
                     BorderColor="Black"
                     BorderRadius="10"

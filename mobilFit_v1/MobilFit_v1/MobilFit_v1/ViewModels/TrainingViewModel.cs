@@ -1,10 +1,7 @@
-﻿using System;
-using MobilFit_v1.Service;
+﻿using MobilFit_v1.Service;
 using MobilFit_v1.Models;
 using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using MobilFit_v1.Views;
@@ -22,9 +19,12 @@ namespace MobilFit_v1.ViewModels
         private List<Ejercicio> exerciseList;
         private int repetitions;
         private int sets;
-        private decimal distance;
+        private string distance;
         private string time;
         private string name;
+        private string peso;
+        private string descanso;
+        private Tips tips;
         #endregion
 
         #region Properties
@@ -48,10 +48,20 @@ namespace MobilFit_v1.ViewModels
             get { return this.sets; }
             set { SetValue(ref this.sets, value); }
         }
-        public decimal Distance
+        public string Distance
         {
             get { return this.distance; }
             set { SetValue(ref this.distance, value); }
+        }
+        public string Peso
+        {
+            get { return this.peso; }
+            set { SetValue(ref this.peso, value); }
+        }
+        public string Descanso
+        {
+            get { return this.descanso; }
+            set { SetValue(ref this.descanso, value); }
         }
         public string Time
         {
@@ -62,6 +72,11 @@ namespace MobilFit_v1.ViewModels
         {
             get { return this.name; }
             set { SetValue(ref this.name, value); }
+        }
+        public Tips Tips
+        {
+            get { return this.tips; }
+            set { SetValue(ref this.tips, value); }
         }
         #endregion
 
@@ -74,6 +89,13 @@ namespace MobilFit_v1.ViewModels
         #endregion
 
         #region Commands
+        public ICommand ShowTipCommand
+        {
+            get
+            {
+                return new RelayCommand(ShowTips);
+            }
+        }
         public ICommand endTrainingCommand
         {
             get
@@ -98,6 +120,10 @@ namespace MobilFit_v1.ViewModels
         #endregion
 
         #region Methods
+        private void ShowTips()
+        {
+            Application.Current.MainPage.DisplayAlert("Tips", this.Tips.descripcion, "Aceptar");
+        }
         private void EndTraining()
         {
             MainViewModel.GetInstance().TrainingPlan = new TrainingPlanViewModel();
@@ -133,8 +159,11 @@ namespace MobilFit_v1.ViewModels
             Name = exerciseList[Index].Nombre_ejercicio;
             Repetitions = exerciseList[Index].Repeticiones;
             Sets = exerciseList[Index].Series;
-            Distance = exerciseList[Index].Distancia;
-            Time = exerciseList[Index].Tiempo.Minute.ToString() + ":"+ exerciseList[Index].Tiempo.Second.ToString();
+            Distance = exerciseList[Index].Distancia.ToString("0") + " km";
+            Descanso = exerciseList[Index].Descanso.ToString("0") + " seg";
+            Peso = exerciseList[Index].Peso.ToString("0") + " kg";
+            Time = exerciseList[Index].Tiempo.Minute.ToString("00") + ":" + exerciseList[Index].Tiempo.Second.ToString("00");
+            Tips = exerciseList[Index].Tips;
         }
         private async void NextExercise()
         {
@@ -143,8 +172,11 @@ namespace MobilFit_v1.ViewModels
             Name = exerciseList[Index].Nombre_ejercicio;
             Repetitions = exerciseList[Index].Repeticiones;
             Sets = exerciseList[Index].Series;
-            Distance = exerciseList[Index].Distancia;
-            Time = exerciseList[Index].Tiempo.Minute.ToString() + ":" + exerciseList[Index].Tiempo.Second.ToString();
+            Distance = exerciseList[Index].Distancia.ToString("0") + " km";
+            Descanso = exerciseList[Index].Descanso.ToString("0") + " seg";
+            Peso = exerciseList[Index].Peso.ToString("0") + " kg";
+            Time = exerciseList[Index].Tiempo.Minute.ToString("00") + ":" + exerciseList[Index].Tiempo.Second.ToString("00");
+            Tips = exerciseList[Index].Tips;
         }
 
         private async void LastExercise()
@@ -154,8 +186,11 @@ namespace MobilFit_v1.ViewModels
             Name = exerciseList[Index].Nombre_ejercicio;
             Repetitions = exerciseList[Index].Repeticiones;
             Sets = exerciseList[Index].Series;
-            Distance = exerciseList[Index].Distancia;
-            Time = exerciseList[Index].Tiempo.Minute.ToString() + ":" + exerciseList[Index].Tiempo.Second.ToString();
+            Distance = exerciseList[Index].Distancia.ToString("0") + "km";
+            Descanso = exerciseList[Index].Descanso.ToString("0") + " seg";
+            Peso = exerciseList[Index].Peso.ToString("0") + " kg";
+            Time = exerciseList[Index].Tiempo.Minute.ToString("00") + ":" + exerciseList[Index].Tiempo.Second.ToString("00");
+            Tips = exerciseList[Index].Tips;
         }
         #endregion
     }

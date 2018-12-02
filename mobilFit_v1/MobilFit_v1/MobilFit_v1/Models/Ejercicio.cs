@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MobilFit_v1.Models
 {
@@ -34,6 +32,8 @@ namespace MobilFit_v1.Models
         [JsonProperty(PropertyName = "descanso")]
         public decimal Descanso { get; set; }
 
+        [JsonProperty(PropertyName = "Tips")]
+        public Tips Tips { get; set; }
         public Ejercicio()
         {
 

@@ -59,13 +59,14 @@ namespace MobilFit_v1.ViewModels
 
         private void NotifactionsSettings()
         {
-            Application.Current.MainPage.DisplayAlert("Atención", "Funciona las notifiaciones", "aceptar");
+            //Application.Current.MainPage.DisplayAlert("Atención", "Funciona las notifiaciones", "aceptar");
         }
         private void AboutSetings()
         {
-            Application.Current.MainPage.DisplayAlert("Atención", "Funciona sobre", "aceptar");
+            //Application.Current.MainPage.DisplayAlert("Atención", "Funciona sobre", "aceptar");
         }
         private void CloseSesion() {
+            App.Current.Properties["IsLoggedIn"] = false;
             Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
         #endregion

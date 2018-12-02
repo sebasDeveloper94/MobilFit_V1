@@ -177,8 +177,9 @@
                 </Grid>
                 <StackLayout Margin="15,15,5,5">
                     <Button
+                        Margin="5"
                         Text="Guardar Cambios"
-                        BackgroundColor="DimGray"
+                        BackgroundColor="Black"
                         TextColor="White"
                         BorderColor="Black"
                         BorderRadius="10"
