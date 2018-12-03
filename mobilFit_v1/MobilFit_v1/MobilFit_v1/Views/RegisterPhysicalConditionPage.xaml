@@ -14,31 +14,33 @@
                 <Label
                     Grid.Row="0"
                     Grid.Column="0"
-                    Text="¿Cual es su objetivo?"
+                    Text="Edad"
                     VerticalOptions="Center">
                 </Label>
-                <Picker
+                <Entry
                     Grid.Row="0"
                     Grid.Column="1"
-                    x:Name="cboObjetivo"
-                    ItemsSource="{Binding ListObjetivos}"
-                    ItemDisplayBinding="{Binding value}"
-                    SelectedItem="{Binding Objetivo}">
-                </Picker>
+                    x:Name="txtAltura"
+                    MaxLength="3"
+                    Keyboard="Numeric"
+                    Text="{Binding Edad}">
+                </Entry>
+
                 <Label
                     Grid.Row="1"
                     Grid.Column="0"
-                    Text="¿Que tipo de cuerpo tiene?"
+                    Text="Sexo"
                     VerticalOptions="Center">
                 </Label>
                 <Picker
                     Grid.Row="1"
                     Grid.Column="1"
-                    x:Name="cboTipoCuerpo"
-                    ItemsSource="{Binding ListTipoCuerpos}"
+                    x:Name="cboSexo"
+                    ItemsSource="{Binding Listsexos}"
                     ItemDisplayBinding="{Binding value}"
-                    SelectedItem="{Binding TipoCuerpo}">
+                    SelectedItem="{Binding Sexo}">
                 </Picker>
+
                 <Label
                     Grid.Row="2"
                     Grid.Column="0"
@@ -48,11 +50,11 @@
                 <Entry
                     Grid.Row="2"
                     Grid.Column="1"
-                    x:Name="txtPeso"
                     MaxLength="5"
                     Keyboard="Telephone"
                     Text="{Binding Peso}">
                 </Entry>
+
                 <Label
                     Grid.Row="3"
                     Grid.Column="0"
@@ -62,25 +64,26 @@
                 <Entry
                     Grid.Row="3"
                     Grid.Column="1"
-                    x:Name="txtAltura"
                     MaxLength="5"
                     Keyboard="Telephone"
                     Text="{Binding Altura}">
                 </Entry>
+
                 <Label
                     Grid.Row="4"
                     Grid.Column="0"
-                    Text="Sexo"
+                    Text="¿Que tipo de cuerpo tiene?"
                     VerticalOptions="Center">
                 </Label>
                 <Picker
                     Grid.Row="4"
                     Grid.Column="1"
-                    x:Name="cboSexo"
-                    ItemsSource="{Binding Listsexos}"
+                    x:Name="cboTipoCuerpo"
+                    ItemsSource="{Binding ListTipoCuerpos}"
                     ItemDisplayBinding="{Binding value}"
-                    SelectedItem="{Binding Sexo}">
+                    SelectedItem="{Binding TipoCuerpo}">
                 </Picker>
+
                 <Label
                     Grid.Row="5"
                     Grid.Column="0"
@@ -95,7 +98,21 @@
                     ItemDisplayBinding="{Binding value}"
                     SelectedItem="{Binding Nivel}">
                 </Picker>
-                
+
+                <Label
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Text="¿Cual es su objetivo?"
+                    VerticalOptions="Center">
+                </Label>
+                <Picker
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    x:Name="cboObjetivo"
+                    ItemsSource="{Binding ListObjetivos}"
+                    ItemDisplayBinding="{Binding value}"
+                    SelectedItem="{Binding Objetivo}">
+                </Picker>
             </Grid>
 
             <Button

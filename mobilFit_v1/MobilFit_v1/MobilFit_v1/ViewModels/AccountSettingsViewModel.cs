@@ -21,6 +21,7 @@ namespace MobilFit_v1.ViewModels
         private string apellido;
         private string email;
         private string contraseña;
+        private int edad;
         private decimal peso;
         private decimal altura;
         private bool isEnabled;
@@ -56,6 +57,11 @@ namespace MobilFit_v1.ViewModels
         {
             get { return this.contraseña; }
             set { SetValue(ref this.contraseña, value); }
+        }
+        public int Edad
+        {
+            get { return this.edad; }
+            set { SetValue(ref this.edad, value); }
         }
         public decimal Peso
         {
@@ -161,8 +167,8 @@ namespace MobilFit_v1.ViewModels
             Usuario usuario = new Usuario();
             usuario.Id_usuario = idUsuario;
             usuario.Nombre = this.Nombre;
-            usuario.Apellido_paterno = this.Apellido;
-            usuario.Apellido_materno = string.Empty;
+            usuario.Apellido = this.Apellido;
+            usuario.Edad = this.Edad;
             usuario.Sexo = this.Sexo.key;
             usuario.Email = this.Email;
             usuario.FechaRegistro = DateTime.Now;
@@ -193,8 +199,9 @@ namespace MobilFit_v1.ViewModels
             objUsuario = MainViewModel.GetInstance().Usuario;
 
             this.Nombre = objUsuario.Nombre;
-            this.Apellido = objUsuario.Apellido_paterno;
+            this.Apellido = objUsuario.Apellido;
             this.Email = objUsuario.Email;
+            this.Edad = objUsuario.Edad;
             this.Contraseña = objUsuario.Password;
             this.Peso = objUsuario.Peso;
             this.Altura = objUsuario.Altura;

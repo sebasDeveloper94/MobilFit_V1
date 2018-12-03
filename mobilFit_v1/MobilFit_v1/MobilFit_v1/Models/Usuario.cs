@@ -13,11 +13,11 @@ namespace MobilFit_v1.Models
         [JsonProperty(PropertyName = "nombre")]
         public string Nombre { get; set; }
 
-        [JsonProperty(PropertyName = "apellido_paterno")]
-        public string Apellido_paterno { get; set; }
+        [JsonProperty(PropertyName = "apellido")]
+        public string Apellido { get; set; }
 
-        [JsonProperty(PropertyName = "apellido_materno")]
-        public string Apellido_materno { get; set; }
+        [JsonProperty(PropertyName = "edad")]
+        public int Edad { get; set; }
 
         [JsonProperty(PropertyName = "sexo")]
         public int Sexo { get; set; }

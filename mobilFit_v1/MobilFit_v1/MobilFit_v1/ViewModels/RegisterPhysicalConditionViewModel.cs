@@ -20,6 +20,7 @@ namespace MobilFit_v1.ViewModels
         private TipoCuerpo tipoCuerpo;
         private Nivel nivel;
         private Sexo sexo;
+        private int edad;
         private decimal peso;
         private decimal altura;
         private List<Objetivo> listObjetivos;
@@ -33,6 +34,11 @@ namespace MobilFit_v1.ViewModels
         #endregion
 
         #region propiedades
+        public int Edad
+        {
+            get { return this.edad; }
+            set { SetValue(ref this.edad, value); }
+        }
         public Objetivo Objetivo
         {
             get { return this.objetivo; }
@@ -133,7 +139,7 @@ namespace MobilFit_v1.ViewModels
                 this.Nivel = Nivel as Nivel;
                 this.Sexo = Sexo as Sexo;
 
-                if (Objetivo == null || Objetivo.key <= 0 || TipoCuerpo == null || TipoCuerpo.key <= 0 || Peso <= 0 || Altura <= 0 || Nivel == null || Nivel.key <= 0 || Sexo == null)
+                if (Objetivo == null || Objetivo.key <= 0 || TipoCuerpo == null || TipoCuerpo.key <= 0 || Peso <= 0 || Altura <= 0 || Edad <= 0 || Nivel == null || Nivel.key <= 0 || Sexo == null)
                 {
                     await Application.Current.MainPage.DisplayAlert("Atención", "Debe completar todos los campos.", "Aceptar");
                     return;
@@ -152,24 +158,38 @@ namespace MobilFit_v1.ViewModels
                     return;
                 }
 
-                ObjUsuario.Apellido_materno = string.Empty;
+                int objetivo = 0;
+                switch (Nivel.key)
+                {
+                    case 1:
+                        objetivo = 6;
+                        break;
+                    case 2:
+                        objetivo = 3;
+                        break;
+                    case 3:
+                        objetivo = 4;
+                        break;
+                    default:
+                        break;
+                }
+
+                ObjUsuario.Edad = Edad;
                 ObjUsuario.FechaRegistro = DateTime.Now;
                 ObjUsuario.Id_tipoCuerpo = TipoCuerpo.key;
                 ObjUsuario.Peso = Peso;
                 ObjUsuario.Altura = Altura;
                 ObjUsuario.Id_nivel = Nivel.key;
-                ObjUsuario.Id_objetivo = Objetivo.key;
+                ObjUsuario.Id_objetivo = objetivo;
                 ObjUsuario.Sexo = Sexo.key;
 
+                this.LoadText = "Generando plan de entrenamiento inicial, porfavor espere.";
                 string jsonUsuario = JsonConvert.SerializeObject(ObjUsuario);
                 var response = await this.apiService.Post<Usuario>(ValuesService.url, "api/", "Login/?jsonUsuario=" + jsonUsuario, null);
-
-                this.LoadText = "Generando plan de entrenamiento inicial, porfavor espere.";
 
                 if (!response.IsSuccess)
                 {
                     await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
-                    Application.Current.MainPage = new NavigationPage(new LoginPage());
                     this.IsRunning = false;
                     this.IsEnabled = true;
                     this.LoadText = string.Empty;
@@ -196,7 +216,7 @@ namespace MobilFit_v1.ViewModels
                 Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
 
                 
-                await Application.Current.MainPage.DisplayAlert("Exito", "Se ha creado al nuevo usuario "+  ObjUsuario.Nombre + " " + ObjUsuario.Apellido_paterno, "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Exito", "Se ha creado al nuevo usuario "+  ObjUsuario.Nombre + " " + ObjUsuario.Apellido, "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
 
                 IsRunning = false;

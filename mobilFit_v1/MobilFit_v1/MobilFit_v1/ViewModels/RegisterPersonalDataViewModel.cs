@@ -146,8 +146,7 @@ namespace MobilFit_v1.ViewModels
             }
 
             objUsuario.Nombre = nombre;
-            objUsuario.Apellido_paterno = apellido;
-            objUsuario.Apellido_materno = string.Empty;
+            objUsuario.Apellido = apellido;
             objUsuario.Email = email;
             objUsuario.Password = contraseña1;
             SendNewUsuario(objUsuario);
