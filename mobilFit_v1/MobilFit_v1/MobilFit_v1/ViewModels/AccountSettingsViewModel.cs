@@ -177,19 +177,45 @@ namespace MobilFit_v1.ViewModels
             usuario.Altura = this.Altura;
             usuario.Id_tipoCuerpo = this.TipoCuerpo.key;
             usuario.Id_nivel = this.Nivel.key;
-            usuario.Id_objetivo = this.Objetivo.key;
-
+            int objetivo = 0;
+            switch (usuario.Id_objetivo)
+            {
+                case 1:
+                    objetivo = 6;
+                    break;
+                case 2:
+                    objetivo = 3;
+                    break;
+                case 3:
+                    objetivo = 4;
+                    break;
+                default:
+                    break;
+            }
+            usuario.Id_objetivo = objetivo;
             var json = JsonConvert.SerializeObject(usuario);
-            var response = await this.apiService.Put<string>(ValuesService.url, "api/", "Login/?idUsuario=" + idUsuario +"&"+ "jsonUsuario="+ usuario, "");
+
+            var response = await this.apiService.GetParameter<Usuario>(ValuesService.url, "api/", "Login/", "?idUsuario=" + idUsuario + "&jsonUsuario=" + json);
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error al editar usuario, por favor intente nuevamente.", "Aceptar");
                 this.IsRunning = false;
                 this.IsEnabled = true;
                 return;
             }
 
-            MainViewModel.GetInstance().Usuario = (Usuario)response.Result;
+            Usuario oUsuario = new Usuario();
+            oUsuario = (Usuario)response.Result;
+
+            if (oUsuario != null && oUsuario.Id_usuario == 0)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error al editar usuario, por favor intente nuevamente.", "Aceptar");
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                return;
+            }
+
+            MainViewModel.GetInstance().Usuario = oUsuario;
             await Application.Current.MainPage.DisplayAlert("Atención", "Los datos del usuario han sido actualizados.", "Aceptar");
             await Application.Current.MainPage.Navigation.PopAsync();
         }

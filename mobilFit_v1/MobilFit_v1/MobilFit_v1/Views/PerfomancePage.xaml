@@ -3,45 +3,69 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobilFit_v1.Views.PerfomancePage"
              xmlns:chart="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="Entrenamiento">
     <ContentPage.Content>
-        <StackLayout
-            Padding="5">
-            <Label 
-                Text="Avances"
-                FontSize="Large" 
-                HorizontalOptions="CenterAndExpand"
-                TextColor="Black"></Label>
-            <chart:ChartView 
-                x:Name="grafica1" 
-                HeightRequest="350">
-            </chart:ChartView>
-            <StackLayout Padding="5">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Text="IMC:" TextColor="Black" FontSize="Medium">
+        <ScrollView>
+            <StackLayout
+                Padding="5"
+                BindingContext="{Binding Performance}">
+                <Label 
+                    Text="Avances"
+                    FontSize="Large" 
+                    HorizontalOptions="CenterAndExpand"
+                    TextColor="Black"></Label>
+                <chart:ChartView 
+                    x:Name="grafica1" 
+                    HeightRequest="300"
+                    Chart="{Binding Chart}">
+                </chart:ChartView>
+                <StackLayout
+                    Orientation="Horizontal"
+                    Margin="2">
+                    <Label Text="Porcentaje de rutinas completadas del plan: " TextColor="Black" FontSize="Small">
                     </Label>
-                    <Label Grid.Row="0" Grid.Column="1" Text="82.2:" TextColor="Black" FontSize="Medium">
+                    <Label Text="{Binding PorcentajeRutinas}" TextColor="Black" FontSize="Small">
                     </Label>
-                    <Label Grid.Row="0" Grid.Column="2" Text="Masa muscular:" TextColor="Black" FontSize="Medium">
+                </StackLayout>
+
+                <StackLayout
+                    Orientation="Horizontal"
+                    Margin="2">
+                    <Label  Text="Total de tiempo en entrenamiento: " TextColor="Black" FontSize="Small">
                     </Label>
-                    <Label Grid.Row="0" Grid.Column="3" Text="14.5" TextColor="Black" FontSize="Medium">
+                    <Label  Grid.Column="1" Text="{Binding TiempoEntrenamiento}" TextColor="Black" FontSize="Small">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="0" Text="IGC:" TextColor="Black" FontSize="Medium">
+                </StackLayout>
+
+                <StackLayout
+                    Orientation="Horizontal"
+                    Margin="2">
+                    <Label Text="Calorías Quemadas: " TextColor="Black" FontSize="Small">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="1" Text="72.2" TextColor="Black" FontSize="Medium">
+                    <Label Grid.Column="1" Text="{Binding CaloriasQuemadas}" TextColor="Black" FontSize="Small">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="2" Text="Peso:" TextColor="Black" FontSize="Medium">
+                </StackLayout>
+
+                <StackLayout
+                    Orientation="Horizontal"
+                    Margin="2">
+                    <Label Text="índice de masa corporal: " TextColor="Black" FontSize="Small">
                     </Label>
-                    <Label Grid.Row="1" Grid.Column="3" Text="104kg:" TextColor="Black" FontSize="Medium">
+                    <Label Text="{Binding IMC}" TextColor="Black" FontSize="Small">
                     </Label>
-                </Grid>
+                </StackLayout>
+
+                <StackLayout
+                    Orientation="Horizontal"
+                    Margin="2">
+
+                    <Label Text="índice de grasa corporal: " TextColor="Black" FontSize="Small">
+                    </Label>
+                    <Label Grid.Column="1" Text="{Binding IGC}" TextColor="Black" FontSize="Small">
+                    </Label>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

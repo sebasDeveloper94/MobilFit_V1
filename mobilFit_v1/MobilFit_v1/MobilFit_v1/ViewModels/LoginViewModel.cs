@@ -56,8 +56,8 @@ namespace MobilFit_v1.ViewModels
             this.apiService = new ApiService();
             IsEnabled = true;
             IsRemembered = true;
-            Email = "user@gmail.com";
-            Password = "123";
+            //Email = "user@gmail.com";
+            //Password = "123";
         }
         #endregion
 

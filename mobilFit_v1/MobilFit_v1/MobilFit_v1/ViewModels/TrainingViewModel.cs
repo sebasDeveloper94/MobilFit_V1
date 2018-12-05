@@ -5,7 +5,9 @@ using Xamarin.Forms;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using MobilFit_v1.Views;
-
+using System.Linq;
+using System;
+using Newtonsoft.Json;
 
 namespace MobilFit_v1.ViewModels
 {
@@ -25,6 +27,8 @@ namespace MobilFit_v1.ViewModels
         private string peso;
         private string descanso;
         private Tips tips;
+        private DateTime tiempoInicio;
+        private DateTime tiempoTermino;
         #endregion
 
         #region Properties
@@ -78,6 +82,16 @@ namespace MobilFit_v1.ViewModels
             get { return this.tips; }
             set { SetValue(ref this.tips, value); }
         }
+        public DateTime TiempoInicio
+        {
+            get { return this.tiempoInicio; }
+            set { SetValue(ref this.tiempoInicio, value); }
+        }
+        public DateTime TiempoTermino
+        {
+            get { return this.tiempoTermino; }
+            set { SetValue(ref this.tiempoTermino, value); }
+        }
         #endregion
 
         #region Constructor
@@ -124,9 +138,42 @@ namespace MobilFit_v1.ViewModels
         {
             Application.Current.MainPage.DisplayAlert("Tips", this.Tips.descripcion, "Aceptar");
         }
-        private void EndTraining()
+        private async void EndTraining()
         {
-            MainViewModel.GetInstance().TrainingPlan = new TrainingPlanViewModel();
+
+            var connection = await this.apiService.CheckConnection();
+
+            if (!connection.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Debe tener conexión a internet", "Aceptar");
+                return;
+            }
+
+            MainViewModel mainViewModel = MainViewModel.GetInstance();
+
+            this.TiempoTermino = DateTime.Now;
+            TimeSpan tiempo = TiempoTermino.Subtract(TiempoInicio);
+
+            Desempeño desempeño = new Desempeño();
+            desempeño.Distancia_recorrida = exerciseList.Sum(k => k.Distancia);
+            desempeño.Horas_entrenamiento = (float)tiempo.TotalHours;
+            desempeño.Fecha = DateTime.Now;
+            desempeño.Id_plan_usuario = mainViewModel.TrainingPlan.objPlan.Id_PlanUsuario;
+
+            string jsonDesempeño = JsonConvert.SerializeObject(desempeño);
+            // probar que funcione el cargo de desempeño
+            var response = await this.apiService.GetParameter<ReporteDesempeño>(ValuesService.url, "api/", "PlanEntrenamiento/", "?idRutina=" + mainViewModel.Routine.IdRutina + "&jsonDesempeño=" + jsonDesempeño);
+
+            if (!response.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, por favor intente nuevamente.", "Aceptar");
+                return;
+            }
+
+            mainViewModel.TrainingPlan = new TrainingPlanViewModel();
+            mainViewModel.Performance = new PerformanceViewModel();
+            mainViewModel.Performance.Reporte = (ReporteDesempeño)response.Result;
+            mainViewModel.Performance.LoadReport();
             Application.Current.MainPage = new NavigationPage(new UserMainMenuPage());
         }
         private async void LoadExercise()
@@ -164,7 +211,11 @@ namespace MobilFit_v1.ViewModels
             Peso = exerciseList[Index].Peso.ToString("0") + " kg";
             Time = exerciseList[Index].Tiempo.Minute.ToString("00") + ":" + exerciseList[Index].Tiempo.Second.ToString("00");
             Tips = exerciseList[Index].Tips;
+
+            this.TiempoInicio = DateTime.Now;
         }
+
+
         private async void NextExercise()
         {
             Index++;

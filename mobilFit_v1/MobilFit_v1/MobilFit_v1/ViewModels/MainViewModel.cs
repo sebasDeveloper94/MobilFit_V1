@@ -15,6 +15,7 @@ namespace MobilFit_v1.ViewModels
         public Usuario Usuario { get; set; }
         public SettingsViewModel Settings { get; set; }
         public AccountSettingsViewModel AccountSettings { get; set; }
+        public PerformanceViewModel Performance { get; set; }
         public MainViewModel()
         {
             instance = this;

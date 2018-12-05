@@ -63,7 +63,7 @@
                     IsVisible="True"
                     IsRunning="{Binding IsRunning, Mode=TwoWay}">
                 </ActivityIndicator>
-                <StackLayout
+                <!--<StackLayout
                     Orientation="Horizontal"
                     VerticalOptions="CenterAndExpand">
                     <Label
@@ -79,7 +79,7 @@
                             HorizontalOptions="StartAndExpand"
                             IsToggled="{Binding IsRemembered, Mode=TwoWay}">
                         </Switch>
-                </StackLayout>
+                </StackLayout>-->
                 <Label
                     HorizontalOptions="Center"
                     Text="¿Olvidaste tu contraseña?"

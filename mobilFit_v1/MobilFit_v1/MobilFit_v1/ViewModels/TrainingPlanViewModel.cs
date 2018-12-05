@@ -139,7 +139,7 @@ namespace MobilFit_v1.ViewModels
 
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrico un error, por favor intente nuevamente.", "Aceptar");
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
                 this.IsRefresing = false;
                 this.IsEnabled = true;
@@ -160,7 +160,9 @@ namespace MobilFit_v1.ViewModels
             }
 
             this.Routines = new ObservableCollection<RoutinesItemViewModel>(this.ToRoutineItemViewModel());
-            this.Recommended = string.Format("Entrenamiento recomendado por el profesional \n {0}", objPlan.ObjPresional.Nombre);
+            this.Recommended = string.Format("Entrenamiento recomendado por el profesional \n {0} "+ "\n"+
+                                            "{1} " +
+                                            "{2}", objPlan.ObjPresional.Nombre, objPlan.ObjPresional.Profesion, objPlan.ObjPresional.Email);
 
             this.IsRefresing = false;
             this.IsEnabled = true;
